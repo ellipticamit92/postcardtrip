@@ -1,56 +1,73 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-import { cn } from "@/lib/utils"
+// 1. Define the shared animation classes – no color!
+const buttonAnimated =
+  "overflow-hidden transition duration-150 ease-in-out after:content-[''] after:absolute after:inset-0 after:-z-10 after:scale-50 after:opacity-0 after:duration-700";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "relative z-10 cursor-pointer inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background",
   {
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        outline:
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+
+        // Custom brand styles
+        primary: "bg-primary text-white border-2 border-primary",
+        secondary: "bg-secondary text-white border-2 border-secondary",
+        primaryOutline: "text-primary border-2 border-primary bg-transparent",
+        secondaryOutline:
+          "text-secondary border-2 border-secondary bg-transparent",
       },
+
       size: {
         default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
+        sm: "h-9 px-3 rounded-md",
+        lg: "h-11 px-8 rounded-md",
         icon: "h-10 w-10",
+      },
+
+      animation: {
+        none: "",
+        primaryOutline: `${buttonAnimated} after:bg-primary hover:after:scale-100 hover:after:opacity-100 hover:text-white`,
+        primarySolid: `${buttonAnimated} after:bg-white hover:after:scale-100 hover:after:opacity-100 hover:text-primary`,
+        secondaryOutline: `${buttonAnimated} after:bg-secondary hover:after:scale-100 hover:after:opacity-100 hover:text-white`,
+        secondarySolid: `${buttonAnimated} after:bg-white hover:after:scale-100 hover:after:opacity-100 hover:text-secondary`,
       },
     },
     defaultVariants: {
       variant: "default",
       size: "default",
+      animation: "none",
     },
   }
-)
+);
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean
+  asChild?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
+  ({ className, variant, size, animation, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button";
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size, animation, className }))}
         ref={ref}
         {...props}
       />
-    )
+    );
   }
-)
-Button.displayName = "Button"
+);
 
-export { Button, buttonVariants } 
+Button.displayName = "Button";
+
+export { Button, buttonVariants };
