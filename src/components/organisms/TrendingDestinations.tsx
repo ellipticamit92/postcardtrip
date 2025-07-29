@@ -1,6 +1,5 @@
-import Heading from "../atoms/Heading";
 import DestinationCard from "../molecules/DestinationCard";
-import SectionHeading from "../molecules/SectionHeading";
+import HomeSections from "./HomeSections";
 
 const destinations = [
   {
@@ -12,50 +11,43 @@ const destinations = [
   {
     title: "Rajasthan",
     packages: 4,
-    imageUrl: "/destination/card/rajasthan-destination-card-img.jpg",
+    imageUrl: "/destination/card/rajasthan-destination-card-img.png",
     link: "/destination/rajasthan",
   },
   {
     title: "Himachal",
     packages: 10,
-    imageUrl: "/destination/card/himachal-destination-card-img.jpg",
+    imageUrl: "/destination/card/himachal-destination-card-img.png",
     link: "/destination/himachal",
   },
   {
     title: "Dubai",
     packages: 13,
-    imageUrl: "/destination/card/dubai-destination-card-img.jpg",
+    imageUrl: "/destination/card/dubai-destination-card-img.png",
     link: "/destination/dubai",
   },
   {
     title: "Bali",
     packages: 223,
-    imageUrl: "/destination/card/bali-destination-card-img.jpg",
+    imageUrl: "/destination/card/bali-destination-card-img.png",
     link: "/destination/bali",
   },
   {
     title: "Tamil Nadu",
     packages: 10,
-    imageUrl: "/destination/card/tamil-nadu-destination-card-img.jpg",
+    imageUrl: "/destination/card/tamil-nadu-destination-card-img.png",
     link: "/destination/tamil-nadu",
   },
 ];
 
 const TrendingDestinations = () => (
-  <section className="py-5 relative z-10">
-    <div className="container mx-auto pt-10">
-      <div className="flex flex-col items-center">
-        <SectionHeading title="Destination" heading="Trending Destination" />
-      </div>
-      <div className="mt-10 mb-8">
-        <div className="-mx-2 flex flex-wrap justify-center">
-          {destinations.map((dest, idx) => (
-            <DestinationCard key={idx} {...dest} />
-          ))}
-        </div>
-      </div>
+  <HomeSections title="Destination" heading="Trending Destination">
+    <div className="-mx-2 flex flex-wrap justify-center">
+      {destinations.map((dest, idx) => (
+        <DestinationCard key={idx} {...dest} />
+      ))}
     </div>
-  </section>
+  </HomeSections>
 );
 
 export default TrendingDestinations;

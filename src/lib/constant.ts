@@ -28,16 +28,24 @@ export const MENU_LINKS: MenuLinksProps[] = [
   {
     title: "Destination",
     href: "/gestination",
-    child: [{
-      title: "Kerala",
-      href: "/kerala",
-    },{
-      title: "Dubai",
-      href: "/dubai",
-    },{
-      title: "Himachal",
-      href: "/himachal",
-    }],
+    child: [
+      {
+        title: "Kerala",
+        href: "/kerala",
+      },
+      {
+        title: "Dubai",
+        href: "/dubai",
+      },
+      {
+        title: "Himachal",
+        href: "/himachal",
+      },
+    ],
+  },
+  {
+    title: "Packages",
+    href: "/packages",
   },
   {
     title: "About us",
@@ -47,4 +55,6 @@ export const MENU_LINKS: MenuLinksProps[] = [
     title: "Contact us",
     href: "/contact",
   },
-]
+];
+
+export const MOBILE_NUMBER = "+91-9821071644";

@@ -17,6 +17,7 @@ import { MobileMenuSection } from "../molecules/MobileMenuSection";
 import IconLink from "../atoms/IconLink";
 import { Button } from "../ui/button";
 import { MenuBar } from "./MenuBar";
+import { MOBILE_NUMBER } from "@/lib/constant";
 
 const componentsData = [
   {
@@ -86,7 +87,7 @@ export function Header() {
                 </div>
                 <div className="flex flex-col space-y-0 font-semibold">
                   <div>Call Now</div>
-                  <div>+91-9870276405</div>
+                  <div>{MOBILE_NUMBER}</div>
                 </div>
               </a>
             </div>

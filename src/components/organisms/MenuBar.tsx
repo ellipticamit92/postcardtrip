@@ -29,7 +29,7 @@ export function MenuBar() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   return (
-    <nav className="flex gap-6 items-center">
+    <nav className="flex gap-4 items-center">
       {MENU_LINKS.map((item) =>
         item.child && item.child ? (
           <div
@@ -39,7 +39,7 @@ export function MenuBar() {
             onMouseLeave={() => setOpenDropdown(null)}
           >
             <button
-              className="px-3 py-2 flex gap-1 items-center cursor-pointer font-medium rounded hover:text-primary-700 transition"
+              className="px-3 py-2 flex gap-1 items-center cursor-pointer font-semibold rounded hover:text-primary-700 transition"
               aria-haspopup="true"
               aria-expanded={openDropdown === item.title}
               type="button"
@@ -48,7 +48,7 @@ export function MenuBar() {
               <ChevronDown size={16} className="hover:text-primary-700" />
             </button>
             <div
-              className={`absolute border-2 border-gray-50 left-0 mt-[14px] w-40 bg-white shadow-xl z-20 animate-in fade-in duration-200 ${
+              className={`absolute border-2 border-gray-200 left-0 mt-[14px] w-48 bg-white shadow-xl z-20 animate-in fade-in duration-200 ${
                 openDropdown === item.title ? "" : "hidden"
               }`}
             >
@@ -56,7 +56,7 @@ export function MenuBar() {
                 <Link
                   key={sub.title}
                   href={sub.href}
-                  className="block px-4 py-2 hover:text-white hover:bg-secondary text-md font-semibold"
+                  className="block px-4 py-2.5 hover:text-white hover:bg-secondary text-md font-semibold "
                 >
                   {sub.title}
                 </Link>
@@ -67,7 +67,7 @@ export function MenuBar() {
           <Link
             key={item.title}
             href={item.href ?? "#"}
-            className="px-3 py-2 rounded hover:text-primary-700 transition font-medium"
+            className="px-3 py-2 rounded hover:text-primary-700 transition font-semibold"
           >
             {item.title}
           </Link>

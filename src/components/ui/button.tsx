@@ -3,12 +3,11 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-// 1. Define the shared animation classes – no color!
 const buttonAnimated =
   "overflow-hidden transition duration-150 ease-in-out after:content-[''] after:absolute after:inset-0 after:-z-10 after:scale-50 after:opacity-0 after:duration-700";
 
 const buttonVariants = cva(
-  "relative z-10 cursor-pointer inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background",
+  "relative z-10 cursor-pointer inline-flex items-center justify-center whitespace-nowrap text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background",
   {
     variants: {
       variant: {
@@ -31,6 +30,7 @@ const buttonVariants = cva(
         sm: "h-9 px-3 rounded-md",
         lg: "h-11 px-8 rounded-md",
         icon: "h-10 w-10",
+        full: "w-full h-12",
       },
 
       animation: {
