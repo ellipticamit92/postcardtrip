@@ -1,5 +1,6 @@
 import Heading from "../atoms/Heading";
 import DestinationCard from "../molecules/DestinationCard";
+import SectionHeading from "../molecules/SectionHeading";
 
 const destinations = [
   {
@@ -44,12 +45,7 @@ const TrendingDestinations = () => (
   <section className="py-5 relative z-10">
     <div className="container mx-auto pt-10">
       <div className="flex flex-col items-center">
-        <Heading className="text-primary-50 text-lg font-light uppercase mb-1 tracking-widest sm:text-md lg:text-xl">
-          Destination
-        </Heading>
-        <Heading className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-3">
-          Trending Destination
-        </Heading>
+        <SectionHeading title="Destination" heading="Trending Destination" />
       </div>
       <div className="mt-10 mb-8">
         <div className="-mx-2 flex flex-wrap justify-center">

@@ -1,4 +1,5 @@
 import { Facebook, Instagram, Youtube, Linkedin } from "lucide-react";
+import { MenuLinksProps } from "./types";
 
 export const SOCIAL_LINKS = [
   {
@@ -18,3 +19,32 @@ export const SOCIAL_LINKS = [
     icon: Linkedin,
   },
 ];
+
+export const MENU_LINKS: MenuLinksProps[] = [
+  {
+    title: "Home",
+    href: "/g",
+  },
+  {
+    title: "Destination",
+    href: "/gestination",
+    child: [{
+      title: "Kerala",
+      href: "/kerala",
+    },{
+      title: "Dubai",
+      href: "/dubai",
+    },{
+      title: "Himachal",
+      href: "/himachal",
+    }],
+  },
+  {
+    title: "About us",
+    href: "/about",
+  },
+  {
+    title: "Contact us",
+    href: "/contact",
+  },
+]

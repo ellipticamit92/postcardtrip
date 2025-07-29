@@ -2,9 +2,6 @@
 import { useEffect, useState } from "react";
 
 import Logo from "../atoms/Logo";
-import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu";
-import { MenuDropdown } from "../molecules/MenuDropdown";
-import { DesktopMenuLink } from "../molecules/DesktopMenuLink";
 import { IconButton } from "../atoms/IconButton";
 import {
   Facebook,
@@ -19,6 +16,7 @@ import Link from "next/link";
 import { MobileMenuSection } from "../molecules/MobileMenuSection";
 import IconLink from "../atoms/IconLink";
 import { Button } from "../ui/button";
+import { MenuBar } from "./MenuBar";
 
 const componentsData = [
   {
@@ -36,7 +34,7 @@ const componentsData = [
 ];
 
 const resourcesData = [
-  { title: "Documentation", href: "/docs" },
+  { title: "Home", href: "/" },
   { title: "Blog", href: "/blog" },
 ];
 
@@ -56,7 +54,7 @@ export function Header() {
 
   return (
     <>
-      <div className="flex justify-between items-center bg-brand-primary-300 font-semibold p-1 px-4 text-white ">
+      <div className="flex justify-between items-center bg-primary-300 font-semibold p-1 px-4 text-white ">
         <IconLink icon={Mail} href="mailto:info@postcardtrip.in">
           info@postcardtrip.in
         </IconLink>
@@ -68,28 +66,14 @@ export function Header() {
       </div>
 
       <header
-        className={`w-full bg-background transition-shadow duration-300 z-50 ${
-          isSticky ? "sticky top-0 shadow-md" : ""
+        className={`w-full bg-background transition-shadow shadow-sm duration-300 z-50 ${
+          isSticky ? "sticky top-0 shadow-xl" : ""
         }`}
       >
-        <div className="flex bg-white items-center justify-between p-4">
+        <div className="flex bg-white items-center justify-between px-4">
           <div className="flex items-center gap-8">
             <Logo />
-            <nav className="hidden md:flex gap-6 text-sm font-medium">
-              <NavigationMenu>
-                <NavigationMenuList className="flex gap-4">
-                  <MenuDropdown trigger="Components" items={componentsData} />
-                  <DesktopMenuLink href="/about">About</DesktopMenuLink>
-                  <MenuDropdown
-                    trigger="Resources"
-                    items={resourcesData.map((r) => ({
-                      ...r,
-                      description: undefined,
-                    }))}
-                  />
-                </NavigationMenuList>
-              </NavigationMenu>
-            </nav>
+            <MenuBar />
           </div>
           <div className="hidden md:flex gap-4 items-center">
             <div className="">

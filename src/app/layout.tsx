@@ -1,19 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Roboto } from "next/font/google";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { GTM_ID } from "@/lib/gtm";
 import { Footer } from "@/components/organisms/Footer";
 import "./globals.css";
 import { Header } from "@/components/organisms/Header";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const roboto = Roboto({
+  subsets: ["latin"], // Specify necessary subsets
+  weight: ["400", "700"], // Specify desired font weights
+  variable: "--font-roboto", // Optional: Define a CSS variable for easier use with Tailwind CSS or custom CSS
 });
 
 export const metadata: Metadata = {
@@ -29,9 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${roboto.className} antialiased`}>
         <Header />
         {children}
         <Footer />

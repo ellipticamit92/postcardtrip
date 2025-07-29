@@ -27,6 +27,8 @@
     --radius: 0.5rem;
     --brand-primary: 166.54, 69.03%, 44.31%;
     --secondary: 342.94, 100%, 60%;
+    --font-sans: "Helvetica Neue", Helvetica, Arial, "Geist", "Geist Sans",
+      system-ui, sans-serif;
   }
 
   .dark {
@@ -55,6 +57,7 @@
 }
 
 :root {
+  --font-roboto: "Roboto", sans-serif;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
@@ -166,8 +169,23 @@
 
 @theme inline {
   --color-primary: var(--primary);
-  --color-secondary: var(--secondary);
   --color-primary-800: var(--primary-800);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-primary-400: var(--primary-400);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+  --color-primary-800: var(--primary-800);
+  --color-primary-900: var(--primary-900);
+  --color-secondary: var(--secondary);
+  --color-secondary-100: var(--secondary-100);
+  --color-secondary-200: var(--secondar-200);
+  --color-secondary-300: var(--secondary-300);
+  --color-secondary-400: var(--secondary-400);
+  --color-secondary-600: var(--secondar-600);
+  --color-secondary-700: var(--secondary-700);
+  --color-secondary-800: var(--secondar-800);
+  --color-secondary-900: var(--secondary-900);
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-card: hsl(var(--card));
@@ -211,6 +229,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-roboto);
   }
 }
 /*
