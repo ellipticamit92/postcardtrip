@@ -1,11 +1,8 @@
 "use client";
 import { useGTM } from "@/hooks/use-gtm";
-import * as React from "react";
 import { Button } from "./ui/button";
 
-export interface ITestProps {}
-
-export function Test(props: ITestProps) {
+export function Test() {
   const { trackCustomEvent } = useGTM();
 
   const handleButtonClick = (variant: string) => {
@@ -31,12 +28,6 @@ export function Test(props: ITestProps) {
       </Button>
       <Button variant="ghost" onClick={() => handleButtonClick("ghost")}>
         Ghost
-      </Button>
-      <Button
-        variant="destructive"
-        onClick={() => handleButtonClick("destructive")}
-      >
-        Destructive
       </Button>
       <Button variant="link" onClick={() => handleButtonClick("link")}>
         Link
