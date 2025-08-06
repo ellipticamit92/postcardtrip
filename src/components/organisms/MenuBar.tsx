@@ -48,7 +48,7 @@ export function MenuBar() {
               <ChevronDown size={16} className="hover:text-primary-700" />
             </button>
             <div
-              className={`absolute border-2 border-gray-200 left-0 mt-[14px] w-48 bg-white shadow-xl z-20 animate-in fade-in duration-200 ${
+              className={`absolute border-2 border-gray-200 left-0 mt-[14px] w-48 bg-white shadow-xl z-30 animate-in fade-in duration-200 ${
                 openDropdown === item.title ? "" : "hidden"
               }`}
             >

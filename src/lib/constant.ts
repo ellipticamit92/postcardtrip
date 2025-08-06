@@ -23,23 +23,23 @@ export const SOCIAL_LINKS = [
 export const MENU_LINKS: MenuLinksProps[] = [
   {
     title: "Home",
-    href: "/g",
+    href: "/",
   },
   {
     title: "Destination",
-    href: "/gestination",
+    href: "/destination",
     child: [
       {
         title: "Kerala",
-        href: "/kerala",
+        href: "/destination/kerala",
       },
       {
         title: "Dubai",
-        href: "/dubai",
+        href: "/destination/dubai",
       },
       {
         title: "Himachal",
-        href: "/himachal",
+        href: "/destination/himachal",
       },
     ],
   },
