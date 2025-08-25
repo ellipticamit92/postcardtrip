@@ -5,7 +5,6 @@ import {
   HeartHandshake,
   Mountain,
 } from "lucide-react";
-import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
 import Link from "next/link";
 import { Button } from "../ui/button";

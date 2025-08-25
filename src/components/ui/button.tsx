@@ -15,7 +15,7 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+          "border border-input bg-background hover:bg-primary-400 hover:text-accent-foreground",
         ocean:
           "bg-gradient-ocean text-white hover:shadow-medium transform hover:scale-105 transition-all duration-300",
         adventure:

@@ -1,5 +1,5 @@
 "use client";
-import { ArrowRight, CheckCircle, Plane, Star } from "lucide-react";
+import { ArrowRight, CheckCircle, Star } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -159,7 +159,7 @@ const Reviews = () => {
                         </div>
 
                         <p className="text-sm text-gray-700 mb-4 leading-relaxed font-medium italic">
-                          "{review.review}"
+                          &quot;{review.review}&quot;
                         </p>
 
                         {/* Travel Package Tag */}

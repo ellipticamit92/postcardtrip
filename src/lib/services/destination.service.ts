@@ -3,7 +3,7 @@ const CMS_BASE_URL =
 const API_KEY = process.env.POSTCARD_CMS_PUBLIC_API_KEY || "";
 
 export async function getTrendingDestination() {
-  const res = await fetch(`${CMS_BASE_URL}/destinations`, {
+  const res = await fetch(`${CMS_BASE_URL}/destinations/trending`, {
     headers: {
       "x-api-key": API_KEY,
     },

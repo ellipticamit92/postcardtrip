@@ -18,8 +18,8 @@ const ContactSection = () => {
           </h2>
           <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
             Our travel experts are here to help you create the perfect
-            itinerary. Share your travel dreams with us and let's make them come
-            true.
+            itinerary. Share your travel dreams with us and let&apos;s make them
+            come true.
           </p>
 
           <div className="space-y-6">
