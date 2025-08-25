@@ -1,147 +1,222 @@
-"use client";
-
-import Image from "next/image";
-import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 import {
+  Phone,
+  Mail,
+  MapPin,
   Facebook,
   Instagram,
   Twitter,
-  Mail,
-  MapPin,
-  Phone,
+  Youtube,
+  Star,
+  Shield,
+  Award,
+  Clock,
+  CreditCard,
+  Users,
+  CheckCircle,
 } from "lucide-react";
-import FooterSection from "./FooterSection";
-import ContactItem from "../molecules/ContactItem";
-import FooterLink from "../molecules/FooterLink";
-import SocialIcon from "../molecules/SocialIcon";
-import { MOBILE_NUMBER } from "@/lib/constant";
+import Link from "next/link";
+import Logo from "../atoms/Logo";
 
-export function Footer() {
+const Footer = () => {
+  const quickLinks = [
+    { name: "Destinations", href: "/destinations" },
+    { name: "About Us", href: "#about" },
+    { name: "Travel Guides", href: "#guides" },
+    { name: "Group Tours", href: "#group" },
+    { name: "Custom Trips", href: "#custom" },
+    { name: "Travel Insurance", href: "#insurance" },
+  ];
+
+  const supportLinks = [
+    { name: "Contact Us", href: "#contact" },
+    { name: "Help Center", href: "#help" },
+    { name: "Booking Support", href: "#booking" },
+    { name: "Travel Tips", href: "#tips" },
+    { name: "FAQs", href: "#faq" },
+    { name: "Reviews", href: "#reviews" },
+  ];
+
+  const legalLinks = [
+    { name: "Terms & Conditions", href: "#terms" },
+    { name: "Privacy Policy", href: "#privacy" },
+    { name: "Cookie Policy", href: "#cookies" },
+    { name: "Cancellation Policy", href: "#cancellation" },
+  ];
+
+  const socialLinks = [
+    { name: "Facebook", icon: Facebook, href: "#facebook" },
+    { name: "Instagram", icon: Instagram, href: "#instagram" },
+    { name: "Twitter", icon: Twitter, href: "#twitter" },
+    { name: "YouTube", icon: Youtube, href: "#youtube" },
+  ];
+
   return (
-    <footer className="relative w-full bg-background border-t border-border mt-16 bg-[url('/footer-bg.png')] bg-cover bg-center overflow-hidden text-white">
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-[#09100de0] to-[#09100de0] opacity-80 z-30 overflow-hidden" />
-      <div className="container mx-auto pt-10 relative z-50 pt-10 lg:pt-12">
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-          {/* Logo & Spin */}
-          <div className="order-last md:order-first col-span-2 sm:col-span-1 md:col-span-2">
-            <div className="text-center w-full flex items-center justify-center">
-              <div className="w-48 h-auto p-4 rounded-full bg-black/50 relative xs:w-60">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-                  <Image
-                    src="/ptcolorlogo.png"
-                    alt="Postcard Trip Logo"
-                    width={180}
-                    height={100}
-                  />
-                  <div className="pt-4">Since 2020</div>
-                </div>
-                <div className="relative animate-spin-slow">
-                  <svg viewBox="0 0 400 400">
-                    <defs>
-                      <path
-                        id="txt-path"
-                        d="M0, 200a200, 200 0 1, 0 400, 0a200, 200 0 1, 0 -400, 0"
-                        fill="white"
-                      />
-                    </defs>
-                    <text
-                      fill="#DDDDDD"
-                      className="tracking-wider"
-                      fontSize="35"
-                      fontWeight="300"
-                    >
-                      <textPath startOffset="0" xlinkHref="#txt-path">
-                        Postcardtrip Global Private Limited
-                      </textPath>
-                    </text>
-                  </svg>
-                </div>
+    <footer className="bg-linear-to-br from-background to-muted border-t">
+      {/* Main Footer Content */}
+      <div className="container mx-auto px-6 py-16">
+        <div className="grid lg:grid-cols-5 md:grid-cols-3 gap-8">
+          {/* Company Info */}
+          <div className="lg:col-span-2">
+            <div className="mb-2">
+              <Logo />
+            </div>
+
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              Your trusted partner in creating unforgettable travel experiences.
+              We specialize in crafting personalized adventures that connect you
+              with the world&apos;s most amazing destinations.
+            </p>
+
+            <div className="space-y-3 mb-6">
+              <div className="flex items-center gap-3">
+                <MapPin className="w-5 h-5 text-ocean shrink-0" />
+                <span className="text-sm text-muted-foreground">
+                  123 Travel Street, Adventure City, AC 12345
+                </span>
               </div>
+              <div className="flex items-center gap-3">
+                <Phone className="w-5 h-5 text-ocean shrink-0" />
+                <span className="text-sm text-muted-foreground">
+                  +1 (555) 123-4567
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Mail className="w-5 h-5 text-ocean shrink-0" />
+                <span className="text-sm text-muted-foreground">
+                  hello@traveladventure.com
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Clock className="w-5 h-5 text-ocean shrink-0" />
+                <span className="text-sm text-muted-foreground">
+                  Mon-Fri: 9AM-6PM EST
+                </span>
+              </div>
+            </div>
+
+            {/* Trust Badges */}
+            <div className="flex flex-wrap gap-2">
+              <Badge
+                variant="secondary"
+                className="bg-nature/10 text-nature border-nature/20"
+              >
+                <Award className="w-3 h-3 mr-1" />
+                Award Winning
+              </Badge>
+              <Badge
+                variant="secondary"
+                className="bg-ocean/10 text-ocean border-ocean/20"
+              >
+                <Shield className="w-3 h-3 mr-1" />
+                Secure Booking
+              </Badge>
+              <Badge
+                variant="secondary"
+                className="bg-adventure/10 text-adventure border-adventure/20"
+              >
+                <Star className="w-3 h-3 mr-1" />
+                5-Star Rated
+              </Badge>
             </div>
           </div>
 
-          {/* Information */}
+          {/* Quick Links */}
           <div>
-            <FooterSection title="Information">
-              <FooterLink href="/about">About Company</FooterLink>
-              <FooterLink href="/contact">Contact</FooterLink>
-            </FooterSection>
-          </div>
-
-          {/* Destination */}
-          <div>
-            <FooterSection title="Destination">
-              {[
-                "kerala",
-                "rajasthan",
-                "ooty",
-                "himachal",
-                "tamil-nadu",
-                "dubai",
-                "bali",
-              ].map((dest) => (
-                <FooterLink key={dest} href={`/destination/${dest}`}>
-                  {dest.charAt(0).toUpperCase() + dest.slice(1)}
-                </FooterLink>
+            <h3 className="font-bold text-foreground mb-6">Quick Links</h3>
+            <ul className="space-y-3">
+              {quickLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="text-muted-foreground hover:text-ocean transition-colors duration-200 story-link"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
               ))}
-            </FooterSection>
+            </ul>
           </div>
 
-          {/* Reach Us */}
-          <div className="col-span-2 sm:col-span-1 md:col-span-2">
-            <FooterSection title="Reach Us">
-              <ContactItem icon={<Phone size={18} />} text={MOBILE_NUMBER} />
-              <ContactItem
-                icon={<Mail size={18} />}
-                text="info@postcardtrip.in"
-              />
-              <ContactItem
-                icon={<MapPin size={20} />}
-                text="55,Top Floor,Lane, 2, Westend Marg, Saidulajab, Saket, New Delhi, Delhi 110030"
-              />
-            </FooterSection>
+          {/* Support */}
+          <div>
+            <h3 className="font-bold text-foreground mb-6">Support</h3>
+            <ul className="space-y-3">
+              {supportLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="text-muted-foreground hover:text-ocean transition-colors duration-200 story-link"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Legal & Social */}
+          <div>
+            <h3 className="font-bold text-foreground mb-6">Legal</h3>
+            <ul className="space-y-3 mb-8">
+              {legalLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="text-muted-foreground hover:text-ocean transition-colors duration-200 story-link text-sm"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <h4 className="font-bold text-foreground mb-4">Follow Us</h4>
+            <div className="flex gap-3">
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <Link
+                    key={social.name}
+                    href={social.href}
+                    className="w-10 h-10 bg-muted hover:bg-ocean hover:text-white rounded-full flex items-center justify-center transition-all duration-200 hover-scale"
+                  >
+                    <Icon className="w-5 h-5" />
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Socials */}
-        <div className="flex flex-col sm:flex-row items-center justify-between px-4 my-4 text-xs md:text-sm">
-          <div className="flex items-center gap-4 my-2">
-            <h4 className="font-semibold">Stay Connected :</h4>
-            <SocialIcon
-              href="https://www.facebook.com/people/Postcard-Trip/100089679132683/"
-              icon={<Facebook />}
-            />
-            <SocialIcon
-              href="https://www.instagram.com/invites/contact/?i=sc0jijzu13ns"
-              icon={<Instagram />}
-            />
-            <SocialIcon
-              href="https://twitter.com/TripPostcard?s=08"
-              icon={<Twitter />}
-            />
-          </div>
-        </div>
+      {/* Bottom Bar */}
+      <div className="border-t bg-muted/50">
+        <div className="container mx-auto px-6 py-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="text-sm text-muted-foreground">
+              © 2024 TravelAdventure. All rights reserved.
+            </div>
 
-        {/* Bottom links */}
-        <div className="border-t border-zinc-500 flex justify-between items-center text-xs lg:text-sm text-zinc-300 py-4 space-y-2 xs:flex-row xs:justify-between xs:space-y-0 xs:px-2">
-          <div>Copyright 2020 Postcardtrip.in</div>
-          <div className="flex items-center">
-            <Link
-              href="/"
-              className="hover:text-primary-400 hover:font-semibold"
-            >
-              Privacy Policy
-            </Link>
-            <span className="mx-2"> | </span>
-            <Link
-              href="/"
-              className="hover:text-primary-400 hover:font-semibold"
-            >
-              Terms of use
-            </Link>
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <CreditCard className="w-4 h-4" />
+                <span>Secure Payments</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Users className="w-4 h-4" />
+                <span>5,000+ Happy Travelers</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <CheckCircle className="w-4 h-4" />
+                <span>Licensed & Insured</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

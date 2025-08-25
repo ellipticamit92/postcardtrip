@@ -1,21 +1,31 @@
-import { FC } from "react";
-import Image from "next/image";
+import { FC, ReactNode } from "react";
+import { Badge } from "../ui/badge";
 
 export interface SectionHeadingProps {
   title: string;
   heading: string;
+  description: string;
+  variant?: string;
+  icon: ReactNode;
 }
 
-const SectionHeading: FC<SectionHeadingProps> = ({ title, heading }) => {
+const SectionHeading: FC<SectionHeadingProps> = ({
+  title,
+  heading,
+  description,
+  variant = "bg-adventure ",
+  icon,
+}) => {
   return (
-    <div className="flex flex-col items-center mb-3">
-      <h5 className="text-primary text-lg font-light uppercase mb-1 tracking-widest sm:text-md lg:text-xl">
-        {title}
-      </h5>
-      <h1 className="text-3xl sm:text-3xl lg:text-4xl font-bold text-center mb-2">
+    <div className="text-center mb-12">
+      <Badge className={`mb-2 text-white ${variant}`}>
+        {icon}
         {heading}
-      </h1>
-      <Image width={300} height={100} src="/divider.svg" alt="Divider Icon" />
+      </Badge>
+      <h2 className="text-5xl font-bold mb-3 text-foreground">{title}</h2>
+      <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+        {description}
+      </p>
     </div>
   );
 };

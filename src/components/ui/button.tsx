@@ -16,6 +16,16 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         outline:
           "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        ocean:
+          "bg-gradient-ocean text-white hover:shadow-medium transform hover:scale-105 transition-all duration-300",
+        adventure:
+          "bg-gradient-adventure text-white hover:shadow-medium transform hover:scale-105 transition-all duration-300",
+        nature:
+          "bg-gradient-nature text-white hover:shadow-medium transform hover:scale-105 transition-all duration-300",
+        pricing:
+          "bg-gradient-hero text-white hover:shadow-strong transform hover:scale-110 transition-all duration-300 shadow-medium",
+        customize:
+          "border-2 border-ocean bg-background text-ocean hover:text-white transition-all duration-300",
 
         // Custom brand styles
         primary: "bg-primary text-white border-2 border-primary",
@@ -28,6 +38,7 @@ const buttonVariants = cva(
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 px-3 rounded-md",
+        md: "h-10 px-6 rounded-md",
         lg: "h-11 px-8 rounded-md",
         icon: "h-10 w-10",
         full: "w-full h-12",

@@ -19,7 +19,7 @@ const IconLink = ({
   return (
     <Link
       href={href}
-      className={`flex items-center text-slate-700 hover:text-white gap-2 ${linkClass}`}
+      className={`flex items-center text-primary-50 hover:text-white gap-2 ${linkClass}`}
       target="_blank"
       rel="noopener noreferrer"
     >

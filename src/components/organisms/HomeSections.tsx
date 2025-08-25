@@ -5,16 +5,30 @@ interface HomeSectionsProps {
   title: string;
   heading: string;
   children: ReactNode;
+  description: string;
+  variant?: string;
+  icon: ReactNode;
 }
 
-const HomeSections: FC<HomeSectionsProps> = ({ title, heading, children }) => (
+const HomeSections: FC<HomeSectionsProps> = ({
+  title,
+  heading,
+  children,
+  description,
+  variant,
+  icon,
+}) => (
   <section className="py-5 relative z-10">
-    <div className="container mx-auto pt-10">
-      <div className="flex flex-col items-center">
-        <SectionHeading title={title} heading={heading} />
-      </div>
-      <div className="mt-10 mb-8">{children}</div>
+    <div className="flex flex-col items-center pt-10">
+      <SectionHeading
+        title={title}
+        heading={heading}
+        description={description}
+        variant={variant}
+        icon={icon}
+      />
     </div>
+    <div className="my-2">{children}</div>
   </section>
 );
 

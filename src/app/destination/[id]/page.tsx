@@ -1,7 +1,4 @@
 import { notFound } from "next/navigation";
-import ImageWrapper from "@/components/atoms/ImageWrapper";
-import Heading from "@/components/atoms/Heading";
-import Paragraph from "@/components/atoms/Paragraph";
 import Breadcrumb from "@/components/atoms/Breadcrumb";
 import DestinationBanner from "@/components/organisms/DestinationBanner";
 

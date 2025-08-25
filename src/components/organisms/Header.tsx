@@ -2,47 +2,22 @@
 import { useEffect, useState } from "react";
 
 import Logo from "../atoms/Logo";
-import { IconButton } from "../atoms/IconButton";
-import {
-  Facebook,
-  Instagram,
-  Mail,
-  Menu,
-  PhoneCall,
-  Twitter,
-  X,
-} from "lucide-react";
+import { Award, Globe, Mail, Menu, Phone, Shield, X } from "lucide-react";
 import Link from "next/link";
-import { MobileMenuSection } from "../molecules/MobileMenuSection";
-import IconLink from "../atoms/IconLink";
 import { Button } from "../ui/button";
-import { MenuBar } from "./MenuBar";
-import { MOBILE_NUMBER } from "@/lib/constant";
-
-const componentsData = [
-  {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-  {
-    title: "Hover Card",
-    href: "/docs/primitives/hover-card",
-    description:
-      "For sighted users to preview content available behind a link.",
-  },
-];
-
-const resourcesData = [
-  { title: "Home", href: "/" },
-  { title: "Blog", href: "/blog" },
-];
+import { Badge } from "../ui/badge";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 
 export function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,16 +28,107 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navigationItems = [
+    { name: "Home", href: "/" },
+    { name: "About", href: "#about" },
+    { name: "Contact", href: "#contact" },
+  ];
+
+  const destinations = [
+    {
+      name: "Kerala",
+      href: "/destinations?location=kerala",
+      description: "God's Own Country",
+    },
+    {
+      name: "Himachal Pradesh",
+      href: "/destinations?location=himachal",
+      description: "Land of Gods",
+    },
+    {
+      name: "Dubai",
+      href: "/destinations?location=dubai",
+      description: "City of Gold",
+    },
+    {
+      name: "Rajasthan",
+      href: "/destinations?location=rajasthan",
+      description: "Land of Kings",
+    },
+    {
+      name: "Goa",
+      href: "/destinations?location=goa",
+      description: "Beach Paradise",
+    },
+    {
+      name: "Kashmir",
+      href: "/destinations?location=kashmir",
+      description: "Paradise on Earth",
+    },
+  ];
+
+  const packages = [
+    {
+      name: "Adventure Packages",
+      href: "/destinations?location=kerala",
+      description: "Thrilling Experiences",
+    },
+    {
+      name: "Honeymoon Packages",
+      href: "/destinations?location=kerala",
+      description: "Romantic Getaways",
+    },
+    {
+      name: "Leisure Packages",
+      href: "/destinations?location=himachal",
+      description: "Relaxing Retreats",
+    },
+    {
+      name: "Temple Packages",
+      href: "/destinations?location=himachal",
+      description: "Spiritual Journeys",
+    },
+  ];
+
   return (
     <>
-      <div className="flex justify-between items-center bg-primary-300 font-semibold p-1 px-4 text-white ">
-        <IconLink icon={Mail} href="mailto:info@postcardtrip.in">
-          info@postcardtrip.in
-        </IconLink>
-        <div className="flex gap-4 items-center">
-          <IconLink icon={Facebook} href="#" />
-          <IconLink icon={Instagram} href="#" />
-          <IconLink icon={Twitter} href="#" />
+      <div className="bg-linear-to-r from-ocean to-adventure text-white py-2 ">
+        <div className="container mx-auto">
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center gap-6">
+              <Link
+                href="tel:+99821071644"
+                className="flex items-center gap-2 hover:underline transition-colors text-white"
+              >
+                <Phone className="w-4 h-4" />
+                <span>+91-9821071644</span>
+              </Link>
+
+              <Link
+                href="mailto:info@postcardtrip.in"
+                className="flex items-center gap-2 hover:underline transition-colors text-white"
+              >
+                <Mail className="w-4 h-4" />
+                <span> info@postcardtrip.in</span>
+              </Link>
+            </div>
+            <div className="hidden md:flex items-center gap-4">
+              <Badge
+                variant="secondary"
+                className="bg-white/20 text-white border-white/30"
+              >
+                <Award className="w-3 h-3 mr-1" />
+                Award Winning
+              </Badge>
+              <Badge
+                variant="secondary"
+                className="bg-white/20 text-white border-white/30"
+              >
+                <Shield className="w-3 h-3 mr-1" />
+                Secure Booking
+              </Badge>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -71,26 +137,100 @@ export function Header() {
           isSticky ? "sticky top-0 shadow-xl" : ""
         }`}
       >
-        <div className="flex bg-white items-center justify-between px-4">
-          <div className="flex items-center gap-8">
-            <Logo />
-            <MenuBar />
-          </div>
-          <div className="hidden md:flex gap-4 items-center">
-            <div className="">
-              <a
-                href="tel:9870276405"
-                className="flex w-full items-center space-x-3 text-xs text-primary-900 hover:text-primary-800"
-              >
-                <div>
-                  <PhoneCall />
-                </div>
-                <div className="flex flex-col space-y-0 font-semibold">
-                  <div>Call Now</div>
-                  <div>{MOBILE_NUMBER}</div>
-                </div>
-              </a>
+        <div className="flex items-center justify-between h-16 container mx-auto">
+          {/* Logo */}
+          <Logo />
+          {/* <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 bg-linear-to-br from-ocean to-adventure rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+              <Plane className="w-5 h-5 text-white transform rotate-45" />
             </div>
+            <div></div>
+          </Link> */}
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-6">
+            {navigationItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="text-foreground hover:text-ocean transition-colors duration-200 font-medium story-link mx-2"
+              >
+                {item.name}
+              </Link>
+            ))}
+
+            {/* Packages Dropdown */}
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-foreground text-md hover:text-ocean transition-colors duration-200 font-medium bg-transparent">
+                    Packages
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                      {packages.map((tour) => (
+                        <NavigationMenuLink key={tour.name} asChild>
+                          <Link
+                            href={tour.href}
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                          >
+                            <div className="text-sm font-medium leading-none">
+                              {tour.name}
+                            </div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              {tour.description}
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                      ))}
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+
+            {/* Destinations Dropdown */}
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-foreground text-md hover:text-ocean transition-colors duration-200 font-medium bg-transparent">
+                    Destinations
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                      {destinations.map((destination) => (
+                        <NavigationMenuLink key={destination.name} asChild>
+                          <Link
+                            href={destination.href}
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                          >
+                            <div className="text-sm font-medium leading-none">
+                              {destination.name}
+                            </div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              {destination.description}
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                      ))}
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          </nav>
+
+          {/* CTA Buttons */}
+          <div className="hidden md:flex items-center gap-4">
+            <Button variant="outline" size="sm">
+              <Globe className="w-4 h-4 mr-2" />
+              Plan Trip
+            </Button>
+            <Link href="/destinations">
+              <Button variant="pricing" size="md">
+                Book Now
+              </Button>
+            </Link>
             <Button
               variant="secondary"
               animation="secondarySolid"
@@ -100,46 +240,45 @@ export function Header() {
             </Button>
           </div>
 
-          <IconButton
-            aria-label="Toggle Menu"
-            icon={
-              mobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )
-            }
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden"
-          />
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden p-2 hover:bg-muted rounded-lg transition-colors"
+          >
+            {isMenuOpen ? (
+              <X className="w-6 h-6 text-foreground" />
+            ) : (
+              <Menu className="w-6 h-6 text-foreground" />
+            )}
+          </button>
         </div>
 
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-white shadow-sm">
-            <div className="flex flex-col p-4 space-y-4">
-              <Link
-                href="/about"
-                className="block py-2 px-3 rounded hover:bg-gray-100"
-              >
-                About
-              </Link>
-              <MobileMenuSection
-                title="Components"
-                links={componentsData.map(({ title, href }) => ({
-                  label: title,
-                  href,
-                }))}
-                onClick={() => setMobileMenuOpen(false)}
-              />
-              <MobileMenuSection
-                title="Resources"
-                links={resourcesData.map(({ title, href }) => ({
-                  label: title,
-                  href,
-                }))}
-                onClick={() => setMobileMenuOpen(false)}
-              />
-            </div>
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden py-4 border-t animate-fade-in">
+            <nav className="space-y-4">
+              {navigationItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="block py-2 px-4 text-foreground hover:text-ocean hover:bg-muted rounded-lg transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              <div className="flex flex-col gap-3 px-4 pt-4 border-t">
+                <Button variant="outline" size="sm" className="w-full">
+                  <Globe className="w-4 h-4 mr-2" />
+                  Plan Trip
+                </Button>
+                <Link href="/destinations">
+                  <Button variant="pricing" size="sm" className="w-full">
+                    Book Now
+                  </Button>
+                </Link>
+              </div>
+            </nav>
           </div>
         )}
       </header>
