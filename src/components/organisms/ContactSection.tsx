@@ -29,7 +29,7 @@ const ContactSection = () => {
               </div>
               <div>
                 <h3 className="font-semibold text-foreground">Call Us</h3>
-                <p className="text-muted-foreground">+1 (555) 123-4567</p>
+                <p className="text-muted-foreground">+91-982 107 1644</p>
               </div>
             </div>
 
@@ -39,9 +39,7 @@ const ContactSection = () => {
               </div>
               <div>
                 <h3 className="font-semibold text-foreground">Email Us</h3>
-                <p className="text-muted-foreground">
-                  hello@traveladventure.com
-                </p>
+                <p className="text-muted-foreground">info@postcardtrip.in</p>
               </div>
             </div>
 
@@ -52,7 +50,8 @@ const ContactSection = () => {
               <div>
                 <h3 className="font-semibold text-foreground">Visit Us</h3>
                 <p className="text-muted-foreground">
-                  123 Travel Street, Adventure City
+                  Fourth Floor, Plot no-5, Westend Marg, Saidulajab, <br />
+                  Saiyad Ul Ajaib Village, Saket, New Delhi, Delhi 110030
                 </p>
               </div>
             </div>

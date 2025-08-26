@@ -16,3 +16,18 @@ export async function getTrendingDestination() {
 
   return res.json();
 }
+
+export async function getAll() {
+  const res = await fetch(`${CMS_BASE_URL}/destinations`, {
+    headers: {
+      "x-api-key": API_KEY,
+    },
+    cache: "no-store", // or ISR: next: { revalidate: 60 }
+  });
+
+  if (!res.ok) {
+    throw new Error(`CMS fetch failed: ${res.status}`);
+  }
+
+  return res.json();
+}

@@ -3,10 +3,10 @@ import { Badge } from "../ui/badge";
 
 export interface SectionHeadingProps {
   title: string;
-  heading: string;
+  heading?: string;
   description: string;
   variant?: string;
-  icon: ReactNode;
+  icon?: ReactNode;
 }
 
 const SectionHeading: FC<SectionHeadingProps> = ({
@@ -18,10 +18,13 @@ const SectionHeading: FC<SectionHeadingProps> = ({
 }) => {
   return (
     <div className="text-center mb-12">
-      <Badge className={`mb-2 text-white ${variant}`}>
-        {icon}
-        {heading}
-      </Badge>
+      {heading && (
+        <Badge className={`mb-2 text-white ${variant}`}>
+          {icon}
+          {heading}
+        </Badge>
+      )}
+
       <h2 className="text-5xl font-bold mb-3 text-foreground">{title}</h2>
       <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
         {description}

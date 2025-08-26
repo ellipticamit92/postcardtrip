@@ -1,5 +1,7 @@
 import DestinationCard from "@/components/molecules/DestinationCard";
-import Heading from "@/components/atoms/Heading";
+import DestinationHero from "@/components/molecules/DestinationHero";
+import SectionHeading from "@/components/molecules/SectionHeading";
+import { getAll } from "@/lib/services/destination.service";
 
 const destinations = [
   {
@@ -40,15 +42,26 @@ const destinations = [
   },
 ];
 
-export default function DestinationPage() {
+export default async function DestinationPage() {
+  const destData = await getAll();
+
+  if (destData?.success === false) {
+    return <div>No Data Found</div>;
+  }
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Heading className="mb-8 text-center">All Destinations</Heading>
-      <div className="flex flex-wrap justify-center -mx-2">
-        {destinations.map((dest, idx) => (
-          <DestinationCard key={idx} {...dest} />
-        ))}
+    <>
+      <DestinationHero />
+      <div className="container mx-auto px-4 py-8">
+        <SectionHeading
+          title="Amazing Destinations"
+          description="Explore Our Destinations"
+        />
+        <div className="flex flex-wrap justify-center -mx-2">
+          {destinations.map((dest, idx) => (
+            <DestinationCard key={idx} {...dest} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -21,18 +21,14 @@ import Logo from "../atoms/Logo";
 const Footer = () => {
   const quickLinks = [
     { name: "Destinations", href: "/destinations" },
+    { name: "Packages", href: "/destinations" },
     { name: "About Us", href: "#about" },
-    { name: "Travel Guides", href: "#guides" },
-    { name: "Group Tours", href: "#group" },
     { name: "Custom Trips", href: "#custom" },
-    { name: "Travel Insurance", href: "#insurance" },
   ];
 
   const supportLinks = [
     { name: "Contact Us", href: "#contact" },
-    { name: "Help Center", href: "#help" },
     { name: "Booking Support", href: "#booking" },
-    { name: "Travel Tips", href: "#tips" },
     { name: "FAQs", href: "#faq" },
     { name: "Reviews", href: "#reviews" },
   ];
@@ -72,19 +68,20 @@ const Footer = () => {
               <div className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-ocean shrink-0" />
                 <span className="text-sm text-muted-foreground">
-                  123 Travel Street, Adventure City, AC 12345
+                  Fourth Floor, Plot no-5, Westend Marg, Saidulajab, <br />
+                  Saiyad Ul Ajaib Village, Saket, New Delhi, Delhi 110030
                 </span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-ocean shrink-0" />
                 <span className="text-sm text-muted-foreground">
-                  +1 (555) 123-4567
+                  +91-9821071644
                 </span>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-ocean shrink-0" />
                 <span className="text-sm text-muted-foreground">
-                  hello@traveladventure.com
+                  info@postcardtrip.in
                 </span>
               </div>
               <div className="flex items-center gap-3">
