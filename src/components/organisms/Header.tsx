@@ -83,7 +83,6 @@ export function Header() {
         }`}
       >
         <div className="flex items-center justify-between h-16 container mx-auto">
-          {/* Logo */}
           <Logo />
           {/* <Link href="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 bg-linear-to-br from-ocean to-adventure rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -147,12 +146,12 @@ export function Header() {
                         <NavigationMenuLink key={destination.name} asChild>
                           <Link
                             href={destination.href}
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                            className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                           >
-                            <div className="text-sm font-medium leading-none">
+                            <div className="text-sm font-medium leading-none group-hover:text-secondary">
                               {destination.name}
                             </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground group-hover:text-primary-900">
                               {destination.description}
                             </p>
                           </Link>

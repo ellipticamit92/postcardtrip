@@ -7,6 +7,7 @@ import { getAll } from "@/lib/services/destination.service";
 import { ArrowRight, Hash, MapPin, Star, Users2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import NotFound from "../not-found";
 
 const enhancedPackages = [
   {
@@ -147,7 +148,7 @@ export default async function DestinationPage() {
   const destData = await getAll();
 
   if (destData?.success === false) {
-    return <div>No Data Found</div>;
+    return <NotFound />;
   }
 
   const featuredPackage = enhancedPackages.find((pkg) => pkg.featured);

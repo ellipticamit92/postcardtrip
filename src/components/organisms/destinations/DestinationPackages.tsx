@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import DestinationFilters from "@/components/molecules/DestinationFilters";
 import Image from "next/image";
+import { toIndianCurrency } from "@/lib/helper";
 
 type Package = {
   id: string;
@@ -30,7 +31,7 @@ type Package = {
   traveller?: number;
 };
 
-const DestinationPackages = () => {
+const DestinationPackages = ({ name }: { name: string }) => {
   const [filters, setFilters] = useState({
     priceRange: [500, 5000] as [number, number],
     duration: [] as string[],
@@ -269,7 +270,7 @@ const DestinationPackages = () => {
           <Card className="overflow-hidden shadow-strong hover:shadow-xl transition-all duration-500 group py-0">
             <div className="grid lg:grid-cols-2 gap-0">
               <div className="relative overflow-hidden">
-                <Image
+                <img
                   src={featuredPackage.image}
                   alt={featuredPackage.title}
                   className="w-full h-80 lg:h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -319,19 +320,19 @@ const DestinationPackages = () => {
                   ))}
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-end justify-between">
                   <div>
+                    <span className="text-sm text-muted-foreground">
+                      package starting from
+                    </span>
                     <div className="flex items-center gap-3">
                       <span className="text-3xl font-bold text-ocean">
-                        ${featuredPackage.price.toLocaleString()}
+                        {toIndianCurrency(featuredPackage.price)}
                       </span>
                       <span className="text-lg text-muted-foreground line-through">
-                        ${featuredPackage.originalPrice.toLocaleString()}
+                        {toIndianCurrency(featuredPackage.originalPrice)}
                       </span>
                     </div>
-                    <span className="text-sm text-muted-foreground">
-                      per person
-                    </span>
                   </div>
                   <Link href={`/packages/${featuredPackage.id}`}>
                     <Button variant="pricing" size="lg" className="group">
@@ -350,7 +351,7 @@ const DestinationPackages = () => {
       <section>
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-4xl font-bold text-foreground">
-            All Travel Packages
+            All {name} Packages
           </h2>
           <div className="text-sm text-muted-foreground">
             {otherPackages.length} package
@@ -396,11 +397,10 @@ const DestinationPackages = () => {
                 className="overflow-hidden shadow-soft hover:shadow-medium transition-all duration-300 group py-0"
               >
                 <div className="relative overflow-hidden">
-                  <Image
-                    src={pkg.image}
-                    alt={pkg.title}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
+                  <div className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                    <Image src={pkg.image} alt={pkg.title} fill={true} />
+                  </div>
+
                   <div className="absolute top-4 right-4">
                     <Badge className="bg-adventure text-white">
                       {pkg.discount} OFF
@@ -478,7 +478,7 @@ const DestinationPackages = () => {
       {/* Call to Action */}
       <section className="mt-20 text-center bg-gradient-card rounded-2xl p-12 shadow-soft">
         <h2 className="text-3xl font-bold mb-4 text-foreground">
-          Can&pos;t Find Your Perfect Trip?
+          Can't Find Your Perfect Trip?
         </h2>
         <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
           Our travel experts can create a custom itinerary tailored specifically

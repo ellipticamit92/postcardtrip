@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import PagesHero from "@/components/molecules/PagesHero";
 import DestinationPackages from "@/components/organisms/destinations/DestinationPackages";
+import { getDestinationByName } from "@/lib/services/destination.service";
+import NotFound from "@/app/not-found";
 
 const destinations = [
   {
@@ -45,20 +47,27 @@ export default async function DestinationDetailPage({
   params,
 }: DestinationDetailPageProps) {
   const { id } = await params;
-  const destination = destinations.find(
-    (dest) => dest.id.toLowerCase() === id.toLowerCase()
-  );
+  const destData = await getDestinationByName(id);
 
-  if (!destination) return notFound();
+  if (destData?.success === false) {
+    return <NotFound />;
+  }
+
+  const data = destData?.data;
+  const { name, heroTitle, description, imageUrl } = data;
+
+  const destinationName = id.charAt(0).toUpperCase() + id.slice(1);
+  const badgeText = destinationName + " Packages";
 
   return (
     <>
       <PagesHero
-        badgeText="Kerala Packages"
-        title="Discover Amazing Kerala Packages"
-        description="Explore our carefully curated travel packages designed to create unforgettable memories and extraordinary experiences."
+        badgeText={badgeText}
+        title={heroTitle}
+        description={description}
+        src={imageUrl}
       />
-      <DestinationPackages />
+      <DestinationPackages name={name} />
     </>
   );
 }

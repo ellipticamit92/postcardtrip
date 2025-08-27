@@ -12,7 +12,7 @@ interface PagesHeroProps {
 }
 
 const PagesHero: FC<PagesHeroProps> = ({
-  src = "hero.jpeg",
+  src,
   badgeText,
   title,
   description,
@@ -26,7 +26,7 @@ const PagesHero: FC<PagesHeroProps> = ({
     <>
       <div className="relative h-[70vh] overflow-hidden">
         <img
-          src={`/${src}`}
+          src={`${src ?? "/hero.jpeg"}`}
           alt={"asdfasf"}
           className="w-full h-full object-cover"
         />

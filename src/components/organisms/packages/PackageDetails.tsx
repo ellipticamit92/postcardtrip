@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image";
+import { toIndianCurrency } from "@/lib/helper";
 
 const PackageDetails = () => {
   const [selectedHotelStar, setSelectedHotelStar] = useState(4);
@@ -503,16 +504,16 @@ const PackageDetails = () => {
           <section className="grid md:grid-cols-2 gap-8">
             <Card className="shadow-soft">
               <CardHeader>
-                <CardTitle className="text-success flex items-center gap-2">
-                  <div className="w-2 h-2 bg-success rounded-full"></div>
-                  What&pos;s Included
+                <CardTitle className="text-primary flex items-center gap-2">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  What's Included
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
                   {inclusions.map((item, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 bg-success rounded-full mt-2 shrink-0"></div>
+                      <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0"></div>
                       <span className="text-sm">{item}</span>
                     </li>
                   ))}
@@ -771,7 +772,7 @@ const PackageDetails = () => {
                 </div>
 
                 <div className="text-4xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-2">
-                  ${currentPricing.price.toLocaleString()}
+                  {toIndianCurrency(currentPricing.price)}
                 </div>
                 <p className="text-sm text-muted-foreground">per person</p>
                 <Badge className="bg-success text-white mx-auto">
@@ -783,13 +784,13 @@ const PackageDetails = () => {
                   <div className="flex justify-between">
                     <span>Original Price:</span>
                     <span className="line-through text-muted-foreground">
-                      ${currentPricing.original.toLocaleString()}
+                      {toIndianCurrency(currentPricing.original)}$
                     </span>
                   </div>
                   <div className="flex justify-between font-semibold">
                     <span>Your Price:</span>
                     <span className="text-ocean">
-                      ${currentPricing.price.toLocaleString()}
+                      {toIndianCurrency(currentPricing.price)}
                     </span>
                   </div>
                   <div className="flex justify-between text-xs text-muted-foreground">

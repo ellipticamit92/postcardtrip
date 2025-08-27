@@ -69,7 +69,7 @@ const TrendingDestinations = async () => {
                   From {toIndianCurrency(dest.basePrice)}
                 </span>
               </div>
-              <Link href="/destinations">
+              <Link href={`/destinations/${dest.name.toLowerCase()}`}>
                 <Button variant="outline" size="sm" className="w-full group">
                   Explore Packages
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
