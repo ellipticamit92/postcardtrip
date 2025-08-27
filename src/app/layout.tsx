@@ -11,11 +11,27 @@ import { Header } from "@/components/organisms/Header";
 //   variable: "--font-roboto",
 // });
 
-export const metadata: Metadata = {
-  title: "PostcardTrip - Next.js 15 with shadcn/ui",
-  description:
-    "A modern Next.js 15 application built with shadcn/ui components and Tailwind CSS v4",
-};
+export function generateMetadata({
+  params,
+  pathname,
+}: {
+  params?: string;
+  pathname?: string;
+}): Metadata {
+  let title = "PostcardTrip - Tailored Travel Experiences";
+  if (pathname) {
+    if (pathname.startsWith("/destinations")) {
+      title = "Destinations | PostcardTrip";
+    } else if (pathname.startsWith("/packages")) {
+      title = "Packages | PostcardTrip";
+    }
+  }
+  return {
+    title,
+    description:
+      "PostcardTrip offers personalized travel packages to breathtaking destinations. Explore our curated experiences and create unforgettable memories.",
+  };
+}
 
 export default function RootLayout({
   children,
@@ -24,6 +40,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+      </head>
       <body className={` antialiased `}>
         <Header />
         {children}

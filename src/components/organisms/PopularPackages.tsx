@@ -7,6 +7,7 @@ import HomeSections from "./HomeSections";
 import { getPopularPackages } from "@/lib/services/packages.service";
 import { toIndianCurrency } from "@/lib/helper";
 import RichText from "../atoms/RichText";
+import Image from "next/image";
 
 type Package = {
   pid: number;
@@ -27,9 +28,6 @@ const PopularPackages = async () => {
     return <div>No Data Found</div>;
   }
 
-  console.log("DEBUG popularPackageData :", popularPackageData);
-  console.log("DEBUG popularPackageData data :", popularPackageData?.data);
-
   return (
     <HomeSections
       icon={<Heart className="w-4 h-4 mr-2" />}
@@ -46,11 +44,10 @@ const PopularPackages = async () => {
             className="overflow-hidden group hover:shadow-strong transition-all duration-500 py-0 pb-0"
           >
             <div className="relative overflow-hidden">
-              <img
-                src={pkg.imageUrl}
-                alt={pkg.name}
-                className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-              />
+              <div className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                <Image src={pkg.imageUrl} alt={pkg.name} fill={true} />
+              </div>
+
               <div className="absolute top-4 right-4">
                 <Badge className="bg-adventure text-white">Popular</Badge>
               </div>
@@ -90,7 +87,7 @@ const PopularPackages = async () => {
                     per person
                   </span>
                 </div>
-                <Link href={`/package/${pkg.pid}`}>
+                <Link href={`/packages/${pkg.pid}`}>
                   <Button variant="ocean" size="sm" className="group">
                     Book Now
                     <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
@@ -102,7 +99,7 @@ const PopularPackages = async () => {
         ))}
       </div>
       <div className="text-center mt-12">
-        <Link href="/destinations">
+        <Link href="/packages">
           <Button variant="pricing" size="lg">
             View All Packages
             <ArrowRight className="w-5 h-5 ml-2" />

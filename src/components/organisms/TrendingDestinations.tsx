@@ -8,6 +8,7 @@ import { Card, CardContent } from "../ui/card";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { toIndianCurrency } from "@/lib/helper";
+import Image from "next/image";
 
 type Destination = {
   did: number;
@@ -43,11 +44,10 @@ const TrendingDestinations = async () => {
             className="overflow-hidden group hover:shadow-strong transition-all duration-500 cursor-pointer py-0"
           >
             <div className="relative overflow-hidden">
-              <img
-                src={dest.imageUrl}
-                alt={dest.name}
-                className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-              />
+              <div className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                <Image src={dest.imageUrl} alt={dest.name} fill={true} />
+              </div>
+
               <div className="absolute top-4 left-4">
                 <Badge className="bg-secondary text-white">
                   <TrendingUp className="w-3 h-3 mr-1" />

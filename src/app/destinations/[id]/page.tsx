@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import Breadcrumb from "@/components/atoms/Breadcrumb";
-import DestinationBanner from "@/components/organisms/DestinationBanner";
+import PagesHero from "@/components/molecules/PagesHero";
+import DestinationPackages from "@/components/organisms/destinations/DestinationPackages";
 
 const destinations = [
   {
@@ -35,7 +35,6 @@ const destinations = [
     description:
       "Rajasthan is renowned for its royal palaces, desert landscapes, and vibrant culture.",
   },
-  // Add more destinations as needed
 ];
 
 interface DestinationDetailPageProps {
@@ -53,17 +52,13 @@ export default async function DestinationDetailPage({
   if (!destination) return notFound();
 
   return (
-    <div className="w-full">
-      <DestinationBanner />
-      <Breadcrumb />
-      {/* <div className="flex flex-col items-center relative">
-        <Paragraph className="mb-2 text-lg text-center">
-          {destination.description}
-        </Paragraph>
-        <Paragraph className="text-center text-primary-500 font-semibold">
-          {destination.packages} packages available
-        </Paragraph>
-      </div> */}
-    </div>
+    <>
+      <PagesHero
+        badgeText="Kerala Packages"
+        title="Discover Amazing Kerala Packages"
+        description="Explore our carefully curated travel packages designed to create unforgettable memories and extraordinary experiences."
+      />
+      <DestinationPackages />
+    </>
   );
 }

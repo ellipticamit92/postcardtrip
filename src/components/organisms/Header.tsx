@@ -14,6 +14,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { destinations, packages } from "@/lib/constant";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,62 +33,6 @@ export function Header() {
     { name: "Home", href: "/" },
     { name: "About", href: "#about" },
     { name: "Contact", href: "#contact" },
-  ];
-
-  const destinations = [
-    {
-      name: "Kerala",
-      href: "/destinations?location=kerala",
-      description: "God's Own Country",
-    },
-    {
-      name: "Himachal Pradesh",
-      href: "/destinations?location=himachal",
-      description: "Land of Gods",
-    },
-    {
-      name: "Dubai",
-      href: "/destinations?location=dubai",
-      description: "City of Gold",
-    },
-    {
-      name: "Rajasthan",
-      href: "/destinations?location=rajasthan",
-      description: "Land of Kings",
-    },
-    {
-      name: "Goa",
-      href: "/destinations?location=goa",
-      description: "Beach Paradise",
-    },
-    {
-      name: "Kashmir",
-      href: "/destinations?location=kashmir",
-      description: "Paradise on Earth",
-    },
-  ];
-
-  const packages = [
-    {
-      name: "Adventure Packages",
-      href: "/destinations?location=kerala",
-      description: "Thrilling Experiences",
-    },
-    {
-      name: "Honeymoon Packages",
-      href: "/destinations?location=kerala",
-      description: "Romantic Getaways",
-    },
-    {
-      name: "Leisure Packages",
-      href: "/destinations?location=himachal",
-      description: "Relaxing Retreats",
-    },
-    {
-      name: "Temple Packages",
-      href: "/destinations?location=himachal",
-      description: "Spiritual Journeys",
-    },
   ];
 
   return (
