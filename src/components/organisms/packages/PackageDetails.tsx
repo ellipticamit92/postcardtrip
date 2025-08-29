@@ -506,7 +506,7 @@ const PackageDetails = () => {
               <CardHeader>
                 <CardTitle className="text-primary flex items-center gap-2">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  What's Included
+                  What&pos;s Included
                 </CardTitle>
               </CardHeader>
               <CardContent>

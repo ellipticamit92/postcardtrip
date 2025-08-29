@@ -5,3 +5,9 @@ export function toIndianCurrency(amount: number): string {
     minimumFractionDigits: 0,
   });
 }
+
+export const slugifyPackageName = (name: string): string =>
+  name.trim().toLowerCase().replace(/\s+/g, "-");
+
+export const unslugifyPackageName = (id: string): string =>
+  id.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());

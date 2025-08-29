@@ -8,18 +8,7 @@ import { getPopularPackages } from "@/lib/services/packages.service";
 import { toIndianCurrency } from "@/lib/helper";
 import RichText from "../atoms/RichText";
 import Image from "next/image";
-
-type Package = {
-  pid: number;
-  name: string;
-  basePrice: number;
-  imageUrl: string;
-  day: number;
-  night: number;
-  popular: boolean;
-  tourType: string;
-  description: string;
-};
+import { Package } from "@/lib/types";
 
 const PopularPackages = async () => {
   const popularPackageData = await getPopularPackages();
@@ -69,7 +58,7 @@ const PopularPackages = async () => {
                 </div>
                 <div className="flex items-center gap-1">
                   <Star className="w-4 h-4 fill-adventure text-adventure" />
-                  <span className="text-sm font-medium">asdf</span>
+                  <span className="text-sm font-medium">{pkg.rating}</span>
                 </div>
               </div>
 
@@ -84,7 +73,7 @@ const PopularPackages = async () => {
                     </span>
                   </div>
                   <span className="text-xs text-muted-foreground">
-                    per person
+                    package starting price
                   </span>
                 </div>
                 <Link href={`/packages/${pkg.pid}`}>

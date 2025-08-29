@@ -1,57 +1,100 @@
-"use client";
-
-import HotelOption from "../atoms/HotelOption";
-import PackageRating from "../molecules/PackageRating";
+import { FC } from "react";
+import { Card, CardContent } from "../ui/card";
+import { Package } from "@/lib/types";
+import { Badge } from "../ui/badge";
+import Image from "next/image";
+import Link from "next/link";
 import { Button } from "../ui/button";
-import PackagePrice from "../molecules/PackagePrice";
-import PackageCardHeader from "./PackageCardHeader";
+import { ArrowRight, MapPin, Star } from "lucide-react";
+import { slugifyPackageName, toIndianCurrency } from "@/lib/helper";
 
-export default function PackageCard() {
+interface PacakgeCardProps {
+  packageData: Package;
+}
+
+const PackageCard: FC<PacakgeCardProps> = ({ packageData }) => {
   return (
-    <div className="drop-shadow-md bg-white border border-white hover:border-zinc-200 hover:drop-shadow-none">
-      <PackageCardHeader
-        imageSrc="/package/card/full-kerala-packages-card-img.jpg"
-        imageAlt="A Romantic Week In Kerala"
-        day={7}
-        night={8}
-        label="Customizable"
-      />
-      <div className="px-4 pt-3 pb-3 flex flex-col space-y-1 font-semibold md:px-2 lg:px-4">
-        <h1 className="text-primary-900 text-left leading-4 text-lg md:text-base lg:text-xl">
-          A Romantic Week In Kerala
-        </h1>
-        <PackageRating location="Kerala, India" rating={4.9} count={165} />
-        <div className="flex items-end justify-between">
-          <div className="flex flex-col text-sm lg:text-base">
-            <div>Hotel options</div>
-            <div className="flex items-center justify-between">
-              <div className="flex flex-wrap items-center space-x-2 text-xs md:space-x-1 lg:space-x-2">
-                <HotelOption selected>3</HotelOption>
-                <HotelOption>4</HotelOption>
-              </div>
-            </div>
-          </div>
-          <PackagePrice amount="26,599" />
+    <Card className="overflow-hidden shadow-soft hover:shadow-medium transition-all duration-300 group py-0">
+      <div className="relative overflow-hidden">
+        <div className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+          <Image
+            src={packageData.imageUrl}
+            alt={packageData.name}
+            fill={true}
+          />
         </div>
-        <div className="flex items-center justify-between mt-4 gap-4 md:gap-6 xl:gap-7">
-          <Button
-            size="full"
-            variant="primaryOutline"
-            className="text-lg"
-            animation="primaryOutline"
-          >
-            Explore Now
-          </Button>
-          <Button
-            size="full"
-            variant="secondary"
-            className="text-lg"
-            animation="secondarySolid"
-          >
-            Get Quote
-          </Button>
+
+        <div className="absolute top-4 right-4">
+          <Badge className="bg-adventure text-white">20% OFF</Badge>
+        </div>
+        <div className="absolute top-4 left-4">
+          <Badge className="bg-nature text-white">
+            {packageData.day} Days / {packageData.night} Nights
+          </Badge>
         </div>
       </div>
-    </div>
+      <CardContent className="p-6 py-0 pb-4">
+        <h3 className="font-bold text-xl mb-3 text-foreground">
+          {packageData.name}
+        </h3>
+        <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+          {packageData.description}
+        </p>
+
+        <div className="space-y-2 mb-4">
+          <div className="flex items-center gap-2">
+            <Star className="w-4 h-4 fill-adventure text-adventure" />
+            <span className="text-sm text-muted-foreground">
+              {packageData.rating}/5 • Excellent
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-muted-foreground" />
+            <span className="text-sm text-muted-foreground">
+              {/* {packageData.destinations.join(" • ")} */}
+            </span>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-1 mb-4">
+          {[
+            "Beach Snorkeling",
+            "Volcano Hiking",
+            "Cultural Tours",
+            "Luxury Resorts",
+          ]
+            .slice(0, 3)
+            .map((highlight, index) => (
+              <Badge key={index} variant="secondary" className="text-xs">
+                {highlight}
+              </Badge>
+            ))}
+        </div>
+
+        <div className="flex items-center justify-between pt-4 border-t">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl font-bold text-ocean">
+                {toIndianCurrency(packageData.basePrice)}
+              </span>
+              <span className="text-sm text-muted-foreground line-through">
+                {toIndianCurrency(packageData.originalPrice)}
+              </span>
+            </div>
+            <span className="text-xs text-muted-foreground">
+              package starts from
+            </span>
+          </div>
+          <Link href={`/packages/${slugifyPackageName(packageData.name)}`}>
+            <Button variant="ocean" size="sm" className="group">
+              View Details
+              <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
+        </div>
+      </CardContent>
+    </Card>
   );
-}
+};
+
+export default PackageCard;

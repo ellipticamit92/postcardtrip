@@ -45,3 +45,17 @@ export const getAll = async () => {
 
   return res.json();
 };
+
+export const getPackagesByDestination = async (params: { name: string }) => {
+  const { name } = params;
+  const res = await fetch(`${CMS_BASE_URL}/destinations/packages?name=${encodeURIComponent(name)}`, {
+    headers: {
+      "x-api-key": API_KEY,
+    },
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    throw new Error(`CMS fetch failed: ${res.status}`);
+  }
+  return res.json();
+};

@@ -1,39 +1,21 @@
 "use client";
 
-import { ArrowRight, Calendar, MapPin, Plane, Star, Users } from "lucide-react";
+import { Plane } from "lucide-react";
 import { useMemo, useState } from "react";
-
-import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import DestinationFilters from "@/components/molecules/DestinationFilters";
-import Image from "next/image";
-import { toIndianCurrency } from "@/lib/helper";
+import { Package } from "@/lib/types";
+import PackageCard from "../PackageCard";
 
-type Package = {
-  id: string;
-  price: number;
-  originalPrice: number;
-  durationDays: number;
-  duration: string;
-  rating: number;
-  categories: string[];
-  featured?: boolean;
-  image: string;
-  title: string;
-  description: string;
-  discount: string;
-  destinations: string[];
-  highlights: string[];
-  country?: string;
-  packagesCount?: number;
-  traveller?: number;
-};
-
-const DestinationPackages = ({ name }: { name: string }) => {
+const DestinationPackages = ({
+  name,
+  destPackages,
+}: {
+  name: string;
+  destPackages: Package[];
+}) => {
   const [filters, setFilters] = useState({
-    priceRange: [500, 5000] as [number, number],
+    priceRange: [10000, 150000] as [number, number],
     duration: [] as string[],
     rating: 0,
     categories: [] as string[],
@@ -42,144 +24,13 @@ const DestinationPackages = ({ name }: { name: string }) => {
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  // Enhanced package data with categories and duration numbers for filtering
-  const enhancedPackages = [
-    {
-      id: "tropical-paradise",
-      title: "Tropical Paradise Adventure",
-      description:
-        "Experience the ultimate blend of relaxation and adventure in this stunning 5-day journey through pristine beaches, volcanic landscapes, and rich cultural heritage.",
-      duration: "5 Days / 4 Nights",
-      durationDays: 5,
-      price: 1899,
-      originalPrice: 2399,
-      discount: "20%",
-      rating: 4.9,
-      image: "/hero.jpg",
-      destinations: ["Tropical Islands", "Paradise Bay"],
-      highlights: [
-        "Beach Snorkeling",
-        "Volcano Hiking",
-        "Cultural Tours",
-        "Luxury Resorts",
-      ],
-      categories: ["beach", "adventure", "luxury"],
-      featured: true,
-    },
-    {
-      id: "mountain-explorer",
-      title: "Mountain Explorer Expedition",
-      description:
-        "Discover breathtaking mountain landscapes, ancient trails, and authentic local cultures in this thrilling adventure package.",
-      duration: "7 Days / 6 Nights",
-      durationDays: 7,
-      price: 2299,
-      originalPrice: 2899,
-      discount: "18%",
-      rating: 4.8,
-      image: "/hero.jpg",
-      destinations: ["Mountain Ranges", "Alpine Villages"],
-      highlights: [
-        "Summit Hiking",
-        "Cable Car Rides",
-        "Local Cuisine",
-        "Mountain Lodges",
-      ],
-      categories: ["mountain", "adventure"],
-    },
-    {
-      id: "cultural-heritage",
-      title: "Cultural Heritage Discovery",
-      description:
-        "Immerse yourself in ancient traditions, historic temples, and vibrant local markets in this enriching cultural journey.",
-      duration: "6 Days / 5 Nights",
-      durationDays: 6,
-      price: 1699,
-      originalPrice: 2199,
-      discount: "22%",
-      rating: 4.7,
-      image: "/hero.jpg",
-      destinations: ["Historic Cities", "Temple Complexes"],
-      highlights: [
-        "Ancient Temples",
-        "Craft Workshops",
-        "Traditional Shows",
-        "Heritage Hotels",
-      ],
-      categories: ["cultural", "budget"],
-    },
-    {
-      id: "beach-paradise",
-      title: "Ultimate Beach Paradise",
-      description:
-        "Relax and unwind in pristine beaches with crystal-clear waters, luxury resorts, and unforgettable water activities.",
-      duration: "4 Days / 3 Nights",
-      durationDays: 4,
-      price: 1399,
-      originalPrice: 1799,
-      discount: "22%",
-      rating: 4.6,
-      image: "/hero.jpg",
-      destinations: ["Private Islands", "Coral Reefs"],
-      highlights: [
-        "Snorkeling",
-        "Sunset Cruises",
-        "Spa Treatments",
-        "Beachfront Dining",
-      ],
-      categories: ["beach", "luxury"],
-    },
-    {
-      id: "adventure-seeker",
-      title: "Adventure Seeker Special",
-      description:
-        "For thrill-seekers who crave excitement, featuring extreme sports, challenging hikes, and adrenaline-pumping activities.",
-      duration: "8 Days / 7 Nights",
-      durationDays: 8,
-      price: 2899,
-      originalPrice: 3499,
-      discount: "17%",
-      rating: 4.9,
-      image: "/hero.jpg",
-      destinations: ["Adventure Parks", "National Reserves"],
-      highlights: [
-        "Rock Climbing",
-        "White Water Rafting",
-        "Jungle Trekking",
-        "Adventure Camps",
-      ],
-      categories: ["adventure", "mountain"],
-    },
-    {
-      id: "local-immersion",
-      title: "Local Culture Immersion",
-      description:
-        "Live like a local and experience authentic traditions, home-stays, and genuine cultural exchanges.",
-      duration: "9 Days / 8 Nights",
-      durationDays: 9,
-      price: 2199,
-      originalPrice: 2799,
-      discount: "21%",
-      rating: 4.8,
-      image: "/hero.jpg",
-      destinations: ["Rural Villages", "Traditional Towns"],
-      highlights: [
-        "Home Stays",
-        "Cooking Classes",
-        "Local Markets",
-        "Artisan Workshops",
-      ],
-      categories: ["cultural", "budget"],
-    },
-  ];
-
   // Filter and sort packages
   const filteredPackages = useMemo(() => {
-    const filtered = enhancedPackages.filter((pkg) => {
+    const filtered = destPackages.filter((pkg) => {
       // Price filter
       if (
-        pkg.price < filters.priceRange[0] ||
-        pkg.price > filters.priceRange[1]
+        pkg.basePrice < filters.priceRange[0] ||
+        pkg.basePrice > filters.priceRange[1]
       ) {
         return false;
       }
@@ -189,13 +40,13 @@ const DestinationPackages = ({ name }: { name: string }) => {
         const matchesDuration = filters.duration.some((range) => {
           switch (range) {
             case "1-3":
-              return pkg.durationDays >= 1 && pkg.durationDays <= 3;
+              return pkg.day >= 1 && pkg.day <= 3;
             case "4-6":
-              return pkg.durationDays >= 4 && pkg.durationDays <= 6;
+              return pkg.day >= 4 && pkg.day <= 6;
             case "7-9":
-              return pkg.durationDays >= 7 && pkg.durationDays <= 9;
+              return pkg.day >= 7 && pkg.day <= 9;
             case "10+":
-              return pkg.durationDays >= 10;
+              return pkg.day >= 10;
             default:
               return false;
           }
@@ -204,17 +55,17 @@ const DestinationPackages = ({ name }: { name: string }) => {
       }
 
       // Rating filter
-      if (filters.rating > 0 && pkg.rating < filters.rating) {
+      if (filters.rating > 0 && Number(pkg.rating) < filters.rating) {
         return false;
       }
 
       // Category filter
-      if (filters.categories.length > 0) {
-        const hasMatchingCategory = filters.categories.some((category) =>
-          pkg.categories.includes(category)
-        );
-        if (!hasMatchingCategory) return false;
-      }
+      // if (filters.categories.length > 0) {
+      //   const hasMatchingCategory = filters.categories.some((category) =>
+      //     pkg.categories.includes(category)
+      //   );
+      //   if (!hasMatchingCategory) return false;
+      // }
 
       return true;
     });
@@ -222,16 +73,16 @@ const DestinationPackages = ({ name }: { name: string }) => {
     // Sort packages
     switch (filters.sortBy) {
       case "price-low":
-        filtered.sort((a, b) => a.price - b.price);
+        filtered.sort((a, b) => a.basePrice - b.basePrice);
         break;
       case "price-high":
-        filtered.sort((a, b) => b.price - a.price);
+        filtered.sort((a, b) => b.basePrice - a.basePrice);
         break;
       case "rating":
-        filtered.sort((a, b) => b.rating - a.rating);
+        filtered.sort((a, b) => Number(b.rating) - Number(a.rating));
         break;
       case "duration":
-        filtered.sort((a, b) => a.durationDays - b.durationDays);
+        filtered.sort((a, b) => a.day - b.day);
         break;
       case "popular":
       default:
@@ -242,7 +93,6 @@ const DestinationPackages = ({ name }: { name: string }) => {
     return filtered;
   }, [filters]);
 
-  const featuredPackage = enhancedPackages.find((pkg) => pkg.featured);
   const otherPackages = filteredPackages.filter((pkg) => !pkg.featured);
 
   const handleFiltersChange = (newFilters: typeof filters) => {
@@ -251,7 +101,7 @@ const DestinationPackages = ({ name }: { name: string }) => {
 
   const handleClearFilters = () => {
     setFilters({
-      priceRange: [500, 5000],
+      priceRange: [10000, 150000],
       duration: [],
       rating: 0,
       categories: [],
@@ -260,93 +110,7 @@ const DestinationPackages = ({ name }: { name: string }) => {
   };
 
   return (
-    <div className="container mx-auto px-6 py-16">
-      {/* Featured Package Highlight */}
-      {featuredPackage && (
-        <section className="mb-16">
-          <h2 className="text-4xl font-bold mb-8 text-foreground text-center">
-            Featured Package
-          </h2>
-          <Card className="overflow-hidden shadow-strong hover:shadow-xl transition-all duration-500 group py-0">
-            <div className="grid lg:grid-cols-2 gap-0">
-              <div className="relative overflow-hidden">
-                <img
-                  src={featuredPackage.image}
-                  alt={featuredPackage.title}
-                  className="w-full h-80 lg:h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-6 left-6">
-                  <Badge className="bg-adventure text-white text-sm px-3 py-1">
-                    {featuredPackage.discount} OFF
-                  </Badge>
-                </div>
-              </div>
-              <div className="p-8 flex flex-col justify-center">
-                <h3 className="text-3xl font-bold mb-4 text-foreground">
-                  {featuredPackage.title}
-                </h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  {featuredPackage.description}
-                </p>
-
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-5 h-5 text-ocean" />
-                    <span className="text-sm">{featuredPackage.duration}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Star className="w-5 h-5 fill-adventure text-adventure" />
-                    <span className="text-sm">
-                      {featuredPackage.rating}/5 Rating
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-5 h-5 text-nature" />
-                    <span className="text-sm">
-                      {featuredPackage.destinations.join(" • ")}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Users className="w-5 h-5 text-adventure" />
-                    <span className="text-sm">Small Groups</span>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {featuredPackage.highlights.map((highlight, index) => (
-                    <Badge key={index} variant="secondary" className="text-xs">
-                      {highlight}
-                    </Badge>
-                  ))}
-                </div>
-
-                <div className="flex items-end justify-between">
-                  <div>
-                    <span className="text-sm text-muted-foreground">
-                      package starting from
-                    </span>
-                    <div className="flex items-center gap-3">
-                      <span className="text-3xl font-bold text-ocean">
-                        {toIndianCurrency(featuredPackage.price)}
-                      </span>
-                      <span className="text-lg text-muted-foreground line-through">
-                        {toIndianCurrency(featuredPackage.originalPrice)}
-                      </span>
-                    </div>
-                  </div>
-                  <Link href={`/packages/${featuredPackage.id}`}>
-                    <Button variant="pricing" size="lg" className="group">
-                      View Details
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </Card>
-        </section>
-      )}
-
+    <>
       {/* Filters and All Packages Section */}
       <section>
         <div className="flex items-center justify-between mb-8">
@@ -370,8 +134,7 @@ const DestinationPackages = ({ name }: { name: string }) => {
           />
         </div>
 
-        {/* Results Grid */}
-        {otherPackages.length === 0 ? (
+        {otherPackages?.length === 0 ? (
           <div className="text-center py-16">
             <div className="max-w-md mx-auto">
               <div className="w-24 h-24 mx-auto mb-6 bg-muted rounded-full flex items-center justify-center">
@@ -391,85 +154,8 @@ const DestinationPackages = ({ name }: { name: string }) => {
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {otherPackages.map((pkg) => (
-              <Card
-                key={pkg.id}
-                className="overflow-hidden shadow-soft hover:shadow-medium transition-all duration-300 group py-0"
-              >
-                <div className="relative overflow-hidden">
-                  <div className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
-                    <Image src={pkg.image} alt={pkg.title} fill={true} />
-                  </div>
-
-                  <div className="absolute top-4 right-4">
-                    <Badge className="bg-adventure text-white">
-                      {pkg.discount} OFF
-                    </Badge>
-                  </div>
-                  <div className="absolute top-4 left-4">
-                    <Badge className="bg-nature text-white">
-                      {pkg.duration}
-                    </Badge>
-                  </div>
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="font-bold text-xl mb-3 text-foreground">
-                    {pkg.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
-                    {pkg.description}
-                  </p>
-
-                  <div className="space-y-2 mb-4">
-                    <div className="flex items-center gap-2">
-                      <Star className="w-4 h-4 fill-adventure text-adventure" />
-                      <span className="text-sm text-muted-foreground">
-                        {pkg.rating}/5 • Excellent
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-muted-foreground" />
-                      <span className="text-sm text-muted-foreground">
-                        {pkg.destinations.join(" • ")}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {pkg.highlights.slice(0, 3).map((highlight, index) => (
-                      <Badge
-                        key={index}
-                        variant="secondary"
-                        className="text-xs"
-                      >
-                        {highlight}
-                      </Badge>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center justify-between pt-4 border-t">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-2xl font-bold text-ocean">
-                          ${pkg.price.toLocaleString()}
-                        </span>
-                        <span className="text-sm text-muted-foreground line-through">
-                          ${pkg.originalPrice.toLocaleString()}
-                        </span>
-                      </div>
-                      <span className="text-xs text-muted-foreground">
-                        per person
-                      </span>
-                    </div>
-                    <Link href={`/packages/${pkg.id}`}>
-                      <Button variant="ocean" size="sm" className="group">
-                        View Details
-                        <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
-                      </Button>
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
+            {otherPackages?.map((pkg: Package) => (
+              <PackageCard key={pkg.pid} packageData={pkg} />
             ))}
           </div>
         )}
@@ -478,7 +164,7 @@ const DestinationPackages = ({ name }: { name: string }) => {
       {/* Call to Action */}
       <section className="mt-20 text-center bg-gradient-card rounded-2xl p-12 shadow-soft">
         <h2 className="text-3xl font-bold mb-4 text-foreground">
-          Can't Find Your Perfect Trip?
+          Can&pos;t Find Your Perfect Trip?
         </h2>
         <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
           Our travel experts can create a custom itinerary tailored specifically
@@ -493,7 +179,7 @@ const DestinationPackages = ({ name }: { name: string }) => {
           </Button>
         </div>
       </section>
-    </div>
+    </>
   );
 };
 

@@ -1,12 +1,19 @@
 import { Calendar, MapPin, Star, Users } from "lucide-react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
+import { FC } from "react";
+import { Package } from "@/lib/types";
 
-const PackagesHero = () => {
+interface PackagesHeroProps {
+  packageDetails: Package;
+}
+
+const PackagesHero: FC<PackagesHeroProps> = ({ packageDetails }) => {
+  const imageSrc = packageDetails?.imageUrl ?? "/hero.jpeg";
   return (
     <section className="relative h-[70vh] overflow-hidden">
       <div className="w-full h-full object-cover">
-        <Image src={"/hero.jpeg"} alt="Tropical Paradise Package" fill={true} />
+        <Image src={imageSrc} alt="Tropical Paradise Package" fill={true} />
       </div>
 
       <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
@@ -14,20 +21,18 @@ const PackagesHero = () => {
         <div className="container mx-auto px-6 pb-12">
           <div className="max-w-2xl text-white">
             <Badge className="mb-4 bg-adventure text-white">
-              Featured Package
+              {packageDetails?.featured ? "Featured" : "Popular"} Package
             </Badge>
-            <h1 className="text-5xl font-bold mb-4">
-              Tropical Paradise Adventure
-            </h1>
+            <h1 className="text-5xl font-bold mb-4">{packageDetails?.name}</h1>
             <p className="text-xl mb-6 text-white/90">
-              Experience the ultimate blend of relaxation and adventure in this
-              stunning 5-day journey through pristine beaches, volcanic
-              landscapes, and rich cultural heritage.
+              {packageDetails?.description}
             </p>
             <div className="flex flex-wrap gap-4 text-sm">
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
-                <span>5 Days / 4 Nights</span>
+                <span>
+                  {packageDetails.day} Days / {packageDetails.night} Nights
+                </span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
@@ -39,7 +44,7 @@ const PackagesHero = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Star className="w-4 h-4 fill-current" />
-                <span>4.9/5 Rating</span>
+                <span>{packageDetails.rating}/5 Rating</span>
               </div>
             </div>
           </div>

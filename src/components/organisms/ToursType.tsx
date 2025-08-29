@@ -9,55 +9,48 @@ import { Card, CardContent } from "../ui/card";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import HomeSections from "./HomeSections";
+import { getHomeTours } from "@/lib/services/tours.service";
+import { toIndianCurrency } from "@/lib/helper";
+
+type Tour = {
+  tid: number;
+  text: string;
+  description: string;
+  icon: string;
+  basePrice: string;
+  packagesCount: number;
+};
 
 const tourTypes = [
   {
-    id: 1,
-    title: "Romantic Getaways",
-    description:
-      "Perfect escapes for couples seeking intimate moments and romantic experiences",
     icon: HeartHandshake,
     color: "from-pink-500 to-rose-600",
     bgColor: "bg-pink-50",
-    packages: 25,
-    startingPrice: 1299,
   },
   {
-    id: 2,
-    title: "Adventure Tours",
-    description:
-      "Thrilling expeditions for adrenaline seekers and outdoor enthusiasts",
     icon: Mountain,
     color: "from-orange-500 to-red-600",
     bgColor: "bg-orange-50",
-    packages: 35,
-    startingPrice: 899,
   },
   {
-    id: 3,
-    title: "Leisure & Relaxation",
-    description:
-      "Peaceful retreats for those seeking tranquility and rejuvenation",
     icon: Coffee,
     color: "from-green-500 to-emerald-600",
     bgColor: "bg-green-50",
-    packages: 28,
-    startingPrice: 999,
   },
   {
-    id: 4,
-    title: "Honeymoon Specials",
-    description:
-      "Unforgettable destinations perfect for celebrating new beginnings",
     icon: Heart,
     color: "from-purple-500 to-pink-600",
     bgColor: "bg-purple-50",
-    packages: 18,
-    startingPrice: 1599,
   },
 ];
 
-const ToursType = () => {
+const ToursType = async () => {
+  const toursData = await getHomeTours();
+
+  if (toursData?.success === false) {
+    return <div>No Data Found</div>;
+  }
+
   return (
     <HomeSections
       icon={<Heart className="w-4 h-4 mr-2" />}
@@ -67,38 +60,39 @@ const ToursType = () => {
       variant="bg-adventure"
     >
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {tourTypes.map((tourType) => {
-          const IconComponent = tourType.icon;
+        {toursData?.data?.map((tour: Tour, index: number) => {
+          const IconComponent = tourTypes[index].icon;
           return (
             <Card
-              key={tourType.id}
+              key={tour.tid}
               className="overflow-hidden group hover:shadow-strong transition-all duration-500 cursor-pointer hover:-translate-y-2 py-0 pb-0"
             >
               <div
-                className={`${tourType.bgColor} p-8 text-center relative overflow-hidden`}
+                className={`${tourTypes[index].bgColor} p-8 text-center relative overflow-hidden`}
               >
                 <div
-                  className={`absolute inset-0 bg-linear-to-br ${tourType.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+                  className={`absolute inset-0 bg-linear-to-br ${tourTypes[index].color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
                 />
                 <div
-                  className={`w-16 h-16 mx-auto mb-4 bg-linear-to-br ${tourType.color} rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
+                  className={`w-16 h-16 mx-auto mb-4 bg-linear-to-br ${tourTypes[index].color} rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
                 >
                   <IconComponent className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="font-bold text-xl mb-3 text-foreground group-hover:text-primary transition-colors">
-                  {tourType.title}
+                  {tour.text}
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  {tourType.description}
+                  {tour.description}
                 </p>
               </div>
               <CardContent className="px-6 py-2 bg-card">
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-sm text-muted-foreground">
-                    {tourType.packages} packages available
+                    {tour.packagesCount} packages available
                   </span>
                   <span className="font-bold text-ocean">
-                    From ${tourType.startingPrice.toLocaleString()}
+                    From &nbsp;
+                    {toIndianCurrency(Number(tour?.basePrice))}
                   </span>
                 </div>
                 <Link href="/destinations">

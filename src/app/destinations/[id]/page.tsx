@@ -1,43 +1,9 @@
-import { notFound } from "next/navigation";
 import PagesHero from "@/components/molecules/PagesHero";
 import DestinationPackages from "@/components/organisms/destinations/DestinationPackages";
 import { getDestinationByName } from "@/lib/services/destination.service";
 import NotFound from "@/app/not-found";
-
-const destinations = [
-  {
-    id: "kerala",
-    title: "Kerala",
-    packages: 5,
-    imageUrl: "/destination/card/kerala-destination-card-img.png",
-    description:
-      "Kerala, known as God's Own Country, is famous for its backwaters, beaches, and lush greenery.",
-  },
-  {
-    id: "dubai",
-    title: "Dubai",
-    packages: 4,
-    imageUrl: "/destination/card/dubai-destination-card-img.png",
-    description:
-      "Rajasthan is renowned for its royal palaces, desert landscapes, and vibrant culture.",
-  },
-  {
-    id: "himachal",
-    title: "Himachal",
-    packages: 4,
-    imageUrl: "/destination/card/rajasthan-destination-card-img.png",
-    description:
-      "Rajasthan is renowned for its royal palaces, desert landscapes, and vibrant culture.",
-  },
-  {
-    id: "rajasthan",
-    title: "Rajasthan",
-    packages: 4,
-    imageUrl: "/destination/card/rajasthan-destination-card-img.png",
-    description:
-      "Rajasthan is renowned for its royal palaces, desert landscapes, and vibrant culture.",
-  },
-];
+import FeaturedPackageCard from "@/components/organisms/FeaturedPackageCard";
+import { Package } from "@/lib/types";
 
 interface DestinationDetailPageProps {
   params: Promise<{ id: string }>;
@@ -54,7 +20,18 @@ export default async function DestinationDetailPage({
   }
 
   const data = destData?.data;
-  const { name, heroTitle, description, imageUrl } = data;
+  const {
+    name,
+    heroTitle,
+    description,
+    imageUrl,
+    country,
+    packages = [],
+  } = data;
+
+  // Filter featured and other packages
+  const featuredPackage = packages.find((pkg: Package) => pkg.featured);
+  const otherPackages = packages.filter((pkg: Package) => !pkg.featured);
 
   const destinationName = id.charAt(0).toUpperCase() + id.slice(1);
   const badgeText = destinationName + " Packages";
@@ -67,7 +44,22 @@ export default async function DestinationDetailPage({
         description={description}
         src={imageUrl}
       />
-      <DestinationPackages name={name} />
+      <div className="container mx-auto px-6 py-16">
+        {featuredPackage && (
+          <section className="mb-16">
+            <h2 className="text-4xl font-bold mb-8 text-foreground text-center">
+              Featured Package
+            </h2>
+            <FeaturedPackageCard
+              featuredPackage={featuredPackage}
+              country={country}
+              name={name}
+            />
+          </section>
+        )}
+
+        <DestinationPackages name={name} destPackages={otherPackages} />
+      </div>
     </>
   );
 }
