@@ -28,12 +28,12 @@ const tourTypes = [
     bgColor: "bg-pink-50",
   },
   {
-    icon: Mountain,
+    icon: Coffee,
     color: "from-orange-500 to-red-600",
     bgColor: "bg-orange-50",
   },
   {
-    icon: Coffee,
+    icon: Mountain,
     color: "from-green-500 to-emerald-600",
     bgColor: "bg-green-50",
   },

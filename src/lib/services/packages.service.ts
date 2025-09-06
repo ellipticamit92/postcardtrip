@@ -25,3 +25,7 @@ export async function getPopularPackages() {
 export async function getPackageDetails(name: string) {
   return fetchFromCMS(`/packages/${encodeURIComponent(name)}`);
 }
+
+export async function getAllPackages(page: number, limit: number) {
+  return fetchFromCMS(`/packages?page=${page}&limit=${limit}`);
+}

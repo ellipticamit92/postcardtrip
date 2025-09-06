@@ -1,8 +1,11 @@
 import AllPackages from "@/components/organisms/packages/AllPackages";
 import { Badge } from "@/components/ui/badge";
+import { getAllPackages } from "@/lib/services/packages.service";
 import { Plane } from "lucide-react";
 
 export default async function PackagesPage() {
+  const pacakgesData = await getAllPackages(1, 10);
+  const count = pacakgesData?.data?.count;
   return (
     <>
       <section className="relative bg-gradient-hero py-20 overflow-hidden">
@@ -24,7 +27,7 @@ export default async function PackagesPage() {
             <div className="flex flex-wrap justify-center gap-6 text-sm">
               <div className="flex items-center gap-2">
                 <Badge variant="secondary" className="bg-white/20 text-white">
-                  24+ Packages
+                  {count}+ Packages
                 </Badge>
               </div>
               <div className="flex items-center gap-2">

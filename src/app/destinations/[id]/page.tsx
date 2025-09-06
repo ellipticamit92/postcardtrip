@@ -36,6 +36,8 @@ export default async function DestinationDetailPage({
   const destinationName = id.charAt(0).toUpperCase() + id.slice(1);
   const badgeText = destinationName + " Packages";
 
+  console.log("DEBUG destination data  = ", destData?.data);
+
   return (
     <>
       <PagesHero

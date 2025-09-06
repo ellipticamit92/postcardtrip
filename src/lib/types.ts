@@ -11,6 +11,14 @@ export type MenuLinksProps = {
   child?: MenuLinksProps[];
 };
 
+export type City = {
+  name: string;
+};
+
+export type Highlights = {
+  text: string;
+};
+
 export type Package = {
   pid: number;
   name: string;
@@ -26,4 +34,6 @@ export type Package = {
   heroTitle: string;
   country: string;
   featured: boolean;
+  cities: City[];
+  highlights: Highlights[];
 };

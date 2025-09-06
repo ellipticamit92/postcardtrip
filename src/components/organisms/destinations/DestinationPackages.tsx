@@ -154,8 +154,8 @@ const DestinationPackages = ({
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {otherPackages?.map((pkg: Package) => (
-              <PackageCard key={pkg.pid} packageData={pkg} />
+            {otherPackages?.map((pkg: Package, index: number) => (
+              <PackageCard key={`${pkg.pid}-${index}`} packageData={pkg} />
             ))}
           </div>
         )}

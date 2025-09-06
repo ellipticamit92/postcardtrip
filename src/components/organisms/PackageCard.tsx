@@ -14,7 +14,7 @@ interface PacakgeCardProps {
 
 const PackageCard: FC<PacakgeCardProps> = ({ packageData }) => {
   return (
-    <Card className="overflow-hidden shadow-soft hover:shadow-medium transition-all duration-300 group py-0">
+    <Card className="overflow-hidden shadow-soft hover:shadow-medium transition-all duration-300 group py-0 gap-3">
       <div className="relative overflow-hidden">
         <div className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
           <Image
@@ -43,32 +43,29 @@ const PackageCard: FC<PacakgeCardProps> = ({ packageData }) => {
 
         <div className="space-y-2 mb-4">
           <div className="flex items-center gap-2">
-            <Star className="w-4 h-4 fill-adventure text-adventure" />
+            {packageData.rating && (
+              <Star className="w-4 h-4 fill-adventure text-adventure" />
+            )}
             <span className="text-sm text-muted-foreground">
               {packageData.rating}/5 • Excellent
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-muted-foreground" />
+            {packageData?.cities?.length > 0 && (
+              <MapPin className="w-4 h-4 text-muted-foreground" />
+            )}
             <span className="text-sm text-muted-foreground">
-              {/* {packageData.destinations.join(" • ")} */}
+              {packageData?.cities.map((city) => city.name).join(" • ")}
             </span>
           </div>
         </div>
 
         <div className="flex flex-wrap gap-1 mb-4">
-          {[
-            "Beach Snorkeling",
-            "Volcano Hiking",
-            "Cultural Tours",
-            "Luxury Resorts",
-          ]
-            .slice(0, 3)
-            .map((highlight, index) => (
-              <Badge key={index} variant="secondary" className="text-xs">
-                {highlight}
-              </Badge>
-            ))}
+          {packageData?.highlights?.map((highlight, index) => (
+            <Badge key={index} variant="secondary" className="text-xs">
+              {highlight.text}
+            </Badge>
+          ))}
         </div>
 
         <div className="flex items-center justify-between pt-4 border-t">

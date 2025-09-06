@@ -2,7 +2,14 @@ import { FC } from "react";
 import { Card } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { slugifyPackageName, toIndianCurrency } from "@/lib/helper";
-import { ArrowRight, Calendar, MapPin, Star, Users } from "lucide-react";
+import {
+  ArrowRight,
+  Calendar,
+  MapPin,
+  MapPinned,
+  Star,
+  Users,
+} from "lucide-react";
 import { Button } from "../ui/button";
 import { Package } from "@/lib/types";
 import Link from "next/link";
@@ -43,37 +50,39 @@ const FeaturedPackageCard: FC<FeaturedPackageCardProps> = ({
 
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div className="flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-ocean" />
+              {featuredPackage.day && (
+                <Calendar className="w-5 h-5 text-ocean" />
+              )}
               <span className="text-sm">
                 {featuredPackage.day} Days / {featuredPackage.night} Nights
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <Star className="w-5 h-5 fill-adventure text-adventure" />
+              {featuredPackage.rating && (
+                <Star className="w-5 h-5 fill-adventure text-adventure" />
+              )}
               <span className="text-sm">{featuredPackage.rating}/5 Rating</span>
             </div>
             <div className="flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-nature" />
+              {featuredPackage?.cities?.length > 0 && (
+                <MapPin className="w-5 h-5 text-nature" />
+              )}
               <span className="text-sm">
-                {name}, {country}
-                {/* {featuredPackage.destinations.join(" • ")} */}
+                {featuredPackage?.cities?.map((city) => city.name).join(" • ")}
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <Users className="w-5 h-5 text-adventure" />
-              <span className="text-sm">Small Groups</span>
+              {country && <MapPinned className="w-5 h-5 text-adventure" />}
+              <span className="text-sm">
+                {name}, {country}
+              </span>
             </div>
           </div>
 
           <div className="flex flex-wrap gap-2 mb-6">
-            {[
-              "Beach Snorkeling",
-              "Volcano Hiking",
-              "Cultural Tours",
-              "Luxury Resorts",
-            ].map((highlight, index) => (
+            {featuredPackage?.highlights?.map((highlight, index) => (
               <Badge key={index} variant="secondary" className="text-xs">
-                {highlight}
+                {highlight.text}
               </Badge>
             ))}
           </div>

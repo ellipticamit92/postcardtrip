@@ -34,10 +34,10 @@ const Footer = () => {
   ];
 
   const legalLinks = [
-    { name: "Terms & Conditions", href: "#terms" },
-    { name: "Privacy Policy", href: "#privacy" },
+    { name: "Terms & Conditions", href: "/termsconditions" },
+    { name: "Privacy Policy", href: "/privacy" },
     { name: "Cookie Policy", href: "#cookies" },
-    { name: "Cancellation Policy", href: "#cancellation" },
+    { name: "Cancellation Policy", href: "/cancellation" },
   ];
 
   const socialLinks = [
@@ -192,7 +192,7 @@ const Footer = () => {
         <div className="container mx-auto px-6 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-sm text-muted-foreground">
-              © 2024 TravelAdventure. All rights reserved.
+              © 2025 Postcardtrip. All rights reserved.
             </div>
 
             <div className="flex items-center gap-6">
