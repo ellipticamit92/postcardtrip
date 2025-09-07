@@ -21,7 +21,7 @@ import Logo from "../atoms/Logo";
 const Footer = () => {
   const quickLinks = [
     { name: "Destinations", href: "/destinations" },
-    { name: "Packages", href: "/destinations" },
+    { name: "Packages", href: "/packages" },
     { name: "About Us", href: "/about" },
   ];
 

@@ -48,21 +48,20 @@ const contactMethods = [
     available: "Response within 2 hours",
     color: "from-blue-500 to-blue-600",
   },
-  {
-    icon: MessageCircle,
-    title: "Live Chat",
-    description: "Chat with our support team",
-    value: "Available on website",
-    action: "Start Chat",
-    available: "Mon-Fri 9AM-6PM",
-    color: "from-purple-500 to-purple-600",
-  },
+  // {
+  //   icon: MessageCircle,
+  //   title: "Live Chat",
+  //   description: "Chat with our support team",
+  //   value: "Available on website",
+  //   action: "Start Chat",
+  //   available: "Mon-Fri 9AM-6PM",
+  //   color: "from-purple-500 to-purple-600",
+  // },
   {
     icon: MapPin,
     title: "Visit Us",
     description: "Come to our office location",
-    value:
-      "Fourth Floor, Plot no-5, Westend Marg, Saidulajab, Saiyad Ul Ajaib Village, Saket, New Delhi, Delhi 110030",
+    value: "4th Floor, Plot no-5, Westend Marg, Saket, Delhi",
     action: "Get Directions",
     available: "Mon-Fri 9AM-6PM",
     color: "from-orange-500 to-orange-600",
@@ -151,7 +150,7 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-6">
           {contactMethods.map((method, index) => {
             const IconComponent = method.icon;
             return (
