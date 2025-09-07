@@ -14,7 +14,14 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { destinations, packages } from "@/lib/constant";
+import {
+  destinations,
+  INFO_EMAIL,
+  MOBILE_NUMBER,
+  packages,
+} from "@/lib/constant";
+import BookingModal from "./modal/BookingModal";
+import InquiryModal from "./modal/InquiryModal";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -46,7 +53,7 @@ export function Header() {
                 className="flex items-center gap-2 hover:underline transition-colors text-white"
               >
                 <Phone className="w-4 h-4" />
-                <span>+91-9821071644</span>
+                <span>{MOBILE_NUMBER}</span>
               </Link>
 
               <Link
@@ -54,7 +61,7 @@ export function Header() {
                 className="flex items-center gap-2 hover:underline transition-colors text-white"
               >
                 <Mail className="w-4 h-4" />
-                <span> info@postcardtrip.in</span>
+                <span>{INFO_EMAIL}</span>
               </Link>
             </div>
             <div className="hidden md:flex items-center gap-4">
@@ -166,22 +173,8 @@ export function Header() {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-4">
-            <Button variant="outline" size="sm">
-              <Globe className="w-4 h-4 mr-2" />
-              Plan Trip
-            </Button>
-            <Link href="/destinations">
-              <Button variant="pricing" size="md">
-                Book Now
-              </Button>
-            </Link>
-            <Button
-              variant="secondary"
-              animation="secondarySolid"
-              className="font-semibold px-8 py-2"
-            >
-              Book Now
-            </Button>
+            <InquiryModal />
+            <BookingModal />
           </div>
 
           {/* Mobile Menu Button */}
