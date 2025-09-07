@@ -6,7 +6,8 @@ const BackToTop = () => {
   return (
     <div className="text-center mt-12">
       <Button
-        variant="outline"
+        variant="primaryOutline"
+        animation="primaryOutline"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       >
         Back to Top

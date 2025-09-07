@@ -1,19 +1,13 @@
+import BackToHome from "@/components/atoms/BackToHome";
 import BackToTop from "@/components/atoms/BackToTop";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertCircle, ArrowLeft, Clock, FileText, Shield } from "lucide-react";
+import { AlertCircle, Clock, FileText, Shield } from "lucide-react";
 import Link from "next/link";
 
 const TermsAndCondition = () => {
   return (
     <main className="container mx-auto px-6 py-12">
-      <Link
-        href="/"
-        className="inline-flex items-center gap-2 text-ocean hover:text-ocean/80 mb-8"
-      >
-        <ArrowLeft className="w-4 h-4" />
-        Back to Home
-      </Link>
+      <BackToHome />
 
       {/* Header */}
       <div className="text-center mb-12">

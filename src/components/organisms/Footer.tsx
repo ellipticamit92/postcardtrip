@@ -22,21 +22,18 @@ const Footer = () => {
   const quickLinks = [
     { name: "Destinations", href: "/destinations" },
     { name: "Packages", href: "/destinations" },
-    { name: "About Us", href: "#about" },
-    { name: "Custom Trips", href: "#custom" },
+    { name: "About Us", href: "/about" },
   ];
 
   const supportLinks = [
-    { name: "Contact Us", href: "#contact" },
-    { name: "Booking Support", href: "#booking" },
-    { name: "FAQs", href: "#faq" },
-    { name: "Reviews", href: "#reviews" },
+    { name: "Contact Us", href: "/contact" },
+    { name: "FAQs", href: "/faq" },
+    { name: "Reviews", href: "/reviews" },
   ];
 
   const legalLinks = [
     { name: "Terms & Conditions", href: "/termsconditions" },
     { name: "Privacy Policy", href: "/privacy" },
-    { name: "Cookie Policy", href: "#cookies" },
     { name: "Cancellation Policy", href: "/cancellation" },
   ];
 

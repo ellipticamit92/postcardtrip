@@ -1,4 +1,5 @@
 export const MOBILE_NUMBER = "+91-9821071644";
+export const INFO_EMAIL = "info@postcardtrip.in";
 
 export const destinations = [
   {
