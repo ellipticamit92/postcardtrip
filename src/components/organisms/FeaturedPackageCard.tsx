@@ -45,7 +45,7 @@ const FeaturedPackageCard: FC<FeaturedPackageCardProps> = ({
             {featuredPackage.name}
           </h3>
           <p className="text-muted-foreground mb-6 leading-relaxed">
-            {featuredPackage.description}
+            {featuredPackage.text}
           </p>
 
           <div className="grid grid-cols-2 gap-4 mb-6">
