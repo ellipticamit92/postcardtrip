@@ -36,4 +36,5 @@ export type Package = {
   featured: boolean;
   cities: City[];
   highlights: Highlights[];
+  text: string;
 };

@@ -46,7 +46,7 @@ const PopularPackages = async () => {
                 {pkg.name}
               </h3>
               <p className="text-muted-foreground text-sm mb-4">
-                <RichText content={pkg.description} />
+                <RichText content={pkg.text} />
               </p>
 
               <div className="flex items-center justify-between mb-4">
