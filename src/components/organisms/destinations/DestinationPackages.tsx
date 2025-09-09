@@ -109,6 +109,8 @@ const DestinationPackages = ({
     });
   };
 
+  const text = "Can't Find Your Perfect Trip?";
+
   return (
     <>
       {/* Filters and All Packages Section */}
@@ -163,9 +165,7 @@ const DestinationPackages = ({
 
       {/* Call to Action */}
       <section className="mt-20 text-center bg-gradient-card rounded-2xl p-12 shadow-soft">
-        <h2 className="text-3xl font-bold mb-4 text-foreground">
-          Can&pos;t Find Your Perfect Trip?
-        </h2>
+        <h2 className="text-3xl font-bold mb-4 text-foreground">{text}</h2>
         <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
           Our travel experts can create a custom itinerary tailored specifically
           to your preferences, budget, and travel style.
@@ -174,7 +174,7 @@ const DestinationPackages = ({
           <Button variant="pricing" size="lg">
             Get Custom Quote
           </Button>
-          <Button variant="customize" size="lg">
+          <Button variant="primary" animation="primaryOutline" size="lg">
             Contact Travel Expert
           </Button>
         </div>

@@ -113,8 +113,8 @@ const AboutPage = () => {
                 </p>
               </div>
             </div>
-            <div className="relative">
-              <div className="aspect-square rounded-2xl bg-gradient-to-br from-ocean to-adventure p-8 text-white">
+            <div className="relative h-full ">
+              <div className="h-full rounded-2xl bg-gradient-to-br from-ocean to-adventure p-4 text-white flex items-center justify-center">
                 <div className="h-full flex flex-col justify-center space-y-6">
                   <Globe className="h-16 w-16 mx-auto" />
                   <div className="text-center space-y-2">
@@ -152,7 +152,7 @@ const AboutPage = () => {
             {values.map((value, index) => (
               <Card
                 key={index}
-                className="border-0 shadow-lg hover:shadow-xl transition-shadow"
+                className="border-0 shadow-soft hover:shadow-xl transition-shadow"
               >
                 <CardContent className="p-6 text-center space-y-4">
                   <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
@@ -165,37 +165,6 @@ const AboutPage = () => {
                 </CardContent>
               </Card>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-muted/30">
-        <div className="container">
-          <div className="text-center space-y-8">
-            <Badge variant="outline" className="w-fit mx-auto">
-              <Award className="h-4 w-4 mr-2" />
-              Credentials & Recognition
-            </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Trusted by Industry Leaders
-            </h2>
-
-            <div className="grid md:grid-cols-3 gap-8 mt-12">
-              <div className="text-center space-y-2">
-                <Award className="h-12 w-12 text-primary mx-auto" />
-                <h3 className="font-semibold">ASTA Member</h3>
-                <p className="text-sm text-muted-foreground">
-                  American Society of Travel Advisors certified
-                </p>
-              </div>
-              <div className="text-center space-y-2">
-                <Shield className="h-12 w-12 text-primary mx-auto" />
-                <h3 className="font-semibold">Bonded & Insured</h3>
-                <p className="text-sm text-muted-foreground">
-                  Full financial protection for your peace of mind
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>

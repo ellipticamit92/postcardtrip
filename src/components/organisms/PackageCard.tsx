@@ -38,7 +38,7 @@ const PackageCard: FC<PacakgeCardProps> = ({ packageData }) => {
           {packageData.name}
         </h3>
         <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
-          {packageData.description}
+          {packageData.text}
         </p>
 
         <div className="space-y-2 mb-4">

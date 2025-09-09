@@ -25,14 +25,15 @@ const FeaturedPackageCard: FC<FeaturedPackageCardProps> = ({
   country,
   name,
 }) => {
+  console.log("DEBUG feaatured PACkage = ", featuredPackage);
   return (
     <Card className="overflow-hidden shadow-strong hover:shadow-xl transition-all duration-500 group py-0">
       <div className="grid lg:grid-cols-2 gap-0">
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden max-h-[435px]">
           <img
             src={featuredPackage.imageUrl}
             alt={featuredPackage.name}
-            className="w-full h-96 lg:h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
           <div className="absolute top-6 left-6">
             <Badge className="bg-adventure text-white text-sm px-3 py-1">
@@ -40,8 +41,8 @@ const FeaturedPackageCard: FC<FeaturedPackageCardProps> = ({
             </Badge>
           </div>
         </div>
-        <div className="p-8 flex flex-col justify-center">
-          <h3 className="text-3xl font-bold mb-4 text-foreground">
+        <div className="py-6 px-8 flex flex-col justify-center">
+          <h3 className="text-2xl font-bold mb-4 text-foreground">
             {featuredPackage.name}
           </h3>
           <p className="text-muted-foreground mb-6 leading-relaxed">
