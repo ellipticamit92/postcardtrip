@@ -34,8 +34,6 @@ export type Package = {
   heroTitle: string;
   country: string;
   featured: boolean;
-  overview: string;
-  isRichText: boolean;
   cities: City[];
   highlights: Highlights[];
   text: string;
