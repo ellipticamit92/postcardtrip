@@ -91,12 +91,6 @@ export function Header() {
       >
         <div className="flex items-center justify-between h-16 container mx-auto">
           <Logo />
-          {/* <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-linear-to-br from-ocean to-adventure rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-              <Plane className="w-5 h-5 text-white transform rotate-45" />
-            </div>
-            <div></div>
-          </Link> */}
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6">

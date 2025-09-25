@@ -1,6 +1,6 @@
+import Heading from "@/components/atoms/Heading";
+import { Button } from "@/components/ui/button";
 import React from "react";
-import { Button } from "../ui/button";
-import Heading from "../atoms/Heading";
 
 export type DestinationBannerProps = {
   bannerImage?: string;

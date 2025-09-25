@@ -1,12 +1,12 @@
 import { FC } from "react";
-import { Card, CardContent } from "../ui/card";
 import { Package } from "@/lib/types";
-import { Badge } from "../ui/badge";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "../ui/button";
 import { ArrowRight, MapPin, Star } from "lucide-react";
 import { slugifyPackageName, toIndianCurrency } from "@/lib/helper";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 interface PacakgeCardProps {
   packageData: Package;

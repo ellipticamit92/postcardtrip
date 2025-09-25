@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import DestinationFilters from "@/components/molecules/DestinationFilters";
 import { Package } from "@/lib/types";
-import PackageCard from "../PackageCard";
+import PackageCard from "../packages/PackageCard";
 
 const DestinationPackages = ({
   name,

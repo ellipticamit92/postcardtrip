@@ -5,12 +5,12 @@ import {
   HeartHandshake,
   Mountain,
 } from "lucide-react";
-import { Card, CardContent } from "../ui/card";
 import Link from "next/link";
-import { Button } from "../ui/button";
-import HomeSections from "./HomeSections";
 import { getHomeTours } from "@/lib/services/tours.service";
 import { toIndianCurrency } from "@/lib/helper";
+import HomeSections from "../HomeSections";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 type Tour = {
   tid: number;
@@ -85,12 +85,12 @@ const ToursType = async () => {
                   {tour.description}
                 </p>
               </div>
-              <CardContent className="px-6 py-2 bg-card">
+              <CardContent className="px-4 py-2 pt-0 bg-card">
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-sm text-muted-foreground">
+                  <span className="text-sm text-muted-foreground w-2/5">
                     {tour.packagesCount} packages available
                   </span>
-                  <span className="font-bold text-ocean">
+                  <span className="font-bold text-ocean w-3/5 flex items-end justify-end">
                     From &nbsp;
                     {toIndianCurrency(Number(tour?.basePrice))}
                   </span>

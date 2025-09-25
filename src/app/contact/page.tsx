@@ -1,4 +1,3 @@
-import ContactForm from "@/components/organisms/forms/ContactForm";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,9 +20,6 @@ import {
   ArrowRight,
   Facebook,
   Instagram,
-  Twitter,
-  Youtube,
-  Send,
   Clock,
   Shield,
   Globe,
@@ -188,22 +184,91 @@ const Contact = () => {
 
       <section className="mb-16">
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          {/* <Card className="shadow-strong">
+          {/* Interactive Map */}
+          <Card className="shadow-soft">
             <CardHeader>
-              <CardTitle className="text-2xl flex items-center gap-2">
-                <Send className="w-6 h-6 text-primary" />
-                Send Us a Message
+              <CardTitle className="flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-primary" />
+                Our Location
               </CardTitle>
               <CardDescription>
-                Fill out the form below and we'll get back to you within 24
-                hours
+                Visit us at our headquarters in Adventure City
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ContactForm />
+              <div className="relative overflow-hidden rounded-lg h-64 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900">
+                {/* Simulated Map */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-green-50 dark:from-blue-950 dark:to-green-950">
+                  {/* Grid Pattern */}
+                  <div className="absolute inset-0 opacity-20">
+                    <div className="h-full w-full bg-grid-pattern"></div>
+                  </div>
+
+                  {/* Streets */}
+                  <div className="absolute top-1/3 left-0 right-0 h-2 bg-slate-300 dark:bg-slate-600"></div>
+                  <div className="absolute top-0 bottom-0 left-1/2 w-2 bg-slate-300 dark:bg-slate-600"></div>
+
+                  {/* Buildings */}
+                  <div className="absolute top-8 left-8 w-12 h-16 bg-slate-400 dark:bg-slate-500 rounded-sm"></div>
+                  <div className="absolute top-12 right-16 w-10 h-12 bg-slate-400 dark:bg-slate-500 rounded-sm"></div>
+                  <div className="absolute bottom-16 left-20 w-14 h-10 bg-slate-400 dark:bg-slate-500 rounded-sm"></div>
+
+                  {/* Our Location Pin */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="relative">
+                      <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center shadow-lg animate-pulse">
+                        <MapPin className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-primary text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap">
+                        Travel Adventure HQ
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Compass */}
+                  <div className="absolute top-4 right-4 w-12 h-12 bg-white dark:bg-slate-800 rounded-full shadow-lg flex items-center justify-center border-2 border-slate-200 dark:border-slate-600">
+                    <div className="text-xs font-bold text-slate-600 dark:text-slate-300">
+                      N
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Address Details */}
+              <div className="mt-4 space-y-3">
+                <div className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
+                  <MapPin className="w-5 h-5 text-primary mt-0.5" />
+                  <div>
+                    <p className="font-medium text-foreground">
+                      Fourth Floor, Plot no-5, Westend Marg, Saidulajab, Saiyad
+                      Ul Ajaib Village,
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      Saket, Delhi 110030
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      New Delhi, India
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <Button variant="outline" className="h-auto p-3">
+                    <div className="text-center">
+                      <MapPin className="w-4 h-4 mx-auto mb-1" />
+                      <div className="text-xs font-medium">Get Directions</div>
+                    </div>
+                  </Button>
+                  <Button variant="outline" className="h-auto p-3">
+                    <div className="text-center">
+                      <Phone className="w-4 h-4 mx-auto mb-1" />
+                      <div className="text-xs font-medium">Call Office</div>
+                    </div>
+                  </Button>
+                </div>
+              </div>
             </CardContent>
-          </Card> */}
+          </Card>
 
           {/* Contact Information */}
           <div className="space-y-8">
@@ -290,94 +355,6 @@ const Contact = () => {
                       </Button>
                     );
                   })}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Interactive Map */}
-            <Card className="shadow-soft">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-primary" />
-                  Our Location
-                </CardTitle>
-                <CardDescription>
-                  Visit us at our headquarters in Adventure City
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="relative overflow-hidden rounded-lg h-64 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900">
-                  {/* Simulated Map */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-green-50 dark:from-blue-950 dark:to-green-950">
-                    {/* Grid Pattern */}
-                    <div className="absolute inset-0 opacity-20">
-                      <div className="h-full w-full bg-grid-pattern"></div>
-                    </div>
-
-                    {/* Streets */}
-                    <div className="absolute top-1/3 left-0 right-0 h-2 bg-slate-300 dark:bg-slate-600"></div>
-                    <div className="absolute top-0 bottom-0 left-1/2 w-2 bg-slate-300 dark:bg-slate-600"></div>
-
-                    {/* Buildings */}
-                    <div className="absolute top-8 left-8 w-12 h-16 bg-slate-400 dark:bg-slate-500 rounded-sm"></div>
-                    <div className="absolute top-12 right-16 w-10 h-12 bg-slate-400 dark:bg-slate-500 rounded-sm"></div>
-                    <div className="absolute bottom-16 left-20 w-14 h-10 bg-slate-400 dark:bg-slate-500 rounded-sm"></div>
-
-                    {/* Our Location Pin */}
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                      <div className="relative">
-                        <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center shadow-lg animate-pulse">
-                          <MapPin className="w-5 h-5 text-white" />
-                        </div>
-                        <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-primary text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap">
-                          Travel Adventure HQ
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Compass */}
-                    <div className="absolute top-4 right-4 w-12 h-12 bg-white dark:bg-slate-800 rounded-full shadow-lg flex items-center justify-center border-2 border-slate-200 dark:border-slate-600">
-                      <div className="text-xs font-bold text-slate-600 dark:text-slate-300">
-                        N
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Address Details */}
-                <div className="mt-4 space-y-3">
-                  <div className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
-                    <MapPin className="w-5 h-5 text-primary mt-0.5" />
-                    <div>
-                      <p className="font-medium text-foreground">
-                        Fourth Floor, Plot no-5, Westend Marg, Saidulajab,
-                        Saiyad Ul Ajaib Village,
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Saket, Delhi 110030
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        New Delhi, India
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    <Button variant="outline" className="h-auto p-3">
-                      <div className="text-center">
-                        <MapPin className="w-4 h-4 mx-auto mb-1" />
-                        <div className="text-xs font-medium">
-                          Get Directions
-                        </div>
-                      </div>
-                    </Button>
-                    <Button variant="outline" className="h-auto p-3">
-                      <div className="text-center">
-                        <Phone className="w-4 h-4 mx-auto mb-1" />
-                        <div className="text-xs font-medium">Call Office</div>
-                      </div>
-                    </Button>
-                  </div>
                 </div>
               </CardContent>
             </Card>

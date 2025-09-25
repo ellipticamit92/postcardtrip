@@ -1,13 +1,16 @@
 import HeroSection from "@/components/molecules/HeroSection";
 import ContactSection from "@/components/organisms/ContactSection";
-import PopularPackages from "@/components/organisms/PopularPackages";
-import Reviews from "@/components/organisms/Reviews";
-import ToursType from "@/components/organisms/ToursType";
-import TrendingDestinations from "@/components/organisms/TrendingDestinations";
+import TrendingDestinations from "@/components/organisms/destinations/TrendingDestinations";
+import PopularPackages from "@/components/organisms/packages/PopularPackages";
+import ToursType from "@/components/organisms/tours/ToursType";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { getRecentReviews } from "@/lib/services/reviews.service";
+import ReviewsSlider from "@/components/organisms/reviews/ReviewsSlider";
 
-export default function Home() {
+export default async function Home() {
+  const reviews = await getRecentReviews();
+  const { data } = reviews;
   return (
     <div className="min-h-screen bg-background">
       <HeroSection />
@@ -16,7 +19,7 @@ export default function Home() {
         <PopularPackages />
         <ToursType />
         <ContactSection />
-        <Reviews />
+        <ReviewsSlider reviews={data} />
         <section className="py-20">
           <div className="bg-gradient-card rounded-3xl p-12 shadow-strong text-center">
             <h2 className="text-4xl font-bold mb-6 text-foreground">

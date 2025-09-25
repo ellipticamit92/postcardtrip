@@ -1,14 +1,12 @@
 import { getTrendingDestination } from "@/lib/services/destination.service";
-
-import HomeSections from "./HomeSections";
-
-import { Badge } from "../ui/badge";
 import { ArrowRight, TrendingUp } from "lucide-react";
-import { Card, CardContent } from "../ui/card";
 import Link from "next/link";
-import { Button } from "../ui/button";
 import { toIndianCurrency } from "@/lib/helper";
 import Image from "next/image";
+import { Card, CardContent } from "@/components/ui/card";
+import HomeSections from "../HomeSections";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 type Destination = {
   did: number;
@@ -48,7 +46,7 @@ const TrendingDestinations = async () => {
                 <Image src={dest.imageUrl} alt={dest.name} fill={true} />
               </div>
 
-              <div className="absolute top-4 left-4">
+              <div className="absolute top-3 left-3">
                 <Badge className="bg-secondary text-white">
                   <TrendingUp className="w-3 h-3 mr-1" />
                   Trending
@@ -57,7 +55,10 @@ const TrendingDestinations = async () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 text-white">
                 <h3 className="font-bold text-lg mb-1">{dest.heading}</h3>
-                <p className="text-sm opacity-90">{dest.name}</p>
+                <p className="text-sm opacity-90">
+                  {dest.name},{" "}
+                  <span className="italic text-[11px]">{dest.country}</span>
+                </p>
               </div>
             </div>
             <CardContent className="px-6 pt-2 pb-6">

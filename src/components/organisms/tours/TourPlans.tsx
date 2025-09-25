@@ -1,5 +1,5 @@
 import { TrendingUp } from "lucide-react";
-import HomeSections from "./HomeSections";
+import HomeSections from "../HomeSections";
 
 const TourPlans = () => (
   <HomeSections

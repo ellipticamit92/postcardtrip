@@ -1,5 +1,6 @@
 "use client";
 
+import { useContactForm } from "@/hooks/useContactForm";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,7 +11,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
@@ -20,6 +20,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Globe } from "lucide-react";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { useState } from "react";
 
 interface InquiryModalProps {
@@ -30,15 +38,7 @@ interface InquiryModalProps {
 const InquiryModal = ({ isMobile = false, className }: InquiryModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // toast({
-    //   title: "Inquiry Sent!",
-    //   description:
-    //     "We'll get back to you within 24 hours with a customized itinerary.",
-    // });
-    setIsOpen(false);
-  };
+  const { form, onSubmit, loading, success, error } = useContactForm();
 
   const destinations = [
     { value: "kerala", label: "Kerala" },
@@ -50,20 +50,6 @@ const InquiryModal = ({ isMobile = false, className }: InquiryModalProps) => {
     { value: "other", label: "Other" },
   ];
 
-  const budgetRanges = [
-    { value: "budget", label: "$500 - $1,000" },
-    { value: "mid", label: "$1,000 - $3,000" },
-    { value: "luxury", label: "$3,000 - $5,000" },
-    { value: "premium", label: "$5,000+" },
-  ];
-
-  const travelerOptions = [
-    { value: "1", label: "1 Person" },
-    { value: "2", label: "2 People" },
-    { value: "3-4", label: "3-4 People" },
-    { value: "5+", label: "5+ People" },
-  ];
-
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
@@ -72,6 +58,7 @@ const InquiryModal = ({ isMobile = false, className }: InquiryModalProps) => {
           Plan Trip
         </Button>
       </DialogTrigger>
+
       <DialogContent className="max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Plan Your Dream Trip</DialogTitle>
@@ -80,131 +67,150 @@ const InquiryModal = ({ isMobile = false, className }: InquiryModalProps) => {
             customized itinerary for you.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4 py-4">
-          <div
-            className={`grid gap-4 ${isMobile ? "grid-cols-1" : "grid-cols-2"}`}
+
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 py-4"
           >
-            <div className="space-y-2">
-              <Label htmlFor={`${isMobile ? "mobile-" : ""}name`}>
-                Full Name
-              </Label>
-              <Input
-                id={`${isMobile ? "mobile-" : ""}name`}
-                placeholder="Enter your name"
-                required
+            <div
+              className={`grid gap-4 ${
+                isMobile ? "grid-cols-1" : "grid-cols-2"
+              }`}
+            >
+              {/* Name */}
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Full Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Email */}
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="Enter your email"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor={`${isMobile ? "mobile-" : ""}email`}>Email</Label>
-              <Input
-                id={`${isMobile ? "mobile-" : ""}email`}
-                type="email"
-                placeholder="Enter your email"
-                required
+
+            <div
+              className={`grid gap-4 ${
+                isMobile ? "grid-cols-1" : "grid-cols-2"
+              }`}
+            >
+              {/* Phone */}
+              <FormField
+                control={form.control}
+                name="mobile"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your phone" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Destination */}
+              <FormField
+                control={form.control}
+                name="destination"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Preferred Destination</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        required
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select destination" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {destinations.map((dest) => (
+                            <SelectItem key={dest.value} value={dest.value}>
+                              {dest.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
             </div>
-          </div>
 
-          <div
-            className={`grid gap-4 ${isMobile ? "grid-cols-1" : "grid-cols-2"}`}
-          >
-            <div className="space-y-2">
-              <Label htmlFor={`${isMobile ? "mobile-" : ""}phone`}>Phone</Label>
-              <Input
-                id={`${isMobile ? "mobile-" : ""}phone`}
-                placeholder="Enter your phone"
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor={`${isMobile ? "mobile-" : ""}destination`}>
-                Preferred Destination
-              </Label>
-              <Select required>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select destination" />
-                </SelectTrigger>
-                <SelectContent>
-                  {destinations.map((dest) => (
-                    <SelectItem key={dest.value} value={dest.value}>
-                      {dest.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div
-            className={`grid gap-4 ${isMobile ? "grid-cols-1" : "grid-cols-2"}`}
-          >
-            <div className="space-y-2">
-              <Label htmlFor={`${isMobile ? "mobile-" : ""}budget`}>
-                Budget Range
-              </Label>
-              <Select required>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select budget" />
-                </SelectTrigger>
-                <SelectContent>
-                  {budgetRanges.map((budget) => (
-                    <SelectItem key={budget.value} value={budget.value}>
-                      {budget.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor={`${isMobile ? "mobile-" : ""}travelers`}>
-                Number of Travelers
-              </Label>
-              <Select required>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select travelers" />
-                </SelectTrigger>
-                <SelectContent>
-                  {travelerOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor={`${isMobile ? "mobile-" : ""}message`}>
-              Special Requirements
-            </Label>
-            <Textarea
-              id={`${isMobile ? "mobile-" : ""}message`}
-              placeholder="Tell us about your preferences, interests, or special requirements..."
-              className={isMobile ? "min-h-[60px]" : "min-h-[80px]"}
+            {/* Message / Special Requirements */}
+            <FormField
+              control={form.control}
+              name="message"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Special Requirements</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Tell us about your preferences, interests, or special requirements..."
+                      className={isMobile ? "min-h-[60px]" : "min-h-[80px]"}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
 
-          <div
-            className={`flex gap-3 ${isMobile ? "flex-col" : "justify-end"}`}
-          >
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => setIsOpen(false)}
-              className={isMobile ? "w-full" : ""}
+            {/* Buttons */}
+            <div
+              className={`flex gap-3 ${isMobile ? "flex-col" : "justify-end"}`}
             >
-              Cancel
-            </Button>
-            <Button
-              type="submit"
-              variant="pricing"
-              className={isMobile ? "w-full" : ""}
-            >
-              Send Inquiry
-            </Button>
-          </div>
-        </form>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setIsOpen(false)}
+                className={isMobile ? "w-full" : ""}
+              >
+                Cancel
+              </Button>
+
+              <Button
+                type="submit"
+                variant="pricing"
+                className={isMobile ? "w-full" : ""}
+                disabled={loading}
+              >
+                {loading ? "Sending..." : "Send Inquiry"}
+              </Button>
+            </div>
+
+            {/* Success / Error */}
+            {success && <p className="text-green-600 text-sm">{success}</p>}
+            {error && <p className="text-red-600 text-sm">{error}</p>}
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );

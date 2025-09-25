@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,7 +10,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -17,7 +17,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { useState } from "react";
+import { useContactForm } from "@/hooks/useContactForm";
 
 interface BookingModalProps {
   isMobile?: boolean;
@@ -27,15 +36,8 @@ interface BookingModalProps {
 const BookingModal = ({ isMobile = false, className }: BookingModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // toast({
-    //   title: "Booking Request Sent!",
-    //   description:
-    //     "We'll contact you within 2 hours to confirm your booking details.",
-    // });
-    setIsOpen(false);
-  };
+  // use generic booking hook
+  const { form, onSubmit, loading, success, error } = useContactForm();
 
   const destinations = [
     { value: "kerala", label: "Kerala" },
@@ -54,7 +56,8 @@ const BookingModal = ({ isMobile = false, className }: BookingModalProps) => {
           Book Now
         </Button>
       </DialogTrigger>
-      <DialogContent className="">
+
+      <DialogContent className="max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Book Your Adventure</DialogTitle>
           <DialogDescription>
@@ -62,88 +65,120 @@ const BookingModal = ({ isMobile = false, className }: BookingModalProps) => {
             you shortly to finalize everything.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4 py-4">
-          <div className="space-y-2">
-            <Label htmlFor={`${isMobile ? "booking-mobile-" : "booking-"}name`}>
-              Full Name
-            </Label>
-            <Input
-              id={`${isMobile ? "booking-mobile-" : "booking-"}name`}
-              placeholder="Enter your full name"
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label
-              htmlFor={`${isMobile ? "booking-mobile-" : "booking-"}email`}
-            >
-              Email Address
-            </Label>
-            <Input
-              id={`${isMobile ? "booking-mobile-" : "booking-"}email`}
-              type="email"
-              placeholder="Enter your email"
-              required
-            />
-          </div>
 
-          <div className="space-y-2">
-            <Label
-              htmlFor={`${isMobile ? "booking-mobile-" : "booking-"}phone`}
-            >
-              Phone Number
-            </Label>
-            <Input
-              id={`${isMobile ? "booking-mobile-" : "booking-"}phone`}
-              placeholder="Enter your phone number"
-              required
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label
-              htmlFor={`${
-                isMobile ? "booking-mobile-" : "booking-"
-              }destination`}
-            >
-              Destination
-            </Label>
-            <Select required>
-              <SelectTrigger>
-                <SelectValue placeholder="Select your destination" />
-              </SelectTrigger>
-              <SelectContent>
-                {destinations.map((dest) => (
-                  <SelectItem key={dest.value} value={dest.value}>
-                    {dest.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div
-            className={`flex gap-3 pt-4 ${
-              isMobile ? "flex-col" : "justify-end"
-            }`}
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 py-4"
           >
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => setIsOpen(false)}
-              className={isMobile ? "w-full" : ""}
+            {/* Full Name */}
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Full Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter your full name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Email */}
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email Address</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="email"
+                      placeholder="Enter your email"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Phone */}
+            <FormField
+              control={form.control}
+              name="mobile"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Phone Number</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter your phone number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Destination */}
+            <FormField
+              control={form.control}
+              name="destination"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Destination</FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      required
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select your destination" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {destinations.map((dest) => (
+                          <SelectItem key={dest.value} value={dest.value}>
+                            {dest.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Buttons */}
+            <div
+              className={`flex gap-3 pt-4 ${
+                isMobile ? "flex-col" : "justify-end"
+              }`}
             >
-              Cancel
-            </Button>
-            <Button
-              type="submit"
-              variant="pricing"
-              className={isMobile ? "w-full" : ""}
-            >
-              Proceed to Book
-            </Button>
-          </div>
-        </form>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setIsOpen(false)}
+                className={isMobile ? "w-full" : ""}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                variant="pricing"
+                className={isMobile ? "w-full" : ""}
+                disabled={loading}
+              >
+                {loading ? "Sending..." : "Proceed to Book"}
+              </Button>
+            </div>
+
+            {/* Success / Error */}
+            {success && <p className="text-green-600 text-sm">{success}</p>}
+            {error && <p className="text-red-600 text-sm">{error}</p>}
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );

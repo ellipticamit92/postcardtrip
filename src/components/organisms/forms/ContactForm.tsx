@@ -4,28 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 
 const ContactForm = () => {
-  const handleSubmit = (e: React.FormEvent) => {
-    // e.preventDefault();
-    // toast({
-    //   title: "Message Sent Successfully!",
-    //   description: "We'll get back to you within 24 hours.",
-    // });
-    // // Reset form
-    // setFormData({
-    //   firstName: "",
-    //   lastName: "",
-    //   email: "",
-    //   phone: "",
-    //   subject: "",
-    //   travelType: "",
-    //   message: "",
-    //   preferredContact: "email",
-    // });
-  };
+  const handleSubmit = () => {};
 
-  const handleInputChange = (field: string, value: string) => {
-    // setFormData((prev) => ({ ...prev, [field]: value }));
-  };
   return (
     <div>
       <h1>Contact form</h1>

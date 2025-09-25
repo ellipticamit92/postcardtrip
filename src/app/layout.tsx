@@ -5,14 +5,7 @@ import Footer from "@/components/organisms/Footer";
 import "./globals.css";
 import { Header } from "@/components/organisms/Header";
 
-// const roboto = Roboto({
-//   subsets: ["latin"], // Specify necessary subsets
-//   weight: ["400", "700"], // Specify desired font weights
-//   variable: "--font-roboto",
-// });
-
 export function generateMetadata({
-  params,
   pathname,
 }: {
   params?: string;

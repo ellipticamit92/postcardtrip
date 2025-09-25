@@ -137,7 +137,7 @@ const PrivacyPolicy = () => {
                 <CardContent className="p-8">
                   <div className="flex items-center gap-4 mb-6">
                     <div className="w-12 h-12 bg-gradient-to-br from-ocean to-adventure rounded-lg flex items-center justify-center">
-                      {/* <Icon className="w-6 h-6 text-white" /> */}
+                      <Icon className="w-6 h-6 text-white" />
                     </div>
                     <h2 className="text-2xl font-bold text-foreground">
                       {section.title}

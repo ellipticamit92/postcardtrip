@@ -1,10 +1,22 @@
+"use client";
 import { ArrowRight, Mail, MapIcon, PhoneCall } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
+import { useContactForm } from "@/hooks/useContactForm";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+  Form,
+} from "../ui/form";
 
 const ContactSection = () => {
+  const { form, onSubmit, loading, success, error } = useContactForm();
+
   return (
     <section className="py-20">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -58,45 +70,107 @@ const ContactSection = () => {
           </div>
         </div>
 
+        {/* Right column - Form */}
         <Card className="shadow-strong p-6 gap-3">
           <CardHeader>
             <CardTitle className="text-2xl text-center">
               Connect with us
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <label className="text-sm font-medium text-foreground mb-2 block">
-                Name
-              </label>
-              <Input placeholder="John" />
-            </div>
+          <CardContent>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
+                {/* Name */}
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="John" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-            <div>
-              <label className="text-sm font-medium text-foreground mb-2 block">
-                Email
-              </label>
-              <Input type="email" placeholder="john@example.com" />
-            </div>
+                {/* Email */}
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="john@example.com"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-            <div>
-              <label className="text-sm font-medium text-foreground mb-2 block">
-                Phone Number
-              </label>
-              <Input type="tel" placeholder="+91 (123) 456-7890" />
-            </div>
+                {/* Phone */}
+                <FormField
+                  control={form.control}
+                  name="mobile"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Phone Number</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="tel"
+                          placeholder="+91 (123) 456-7890"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-            <div>
-              <label className="text-sm font-medium text-foreground mb-2 block">
-                Destination Interest
-              </label>
-              <Input placeholder="Where would you like to go?" />
-            </div>
+                {/* Destination */}
+                <FormField
+                  control={form.control}
+                  name="destination"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Destination Interest</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Where would you like to go?"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-            <Button variant="pricing" size="lg" className="w-full">
-              Send Message
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
+                {/* Submit button */}
+                <Button
+                  variant="pricing"
+                  size="lg"
+                  className="w-full"
+                  type="submit"
+                  disabled={loading}
+                >
+                  {loading ? "Sending..." : "Send Message"}
+                  {!loading && <ArrowRight className="w-5 h-5 ml-2" />}
+                </Button>
+
+                {/* Success / Error messages */}
+                {success && <p className="text-green-600 text-sm">{success}</p>}
+                {error && <p className="text-red-600 text-sm">{error}</p>}
+              </form>
+            </Form>
           </CardContent>
         </Card>
       </div>

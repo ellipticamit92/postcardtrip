@@ -37,4 +37,24 @@ export type Package = {
   cities: City[];
   highlights: Highlights[];
   text: string;
+  threePrice: number;
+  foutrPrice: number;
+};
+
+export type ReviewType = {
+  id: number;
+  username: string;
+  rating: number;
+  review: string;
+  year: string; // could also be number if you want stricter typing
+  month: string; // e.g. "Sep"
+  package: {
+    pid: number;
+    name: string;
+  };
+  destination: {
+    did: number;
+    name: string;
+    country: string;
+  };
 };

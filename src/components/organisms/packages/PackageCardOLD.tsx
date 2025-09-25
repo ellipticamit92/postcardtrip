@@ -1,10 +1,10 @@
 "use client";
 
-import HotelOption from "../atoms/HotelOption";
-import PackageRating from "../molecules/PackageRating";
-import { Button } from "../ui/button";
-import PackagePrice from "../molecules/PackagePrice";
+import PackagePrice from "@/components/molecules/PackagePrice";
 import PackageCardHeader from "./PackageCardHeaderOLD";
+import HotelOption from "@/components/atoms/HotelOption";
+import PackageRating from "@/components/molecules/PackageRating";
+import { Button } from "@/components/ui/button";
 
 export default function PackageCardOLD() {
   return (

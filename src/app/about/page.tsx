@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Heart, Shield, Users, Globe, MapPin, Star, Award } from "lucide-react";
+import { Heart, Shield, Users, Globe, MapPin } from "lucide-react";
 
 const AboutPage = () => {
   const values = [
@@ -31,39 +31,39 @@ const AboutPage = () => {
     },
   ];
 
-  const stats = [
-    { number: "25+", label: "Years of Experience" },
-    { number: "50+", label: "Countries Covered" },
-    { number: "10,000+", label: "Happy Travelers" },
-    { number: "98%", label: "Customer Satisfaction" },
-  ];
+  // const stats = [
+  //   { number: "25+", label: "Years of Experience" },
+  //   { number: "50+", label: "Countries Covered" },
+  //   { number: "10,000+", label: "Happy Travelers" },
+  //   { number: "98%", label: "Customer Satisfaction" },
+  // ];
 
-  const team = [
-    {
-      name: "Sarah Chen",
-      role: "Founder & CEO",
-      specialty: "Adventure Travel",
-      experience: "15 years",
-      description:
-        "Former expedition leader turned travel entrepreneur, specializing in off-the-beaten-path adventures.",
-    },
-    {
-      name: "Marcus Rodriguez",
-      role: "Head of Operations",
-      specialty: "Cultural Tours",
-      experience: "12 years",
-      description:
-        "Cultural anthropologist with deep expertise in sustainable and authentic travel experiences.",
-    },
-    {
-      name: "Elena Petrov",
-      role: "Senior Travel Designer",
-      specialty: "Luxury Travel",
-      experience: "10 years",
-      description:
-        "Former luxury hotel executive who brings insider access to the world's finest destinations.",
-    },
-  ];
+  // const team = [
+  //   {
+  //     name: "Sarah Chen",
+  //     role: "Founder & CEO",
+  //     specialty: "Adventure Travel",
+  //     experience: "15 years",
+  //     description:
+  //       "Former expedition leader turned travel entrepreneur, specializing in off-the-beaten-path adventures.",
+  //   },
+  //   {
+  //     name: "Marcus Rodriguez",
+  //     role: "Head of Operations",
+  //     specialty: "Cultural Tours",
+  //     experience: "12 years",
+  //     description:
+  //       "Cultural anthropologist with deep expertise in sustainable and authentic travel experiences.",
+  //   },
+  //   {
+  //     name: "Elena Petrov",
+  //     role: "Senior Travel Designer",
+  //     specialty: "Luxury Travel",
+  //     experience: "10 years",
+  //     description:
+  //       "Former luxury hotel executive who brings insider access to the world's finest destinations.",
+  //   },
+  // ];
 
   return (
     <>

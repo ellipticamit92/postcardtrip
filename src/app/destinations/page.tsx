@@ -153,6 +153,7 @@ export default async function DestinationPage() {
 
   const featuredPackage = enhancedPackages.find((pkg) => pkg.featured);
   const packages = enhancedPackages.filter((pkg) => !pkg.featured);
+
   return (
     <>
       <PagesHero

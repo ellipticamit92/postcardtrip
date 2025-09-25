@@ -1,18 +1,11 @@
 import { FC } from "react";
-import { Card } from "../ui/card";
-import { Badge } from "../ui/badge";
 import { slugifyPackageName, toIndianCurrency } from "@/lib/helper";
-import {
-  ArrowRight,
-  Calendar,
-  MapPin,
-  MapPinned,
-  Star,
-  Users,
-} from "lucide-react";
-import { Button } from "../ui/button";
+import { ArrowRight, Calendar, MapPin, MapPinned, Star } from "lucide-react";
 import { Package } from "@/lib/types";
 import Link from "next/link";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 interface FeaturedPackageCardProps {
   featuredPackage: Package;

@@ -1,10 +1,18 @@
 import BackToHome from "@/components/atoms/BackToHome";
-import ReviewFilter from "@/components/organisms/ReviewFilter";
+import ReviewFilter from "@/components/organisms/reviews/ReviewFilter";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
+import { getDestinationsOptions } from "@/lib/services/destination.service";
+import { getAllReviews } from "@/lib/services/reviews.service";
 import { Star, TrendingUp, Users } from "lucide-react";
 
-const Reviews = () => {
+const Reviews = async () => {
+  const reviews = await getAllReviews();
+  const { data } = reviews;
+  const destinations = await getDestinationsOptions();
+  const { data: destinationOptions } = destinations;
+  console.log("DEBUG: Recent Reviews:", data);
+
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
       <Star
@@ -17,9 +25,9 @@ const Reviews = () => {
   };
 
   const stats = {
-    totalReviews: 2847,
+    totalReviews: 700,
     averageRating: 4.8,
-    fiveStars: 78,
+    fiveStars: 97,
     fourStars: 18,
     threeStars: 3,
     twoStars: 1,
@@ -43,12 +51,12 @@ const Reviews = () => {
       </div>
 
       <div className="max-w-6xl mx-auto">
-        <Card className="mb-8 bg-gradient-card border-ocean/20">
+        <Card className="mb-8 bg-gradient-card border-ocean/20 py-0">
           <CardContent className="p-8">
             <div className="grid md:grid-cols-4 gap-6 text-center">
               <div>
                 <div className="text-3xl font-bold text-foreground">
-                  {stats.totalReviews.toLocaleString()}
+                  {stats.totalReviews.toLocaleString()}+
                 </div>
                 <p className="text-muted-foreground">Total Reviews</p>
               </div>
@@ -75,43 +83,7 @@ const Reviews = () => {
           </CardContent>
         </Card>
 
-        <Card className="mb-8">
-          <CardHeader>
-            <h3 className="text-xl font-semibold text-foreground">
-              Rating Breakdown
-            </h3>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {[5, 4, 3, 2, 1].map((stars) => {
-                const percentage = stats[
-                  `${
-                    ["", "", "", "one", "two", "three", "four", "five"][stars]
-                  }Stars` as keyof typeof stats
-                ] as number;
-                return (
-                  <div key={stars} className="flex items-center gap-4">
-                    <div className="flex items-center gap-1 w-20">
-                      <span className="text-sm font-medium">{stars}</span>
-                      <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                    </div>
-                    <div className="flex-1 bg-muted rounded-full h-2">
-                      <div
-                        className="h-2 bg-amber-400 rounded-full transition-all duration-300"
-                        style={{ width: `${percentage}%` }}
-                      />
-                    </div>
-                    <span className="text-sm text-muted-foreground w-12">
-                      {percentage}%
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </CardContent>
-        </Card>
-
-        <ReviewFilter />
+        <ReviewFilter reviews={data} destinations={destinationOptions} />
 
         <div className="text-center mt-12">
           <Button variant="outline" className="mr-4">
@@ -119,7 +91,7 @@ const Reviews = () => {
           </Button>
         </div>
 
-        <Card className="mt-12 bg-gradient-card border-ocean/20 shadow-md">
+        <Card className="mt-12 bg-gradient-card border-ocean/20 shadow-md py-0">
           <CardContent className="p-8 text-center">
             <div className="grid md:grid-cols-3 gap-8">
               <div>

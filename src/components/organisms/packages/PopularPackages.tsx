@@ -1,14 +1,14 @@
 import { ArrowRight, Calendar, Heart, Star } from "lucide-react";
-import { Badge } from "../ui/badge";
-import { Card, CardContent } from "../ui/card";
 import Link from "next/link";
-import { Button } from "../ui/button";
-import HomeSections from "./HomeSections";
 import { getPopularPackages } from "@/lib/services/packages.service";
-import { toIndianCurrency } from "@/lib/helper";
-import RichText from "../atoms/RichText";
+import { addRandomInRange, toIndianCurrency } from "@/lib/helper";
 import Image from "next/image";
 import { Package } from "@/lib/types";
+import HomeSections from "../HomeSections";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import RichText from "@/components/atoms/RichText";
+import { Button } from "@/components/ui/button";
 
 const PopularPackages = async () => {
   const popularPackageData = await getPopularPackages();
@@ -41,7 +41,7 @@ const PopularPackages = async () => {
                 <Badge className="bg-adventure text-white">Popular</Badge>
               </div>
             </div>
-            <CardContent className="px-6 py-2 pb-4">
+            <CardContent className="px-6 py-0 pb-3">
               <h3 className="font-bold text-xl mb-3 text-foreground">
                 {pkg.name}
               </h3>
@@ -66,10 +66,10 @@ const PopularPackages = async () => {
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-2xl font-bold text-ocean">
-                      {toIndianCurrency(pkg.basePrice)}
+                      {toIndianCurrency(pkg?.threePrice)}
                     </span>
                     <span className="text-sm text-muted-foreground line-through">
-                      {pkg.basePrice}
+                      {toIndianCurrency(addRandomInRange(pkg.threePrice))}
                     </span>
                   </div>
                   <span className="text-xs text-muted-foreground">

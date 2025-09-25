@@ -2,8 +2,8 @@ import PagesHero from "@/components/molecules/PagesHero";
 import DestinationPackages from "@/components/organisms/destinations/DestinationPackages";
 import { getDestinationByName } from "@/lib/services/destination.service";
 import NotFound from "@/app/not-found";
-import FeaturedPackageCard from "@/components/organisms/FeaturedPackageCard";
 import { Package } from "@/lib/types";
+import FeaturedPackageCard from "@/components/organisms/packages/FeaturedPackageCard";
 
 interface DestinationDetailPageProps {
   params: Promise<{ id: string }>;
