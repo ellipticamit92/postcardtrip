@@ -1,11 +1,24 @@
 import AllPackages from "@/components/organisms/packages/AllPackages";
 import { Badge } from "@/components/ui/badge";
 import { getAllPackages } from "@/lib/services/packages.service";
+import { Package } from "@/lib/types";
 import { Plane } from "lucide-react";
 
 export default async function PackagesPage() {
-  const pacakgesData = await getAllPackages(1, 10);
-  const count = pacakgesData?.data?.count;
+  const res = await getAllPackages(1, 12);
+
+  const { data: packagesData, count } = res;
+
+  const categoryCounts: Record<string, number> = {};
+
+  packagesData?.forEach((pkg: Package) => {
+    if (pkg.category) {
+      const cats = pkg.category.split(",").map((c) => c.trim());
+      cats.forEach((cat) => {
+        categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+      });
+    }
+  });
   return (
     <>
       <section className="relative bg-gradient-hero py-20 overflow-hidden">
@@ -45,7 +58,7 @@ export default async function PackagesPage() {
         </div>
       </section>
 
-      <AllPackages />
+      <AllPackages data={packagesData} categories={categoryCounts} />
     </>
   );
 }

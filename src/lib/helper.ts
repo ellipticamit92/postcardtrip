@@ -48,3 +48,7 @@ export function getInitials(name: string): string {
     .map((word) => word.charAt(0).toUpperCase())
     .join("");
 }
+
+export const getRandomInt = (min: number, max: number): number => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};

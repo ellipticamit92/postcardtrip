@@ -13,7 +13,7 @@ import {
   SortAsc,
   Star,
 } from "lucide-react";
-import { useState } from "react";
+import { FC, useState } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -21,10 +21,25 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Package } from "@/lib/types";
+import { getRandomInt, toIndianCurrency } from "@/lib/helper";
 
-const AllPackages = () => {
+interface AllPackagesProps {
+  data: Package[];
+  categories: Record<string, number>;
+}
+
+const AllPackages: FC<AllPackagesProps> = ({ data: packages, categories }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("popularity");
+
+  const getCount = (name: string) => {
+    const counts = Object.entries(categories)
+      .filter(([key]) => key.toLowerCase().includes(name))
+      .reduce((acc, [, count]) => acc + count, 0);
+
+    return counts;
+  };
 
   const tourCategories = [
     {
@@ -32,14 +47,14 @@ const AllPackages = () => {
       title: "All Packages",
       icon: Plane,
       color: "from-ocean to-adventure",
-      count: 24,
+      count: packages?.length ?? 0,
     },
     {
       id: "romantic",
       title: "Romantic",
       icon: Heart,
       color: "from-pink-500 to-rose-500",
-      count: 8,
+      count: getCount("romantic"),
       description: "Perfect getaways for couples",
     },
     {
@@ -47,7 +62,7 @@ const AllPackages = () => {
       title: "Adventure",
       icon: Mountain,
       color: "from-orange-500 to-red-500",
-      count: 6,
+      count: getCount("adventure"),
       description: "Thrilling experiences for adrenaline seekers",
     },
     {
@@ -55,7 +70,7 @@ const AllPackages = () => {
       title: "Leisure",
       icon: Palmtree,
       color: "from-green-500 to-emerald-500",
-      count: 7,
+      count: getCount("leisure"),
       description: "Relaxing vacations for peace seekers",
     },
     {
@@ -63,280 +78,28 @@ const AllPackages = () => {
       title: "Honeymoon",
       icon: Crown,
       color: "from-purple-500 to-pink-500",
-      count: 3,
+      count: getCount("honeymoon"),
       description: "Exclusive packages for newlyweds",
-    },
-  ];
-
-  const packages = [
-    // Romantic Packages
-    {
-      id: 1,
-      title: "Sunset Romance in Santorini",
-      category: "romantic",
-      location: "Santorini, Greece",
-      duration: "5 Days",
-      price: 2899,
-      originalPrice: 3299,
-      rating: 4.9,
-      reviews: 127,
-      image: "/hero.jpeg",
-      featured: true,
-      highlights: [
-        "Private Villa",
-        "Sunset Cruise",
-        "Couples Spa",
-        "Wine Tasting",
-      ],
-      description:
-        "Experience the ultimate romantic getaway with breathtaking sunsets, luxury accommodations, and intimate dining experiences.",
-    },
-    {
-      id: 2,
-      title: "Paris City of Love",
-      category: "romantic",
-      location: "Paris, France",
-      duration: "4 Days",
-      price: 2199,
-      originalPrice: 2599,
-      rating: 4.8,
-      reviews: 89,
-      image: "/hero.jpeg",
-      highlights: [
-        "Eiffel Tower Dinner",
-        "Seine River Cruise",
-        "Louvre Museum",
-        "Luxury Hotel",
-      ],
-      description:
-        "Discover the magic of Paris with your loved one through iconic landmarks and romantic experiences.",
-    },
-    {
-      id: 3,
-      title: "Bali Romantic Escape",
-      category: "romantic",
-      location: "Bali, Indonesia",
-      duration: "6 Days",
-      price: 1899,
-      originalPrice: 2299,
-      rating: 4.7,
-      reviews: 156,
-      image: "/hero.jpeg",
-      highlights: [
-        "Beach Resort",
-        "Couples Massage",
-        "Temple Tours",
-        "Private Beach",
-      ],
-      description:
-        "Tropical paradise perfect for couples seeking romance amidst stunning natural beauty.",
-    },
-
-    // Adventure Packages
-    {
-      id: 4,
-      title: "Himalayan Trek Adventure",
-      category: "adventure",
-      location: "Nepal",
-      duration: "12 Days",
-      price: 3499,
-      originalPrice: 3999,
-      rating: 4.9,
-      reviews: 203,
-      image: "/hero.jpeg",
-      featured: true,
-      highlights: [
-        "Mountain Climbing",
-        "Base Camp Trek",
-        "Local Villages",
-        "Expert Guides",
-      ],
-      description:
-        "Challenge yourself with an epic trek through the world&post;s highest mountain range.",
-    },
-    {
-      id: 5,
-      title: "Amazon Rainforest Expedition",
-      category: "adventure",
-      location: "Amazon, Brazil",
-      duration: "8 Days",
-      price: 2799,
-      originalPrice: 3199,
-      rating: 4.8,
-      reviews: 95,
-      image: "/hero.jpeg",
-      highlights: [
-        "Jungle Lodge",
-        "Wildlife Safari",
-        "River Rafting",
-        "Survival Skills",
-      ],
-      description:
-        "Immerse yourself in the heart of the Amazon for an unforgettable wilderness adventure.",
-    },
-    {
-      id: 6,
-      title: "Sahara Desert Safari",
-      category: "adventure",
-      location: "Morocco",
-      duration: "7 Days",
-      price: 2299,
-      originalPrice: 2699,
-      rating: 4.6,
-      reviews: 134,
-      image: "/hero.jpeg",
-      highlights: [
-        "Camel Trekking",
-        "Desert Camping",
-        "Berber Culture",
-        "Sand Dunes",
-      ],
-      description:
-        "Experience the magic of the Sahara with camel treks and overnight desert camping.",
-    },
-
-    // Leisure Packages
-    {
-      id: 7,
-      title: "Maldives Paradise Retreat",
-      category: "leisure",
-      location: "Maldives",
-      duration: "6 Days",
-      price: 4299,
-      originalPrice: 4999,
-      rating: 4.9,
-      reviews: 289,
-      image: "/hero.jpeg",
-      featured: true,
-      highlights: [
-        "Overwater Villa",
-        "Spa Treatments",
-        "Snorkeling",
-        "All-Inclusive",
-      ],
-      description:
-        "Ultimate relaxation in an overwater villa surrounded by crystal-clear waters.",
-    },
-    {
-      id: 8,
-      title: "Tuscany Wine & Wellness",
-      category: "leisure",
-      location: "Tuscany, Italy",
-      duration: "5 Days",
-      price: 2699,
-      originalPrice: 3099,
-      rating: 4.7,
-      reviews: 167,
-      image: "/hero.jpeg",
-      highlights: [
-        "Vineyard Tours",
-        "Spa Resort",
-        "Cooking Classes",
-        "Scenic Drives",
-      ],
-      description:
-        "Indulge in world-class wines and wellness treatments in the heart of Tuscany.",
-    },
-    {
-      id: 9,
-      title: "Thai Beach Bliss",
-      category: "leisure",
-      location: "Phuket, Thailand",
-      duration: "7 Days",
-      price: 1799,
-      originalPrice: 2199,
-      rating: 4.6,
-      reviews: 198,
-      image: "/hero.jpeg",
-      highlights: [
-        "Beach Resort",
-        "Thai Massage",
-        "Island Hopping",
-        "Local Cuisine",
-      ],
-      description:
-        "Relax on pristine beaches while enjoying authentic Thai hospitality and cuisine.",
-    },
-
-    // Honeymoon Packages
-    {
-      id: 10,
-      title: "Seychelles Honeymoon Bliss",
-      category: "honeymoon",
-      location: "Seychelles",
-      duration: "8 Days",
-      price: 5299,
-      originalPrice: 5999,
-      rating: 4.9,
-      reviews: 78,
-      image: "/hero.jpeg",
-      featured: true,
-      highlights: [
-        "Private Island",
-        "Butler Service",
-        "Helicopter Tours",
-        "Exclusive Dining",
-      ],
-      description:
-        "The ultimate honeymoon experience in a private paradise with unmatched luxury.",
-    },
-    {
-      id: 11,
-      title: "Japanese Garden Romance",
-      category: "honeymoon",
-      location: "Kyoto, Japan",
-      duration: "6 Days",
-      price: 3899,
-      originalPrice: 4399,
-      rating: 4.8,
-      reviews: 112,
-      image: "/hero.jpeg",
-      highlights: [
-        "Ryokan Stay",
-        "Cherry Blossoms",
-        "Tea Ceremony",
-        "Private Gardens",
-      ],
-      description:
-        "Experience traditional Japanese romance in ancient temples and serene gardens.",
-    },
-    {
-      id: 12,
-      title: "Swiss Alps Honeymoon",
-      category: "honeymoon",
-      location: "Switzerland",
-      duration: "7 Days",
-      price: 4599,
-      originalPrice: 5199,
-      rating: 4.7,
-      reviews: 89,
-      image: "/hero.jpeg",
-      highlights: [
-        "Mountain Chalet",
-        "Scenic Railways",
-        "Glacier Tours",
-        "Fine Dining",
-      ],
-      description:
-        "Romantic mountain retreat with breathtaking Alpine views and luxury accommodations.",
     },
   ];
 
   const filteredPackages =
     selectedCategory === "all"
       ? packages
-      : packages.filter((pkg) => pkg.category === selectedCategory);
+      : packages.filter((pkg) =>
+          pkg.category?.toLocaleLowerCase()?.includes(selectedCategory)
+        );
 
   const sortedPackages = [...filteredPackages].sort((a, b) => {
     switch (sortBy) {
       case "price-low":
-        return a.price - b.price;
+        return a.threePrice - b.threePrice;
       case "price-high":
-        return b.price - a.price;
+        return b.threePrice - a.threePrice;
       case "rating":
         return b.rating - a.rating;
       case "duration":
-        return parseInt(a.duration) - parseInt(b.duration);
+        return a.day - b.day;
       default:
         return b.featured ? 1 : -1;
     }
@@ -372,7 +135,10 @@ const AllPackages = () => {
               </TabsList>
 
               {/* Sorting Controls */}
-              <div className="flex items-center gap-4">
+              <div className="flex flex-col items-end justify-end gap-2">
+                <Badge variant="outline" className="text-xs">
+                  {sortedPackages.length} packages found
+                </Badge>
                 <div className="flex items-center gap-2">
                   <SortAsc className="w-4 h-4 text-muted-foreground" />
                   <select
@@ -387,9 +153,6 @@ const AllPackages = () => {
                     <option value="duration">Duration</option>
                   </select>
                 </div>
-                <Badge variant="outline" className="text-sm">
-                  {sortedPackages.length} packages found
-                </Badge>
               </div>
             </div>
 
@@ -419,12 +182,22 @@ const AllPackages = () => {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {sortedPackages.map((pkg) => (
                     <Card
-                      key={pkg.id}
-                      className="overflow-hidden group hover:shadow-strong transition-all duration-500 hover:-translate-y-2 py-0"
+                      key={pkg.pid}
+                      className="overflow-hidden group hover:shadow-strong transition-all duration-500 hover:-translate-y-2 py-0 gap-0"
                     >
                       <div className="relative">
                         <div className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
-                          <Image fill={true} src={pkg.image} alt={pkg.title} />
+                          <Image
+                            fill={true}
+                            src={pkg.imageUrl}
+                            alt={pkg.name}
+                          />
+                        </div>
+
+                        <div className="absolute top-4 left-4 z-10">
+                          <Badge className="bg-pink-500 text-white font-bold">
+                            {pkg?.day}D / {pkg?.night}N
+                          </Badge>
                         </div>
 
                         {pkg.featured && (
@@ -432,57 +205,60 @@ const AllPackages = () => {
                             Featured
                           </Badge>
                         )}
-                        <div className="absolute top-4 right-4">
-                          <Badge
-                            variant="secondary"
-                            className="bg-white/90 text-foreground"
-                          >
-                            {Math.round(
-                              ((pkg.originalPrice - pkg.price) /
-                                pkg.originalPrice) *
-                                100
-                            )}
-                            % OFF
-                          </Badge>
-                        </div>
+                        {pkg?.popular && (
+                          <div className="absolute bottom-4 right-4 z-10">
+                            <Badge className="bg-green-600 text-white">
+                              Popular
+                            </Badge>
+                          </div>
+                        )}
                       </div>
 
-                      <CardContent className="p-6">
+                      <CardContent className="p-5 pb-4">
                         <div className="flex items-center gap-2 mb-3">
-                          <Badge
-                            variant="outline"
-                            className="text-xs capitalize"
-                          >
-                            {pkg.category}
-                          </Badge>
+                          <div className="flex gap-2 flex-wrap ">
+                            {pkg?.category?.split(",")?.map((item, index) => (
+                              <Badge
+                                variant="outline"
+                                className="text-[12px] capitalize"
+                                key={index}
+                              >
+                                {item?.trim()?.split(" ")[0]}
+                              </Badge>
+                            ))}
+                          </div>
+
                           <div className="flex items-center gap-1">
                             <Star className="w-4 h-4 fill-adventure text-adventure" />
                             <span className="text-sm font-medium">
                               {pkg.rating}
                             </span>
                             <span className="text-xs text-muted-foreground">
-                              ({pkg.reviews})
+                              ({getRandomInt(150, 500)})
                             </span>
                           </div>
                         </div>
 
-                        <h3 className="font-bold text-xl mb-2 group-hover:text-ocean transition-colors">
-                          {pkg.title}
+                        <h3 className="font-bold text-lg mb-2 group-hover:text-ocean transition-colors">
+                          {pkg.name}
                         </h3>
 
-                        <div className="flex items-center gap-4 mb-4 text-sm text-muted-foreground">
+                        <div className="flex items-center gap-4 mb-2 text-sm text-muted-foreground">
                           <div className="flex items-center gap-1">
                             <MapPin className="w-4 h-4" />
-                            <span>{pkg.location}</span>
+                            <span>
+                              {pkg?.destination?.name},{" "}
+                              {pkg?.destination?.country}
+                            </span>
                           </div>
                           <div className="flex items-center gap-1">
                             <Clock className="w-4 h-4" />
-                            <span>{pkg.duration}</span>
+                            <span>{pkg.day} Days</span>
                           </div>
                         </div>
 
                         <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                          {pkg.description}
+                          {pkg.text}
                         </p>
 
                         <div className="flex flex-wrap gap-2 mb-4">
@@ -494,7 +270,7 @@ const AllPackages = () => {
                                 variant="secondary"
                                 className="text-xs"
                               >
-                                {highlight}
+                                {highlight?.text}
                               </Badge>
                             ))}
                         </div>
@@ -503,18 +279,22 @@ const AllPackages = () => {
                           <div>
                             <div className="flex items-center gap-2">
                               <span className="text-2xl font-bold text-ocean">
-                                ${pkg.price.toLocaleString()}
+                                {toIndianCurrency(pkg.threePrice)}
                               </span>
-                              <span className="text-sm text-muted-foreground line-through">
-                                ${pkg.originalPrice.toLocaleString()}
-                              </span>
+                              {pkg.threePrice && (
+                                <span className="text-sm text-muted-foreground line-through">
+                                  {toIndianCurrency(
+                                    pkg.threePrice + getRandomInt(2000, 4000)
+                                  )}
+                                </span>
+                              )}
                             </div>
                             <span className="text-xs text-muted-foreground">
                               per person
                             </span>
                           </div>
 
-                          <Link href={`/packages/${pkg.id}`}>
+                          <Link href={`/packages/${pkg.pid}`}>
                             <Button
                               variant="outline"
                               size="sm"

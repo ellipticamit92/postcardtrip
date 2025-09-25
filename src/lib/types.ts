@@ -30,15 +30,22 @@ export type Package = {
   popular: boolean;
   tourType: string;
   description: string;
-  rating: string;
+  rating: number;
   heroTitle: string;
   country: string;
   featured: boolean;
+  overview: string;
+  isRichText: boolean;
   cities: City[];
   highlights: Highlights[];
   text: string;
   threePrice: number;
   foutrPrice: number;
+  category: string;
+  destination: {
+    name: string;
+    country: string;
+  };
 };
 
 export type ReviewType = {
