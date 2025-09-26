@@ -167,8 +167,17 @@ export function Header() {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-4">
-            <InquiryModal />
-            <BookingModal />
+            <InquiryModal>
+              <Button variant="outline" size="sm">
+                <Globe className="w-4 h-4 mr-2" />
+                Plan Trip
+              </Button>
+            </InquiryModal>
+            <BookingModal>
+              <Button variant="pricing" size="sm">
+                Book Now
+              </Button>
+            </BookingModal>
           </div>
 
           {/* Mobile Menu Button */}

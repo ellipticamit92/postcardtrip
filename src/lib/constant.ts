@@ -37,22 +37,22 @@ export const destinations = [
 export const packages = [
   {
     name: "Adventure Packages",
-    href: "/destinations?location=kerala",
+    href: "/packages?category=adventure",
     description: "Thrilling Experiences",
   },
   {
     name: "Honeymoon Packages",
-    href: "/destinations?location=kerala",
+    href: "/packages?category=honeymoon",
     description: "Romantic Getaways",
   },
   {
     name: "Leisure Packages",
-    href: "/destinations?location=himachal",
+    href: "/packages?category=leisure",
     description: "Relaxing Retreats",
   },
   {
-    name: "Temple Packages",
-    href: "/destinations?location=himachal",
-    description: "Spiritual Journeys",
+    name: "Romantic Packages",
+    href: "/packages?category=romantic",
+    description: "Romantic Journeys",
   },
 ];

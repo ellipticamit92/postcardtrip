@@ -24,9 +24,6 @@ const PackageCard: FC<PacakgeCardProps> = ({ packageData }) => {
           />
         </div>
 
-        <div className="absolute top-4 right-4">
-          <Badge className="bg-adventure text-white">20% OFF</Badge>
-        </div>
         <div className="absolute top-4 left-4">
           <Badge className="bg-nature text-white">
             {packageData.day} Days / {packageData.night} Nights

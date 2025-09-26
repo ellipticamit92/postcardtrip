@@ -63,3 +63,15 @@ export type ReviewType = {
     country: string;
   };
 };
+
+export type Destination = {
+  name: string;
+  updatedAt: Date;
+  createdAt: Date;
+  imageUrl: string | null;
+  featured: boolean;
+  isRichText: boolean | null;
+  status: boolean;
+  overview: string | null;
+  rating: number | null;
+};

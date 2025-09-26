@@ -27,10 +27,15 @@ import { getRandomInt, toIndianCurrency } from "@/lib/helper";
 interface AllPackagesProps {
   data: Package[];
   categories: Record<string, number>;
+  category?: string;
 }
 
-const AllPackages: FC<AllPackagesProps> = ({ data: packages, categories }) => {
-  const [selectedCategory, setSelectedCategory] = useState("all");
+const AllPackages: FC<AllPackagesProps> = ({
+  data: packages,
+  categories,
+  category,
+}) => {
+  const [selectedCategory, setSelectedCategory] = useState(category ?? "all");
   const [sortBy, setSortBy] = useState("popularity");
 
   const getCount = (name: string) => {
@@ -194,33 +199,28 @@ const AllPackages: FC<AllPackagesProps> = ({ data: packages, categories }) => {
                           />
                         </div>
 
-                        <div className="absolute top-4 left-4 z-10">
-                          <Badge className="bg-pink-500 text-white font-bold">
-                            {pkg?.day}D / {pkg?.night}N
+                        <div className="absolute top-3 left-3 z-10">
+                          <Badge className="bg-nature text-white">
+                            {pkg.day} Days / {pkg.night} Nights
                           </Badge>
                         </div>
 
-                        {pkg.featured && (
-                          <Badge className="absolute top-4 left-4 bg-adventure text-white">
-                            Featured
-                          </Badge>
-                        )}
                         {pkg?.popular && (
-                          <div className="absolute bottom-4 right-4 z-10">
-                            <Badge className="bg-green-600 text-white">
+                          <div className="absolute bottom-3 right-3 z-10">
+                            <Badge className="bg-adventure text-white">
                               Popular
                             </Badge>
                           </div>
                         )}
                       </div>
 
-                      <CardContent className="p-5 pb-4">
+                      <CardContent className="p-5">
                         <div className="flex items-center gap-2 mb-3">
                           <div className="flex gap-2 flex-wrap ">
                             {pkg?.category?.split(",")?.map((item, index) => (
                               <Badge
                                 variant="outline"
-                                className="text-[12px] capitalize"
+                                className="text-[11px] capitalize"
                                 key={index}
                               >
                                 {item?.trim()?.split(" ")[0]}
@@ -268,7 +268,7 @@ const AllPackages: FC<AllPackagesProps> = ({ data: packages, categories }) => {
                               <Badge
                                 key={index}
                                 variant="secondary"
-                                className="text-xs"
+                                className="text-[11px]"
                               >
                                 {highlight?.text}
                               </Badge>
@@ -277,17 +277,10 @@ const AllPackages: FC<AllPackagesProps> = ({ data: packages, categories }) => {
 
                         <div className="flex items-center justify-between">
                           <div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-1">
                               <span className="text-2xl font-bold text-ocean">
                                 {toIndianCurrency(pkg.threePrice)}
                               </span>
-                              {pkg.threePrice && (
-                                <span className="text-sm text-muted-foreground line-through">
-                                  {toIndianCurrency(
-                                    pkg.threePrice + getRandomInt(2000, 4000)
-                                  )}
-                                </span>
-                              )}
                             </div>
                             <span className="text-xs text-muted-foreground">
                               per person
@@ -297,7 +290,7 @@ const AllPackages: FC<AllPackagesProps> = ({ data: packages, categories }) => {
                           <Link href={`/packages/${pkg.pid}`}>
                             <Button
                               variant="outline"
-                              size="sm"
+                              size="lg"
                               className="group"
                             >
                               View Details

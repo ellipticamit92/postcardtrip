@@ -4,7 +4,14 @@ import { getAllPackages } from "@/lib/services/packages.service";
 import { Package } from "@/lib/types";
 import { Plane } from "lucide-react";
 
-export default async function PackagesPage() {
+interface PackagePageProps {
+  searchParams: Promise<Record<string, string | undefined>>;
+}
+
+export default async function PackagesPage({ searchParams }: PackagePageProps) {
+  const params = await searchParams;
+  const { category } = params;
+  console.log("DEBUG params  = ", params);
   const res = await getAllPackages(1, 12);
 
   const { data: packagesData, count } = res;
@@ -58,7 +65,11 @@ export default async function PackagesPage() {
         </div>
       </section>
 
-      <AllPackages data={packagesData} categories={categoryCounts} />
+      <AllPackages
+        data={packagesData}
+        categories={categoryCounts}
+        category={category}
+      />
     </>
   );
 }

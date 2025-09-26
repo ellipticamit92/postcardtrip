@@ -30,7 +30,7 @@ const FeaturedPackageCard: FC<FeaturedPackageCardProps> = ({
           />
           <div className="absolute top-6 left-6">
             <Badge className="bg-adventure text-white text-sm px-3 py-1">
-              20% OFF
+              10 Packages
             </Badge>
           </div>
         </div>

@@ -19,7 +19,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Globe } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -33,9 +32,10 @@ import { useState } from "react";
 interface InquiryModalProps {
   isMobile?: boolean;
   className?: string;
+  children?: React.ReactNode;
 }
 
-const InquiryModal = ({ isMobile = false, className }: InquiryModalProps) => {
+const InquiryModal = ({ isMobile = false, children }: InquiryModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { form, onSubmit, loading, success, error } = useContactForm();
@@ -52,12 +52,7 @@ const InquiryModal = ({ isMobile = false, className }: InquiryModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="sm" className={className}>
-          <Globe className="w-4 h-4 mr-2" />
-          Plan Trip
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
 
       <DialogContent className="max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>

@@ -4,10 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { toIndianCurrency } from "@/lib/helper";
 import { getAll } from "@/lib/services/destination.service";
-import { ArrowRight, Hash, MapPin, Star, Users2 } from "lucide-react";
+import { ArrowRight, MapPin, Star } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import NotFound from "../not-found";
+import FeaturedPackageCard from "@/components/organisms/packages/FeaturedPackageCard";
+import { Destination } from "@/lib/types";
 
 const enhancedPackages = [
   {
@@ -150,8 +152,9 @@ export default async function DestinationPage() {
   if (destData?.success === false) {
     return <NotFound />;
   }
+  const data = destData?.data;
 
-  const featuredPackage = enhancedPackages.find((pkg) => pkg.featured);
+  const featuredPackage = data.find((dest: Destination) => !!dest.featured);
   const packages = enhancedPackages.filter((pkg) => !pkg.featured);
 
   return (
@@ -163,6 +166,18 @@ export default async function DestinationPage() {
       />
       <div className="container mx-auto px-4 py-8">
         {featuredPackage && (
+          <section className="mb-16">
+            <h2 className="text-4xl font-bold mb-8 text-foreground text-center">
+              Featured Destination
+            </h2>
+            <FeaturedPackageCard
+              featuredPackage={featuredPackage}
+              country="IN"
+              name="Name"
+            />
+          </section>
+        )}
+        {/* {featuredPackage && (
           <section className="mb-16">
             <h2 className="text-4xl font-bold mb-8 text-foreground text-center">
               Featured Destination
@@ -260,7 +275,7 @@ export default async function DestinationPage() {
               </div>
             </Card>
           </section>
-        )}
+        )} */}
         <section>
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-4xl font-bold text-foreground">

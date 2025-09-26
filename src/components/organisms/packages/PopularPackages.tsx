@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import RichText from "@/components/atoms/RichText";
 import { Button } from "@/components/ui/button";
+import { NavigationButton } from "@/components/atoms/NavigationButton";
 
 const PopularPackages = async () => {
   const popularPackageData = await getPopularPackages();
@@ -76,12 +77,23 @@ const PopularPackages = async () => {
                     package starting price
                   </span>
                 </div>
-                <Link href={`/packages/${pkg.pid}`}>
-                  <Button variant="ocean" size="sm" className="group">
-                    Book Now
-                    <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
+                <NavigationButton
+                  href={`/packages/${pkg.pid}`}
+                  variant="ocean"
+                  size="sm"
+                  classes="group"
+                  eventName="package_click"
+                  gtmValues={{
+                    package_id: pkg.pid,
+                    package_name: pkg.name,
+                    package_days: pkg.day,
+                    package_nights: pkg.night,
+                    destination_name: pkg?.destination?.name || "",
+                  }}
+                >
+                  Book Now
+                  <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
+                </NavigationButton>
               </div>
             </CardContent>
           </Card>

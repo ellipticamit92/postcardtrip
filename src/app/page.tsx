@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { getRecentReviews } from "@/lib/services/reviews.service";
 import ReviewsSlider from "@/components/organisms/reviews/ReviewsSlider";
+import BookingModal from "@/components/organisms/modal/BookingModal";
 
 export default async function Home() {
   const reviews = await getRecentReviews();
@@ -40,14 +41,16 @@ export default async function Home() {
                   Browse All Destinations
                 </Button>
               </Link>
-              <Button
-                variant="customize"
-                animation="primaryOutline"
-                size="lg"
-                className="text-lg px-8 py-4"
-              >
-                Get Custom Quote
-              </Button>
+              <BookingModal>
+                <Button
+                  variant="customize"
+                  animation="primaryOutline"
+                  size="lg"
+                  className="text-lg px-8 py-4"
+                >
+                  Get Custom Quote
+                </Button>
+              </BookingModal>
             </div>
           </div>
         </section>

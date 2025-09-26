@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { FC } from "react";
 import Link from "next/link";
+import InquiryModal from "../organisms/modal/InquiryModal";
 
 interface PagesHeroProps {
   src?: string;
@@ -61,14 +62,16 @@ const PagesHero: FC<PagesHeroProps> = ({
                   Explore All Packages
                 </Button>
               </Link>
-              <Button
-                variant="secondaryOutline"
-                className="bg-white"
-                animation="secondaryOutline"
-                size="lg"
-              >
-                Plan Custom Trip
-              </Button>
+              <InquiryModal>
+                <Button
+                  variant="secondaryOutline"
+                  className="bg-white"
+                  animation="secondaryOutline"
+                  size="lg"
+                >
+                  Plan Custom Trip12
+                </Button>
+              </InquiryModal>
             </div>
           </div>
         </div>

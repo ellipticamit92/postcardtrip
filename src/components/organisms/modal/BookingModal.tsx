@@ -31,9 +31,10 @@ import { useContactForm } from "@/hooks/useContactForm";
 interface BookingModalProps {
   isMobile?: boolean;
   className?: string;
+  children?: React.ReactNode;
 }
 
-const BookingModal = ({ isMobile = false, className }: BookingModalProps) => {
+const BookingModal = ({ isMobile = false, children }: BookingModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   // use generic booking hook
@@ -51,11 +52,7 @@ const BookingModal = ({ isMobile = false, className }: BookingModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button variant="pricing" size="sm" className={className}>
-          Book Now
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
 
       <DialogContent className="max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>

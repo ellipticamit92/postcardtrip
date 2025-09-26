@@ -31,7 +31,7 @@ const PackagesHero: FC<PackagesHeroProps> = ({ packageDetails }) => {
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
                 <span>
-                  {packageDetails.day} Days / {packageDetails.night} Nights
+                  {packageDetails?.day} Days / {packageDetails?.night} Nights
                 </span>
               </div>
               <div className="flex items-center gap-2">
@@ -44,7 +44,7 @@ const PackagesHero: FC<PackagesHeroProps> = ({ packageDetails }) => {
               </div>
               <div className="flex items-center gap-2">
                 <Star className="w-4 h-4 fill-current" />
-                <span>{packageDetails.rating}/5 Rating</span>
+                <span>{packageDetails?.rating ?? 5}/5 Rating</span>
               </div>
             </div>
           </div>

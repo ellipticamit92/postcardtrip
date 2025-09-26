@@ -2,6 +2,7 @@ import { Badge } from "../ui/badge";
 import { Users, ArrowRight, Globe, Award, Shield } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import InquiryModal from "../organisms/modal/InquiryModal";
 
 const HeroSection = () => {
   return (
@@ -32,7 +33,7 @@ const HeroSection = () => {
             <div className="flex flex-wrap gap-8 text-sm mb-10">
               <div className="flex items-center gap-3">
                 <Globe className="w-6 h-6" />
-                <span>50+ Destinations</span>
+                <span>10+ Destinations</span>
               </div>
               <div className="flex items-center gap-3">
                 <Award className="w-6 h-6" />
@@ -44,7 +45,7 @@ const HeroSection = () => {
               </div>
               <div className="flex items-center gap-3">
                 <Users className="w-6 h-6" />
-                <span>10,000+ Happy Travelers</span>
+                <span>2,000+ Happy Travelers</span>
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -58,14 +59,16 @@ const HeroSection = () => {
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
-              <Button
-                variant="customize"
-                animation="primaryOutline"
-                size="lg"
-                className="text-lg px-8 py-4"
-              >
-                Plan Custom Trip
-              </Button>
+              <InquiryModal>
+                <Button
+                  variant="customize"
+                  animation="primaryOutline"
+                  size="lg"
+                  className="text-lg px-8 py-4"
+                >
+                  Plan Custom Trip
+                </Button>
+              </InquiryModal>
             </div>
           </div>
         </div>
