@@ -36,8 +36,6 @@ interface BookingModalProps {
 
 const BookingModal = ({ isMobile = false, children }: BookingModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  // use generic booking hook
   const { form, onSubmit, loading, success, error } = useContactForm();
 
   const destinations = [
