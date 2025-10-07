@@ -24,8 +24,8 @@ const PackageCard: FC<PacakgeCardProps> = ({ packageData }) => {
           />
         </div>
 
-        <div className="absolute top-4 left-4">
-          <Badge className="bg-nature text-white">
+        <div className="absolute top-2 left-2">
+          <Badge className="bg-secondary text-white">
             {packageData.day} Days / {packageData.night} Nights
           </Badge>
         </div>
@@ -69,10 +69,10 @@ const PackageCard: FC<PacakgeCardProps> = ({ packageData }) => {
           <div>
             <div className="flex items-center gap-2">
               <span className="text-2xl font-bold text-ocean">
-                {toIndianCurrency(packageData.basePrice)}
+                {toIndianCurrency(packageData.threePrice)}
               </span>
               <span className="text-sm text-muted-foreground line-through">
-                {toIndianCurrency(packageData.originalPrice)}
+                {toIndianCurrency(packageData.fourPrice)}
               </span>
             </div>
             <span className="text-xs text-muted-foreground">

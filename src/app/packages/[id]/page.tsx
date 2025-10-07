@@ -11,11 +11,21 @@ export default async function PackageDetailsPage({
 }: PackageDetailsPageProps) {
   const { id } = await params;
   const packageDetailsData = await getPackageDetails(id);
+  const { data, success } = packageDetailsData;
+  if (!success || !data) {
+    return <div>No Data Found</div>;
+  }
+  const { itineraries, inclusions, exclusions, highlights, ...packageDetails } =
+    data;
 
   return (
     <>
-      <PackagesHero packageDetails={packageDetailsData?.data} />
-      <PackageDetails />
+      <PackagesHero packageDetails={packageDetails} />
+      <PackageDetails
+        inclusions={inclusions}
+        exclusions={exclusions}
+        itineraries={itineraries}
+      />
     </>
   );
 }

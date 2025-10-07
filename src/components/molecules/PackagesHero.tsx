@@ -3,6 +3,7 @@ import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { FC } from "react";
 import { Package } from "@/lib/types";
+import { getRandomInt } from "@/lib/helper";
 
 interface PackagesHeroProps {
   packageDetails: Package;
@@ -11,7 +12,7 @@ interface PackagesHeroProps {
 const PackagesHero: FC<PackagesHeroProps> = ({ packageDetails }) => {
   const imageSrc = packageDetails?.imageUrl ?? "/hero.jpeg";
   return (
-    <section className="relative h-[70vh] overflow-hidden">
+    <section className="relative h-[80vh] overflow-hidden">
       <div className="w-full h-full object-cover">
         <Image src={imageSrc} alt="Tropical Paradise Package" fill={true} />
       </div>
@@ -23,10 +24,10 @@ const PackagesHero: FC<PackagesHeroProps> = ({ packageDetails }) => {
             <Badge className="mb-4 bg-adventure text-white">
               {packageDetails?.featured ? "Featured" : "Popular"} Package
             </Badge>
-            <h1 className="text-5xl font-bold mb-4">{packageDetails?.name}</h1>
-            <p className="text-xl mb-6 text-white/90">
-              {packageDetails?.description}
-            </p>
+            <h1 className="text-2xl md:text-4xl font-bold mb-4">
+              {packageDetails?.name}
+            </h1>
+            <p className="text-lg mb-6 text-white">{packageDetails?.text}</p>
             <div className="flex flex-wrap gap-4 text-sm">
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
@@ -40,7 +41,7 @@ const PackagesHero: FC<PackagesHeroProps> = ({ packageDetails }) => {
               </div>
               <div className="flex items-center gap-2">
                 <Users className="w-4 h-4" />
-                <span>Max 12 People</span>
+                <span>{getRandomInt(120, 250)}+ Reviews</span>
               </div>
               <div className="flex items-center gap-2">
                 <Star className="w-4 h-4 fill-current" />

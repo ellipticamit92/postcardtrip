@@ -11,7 +11,6 @@ interface PackagePageProps {
 export default async function PackagesPage({ searchParams }: PackagePageProps) {
   const params = await searchParams;
   const { category } = params;
-  console.log("DEBUG params  = ", params);
   const res = await getAllPackages(1, 12);
 
   const { data: packagesData, count } = res;
@@ -20,7 +19,7 @@ export default async function PackagesPage({ searchParams }: PackagePageProps) {
 
   packagesData?.forEach((pkg: Package) => {
     if (pkg.category) {
-      const cats = pkg.category.split(",").map((c) => c.trim());
+      const cats = pkg?.category?.split(",")?.map((c) => c.trim());
       cats.forEach((cat) => {
         categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
       });

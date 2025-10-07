@@ -10,6 +10,7 @@ interface PagesHeroProps {
   badgeText: string;
   title: string;
   description: string;
+  packageNum?: number;
 }
 
 const PagesHero: FC<PagesHeroProps> = ({
@@ -17,6 +18,7 @@ const PagesHero: FC<PagesHeroProps> = ({
   badgeText,
   title,
   description,
+  packageNum = 10,
 }) => {
   const words = title.split(" ");
   const mid = Math.ceil(words.length / 2);
@@ -31,14 +33,14 @@ const PagesHero: FC<PagesHeroProps> = ({
           alt={"asdfasf"}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/60 to-transparent" />
         <div className="absolute inset-0 flex items-center">
           <div className="container mx-auto px-6">
             <div className="max-w-3xl text-white">
               <Badge className="mb-4 bg-adventure text-white">
                 Featured {badgeText}
               </Badge>
-              <h1 className="text-6xl font-bold mb-6">
+              <h1 className="text-4xl text-shadow-lg font-bold mb-6">
                 {firstLine} <br />
                 {secondLine}
               </h1>
@@ -46,7 +48,9 @@ const PagesHero: FC<PagesHeroProps> = ({
               <div className="flex flex-wrap gap-6 text-sm mb-8">
                 <div className="flex items-center gap-2">
                   <Plane className="w-5 h-5" />
-                  <span>50+ {badgeText} </span>
+                  <span>
+                    {packageNum}+ {badgeText}{" "}
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Star className="w-5 h-5 fill-current" />

@@ -2,149 +2,14 @@ import PagesHero from "@/components/molecules/PagesHero";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { toIndianCurrency } from "@/lib/helper";
+import { getRandomInt, toIndianCurrency } from "@/lib/helper";
 import { getAll } from "@/lib/services/destination.service";
 import { ArrowRight, MapPin, Star } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import NotFound from "../not-found";
-import FeaturedPackageCard from "@/components/organisms/packages/FeaturedPackageCard";
 import { Destination } from "@/lib/types";
-
-const enhancedPackages = [
-  {
-    id: "tropical-paradise",
-    title: "God's Own Country",
-    name: "Kerala",
-    description:
-      "Experience the ultimate blend of relaxation and adventure in this stunning 5-day journey through pristine beaches, volcanic landscapes, and rich cultural heritage.",
-    duration: "5 Days / 4 Nights",
-    durationDays: 5,
-    price: 1899,
-    originalPrice: 2399,
-    discount: "20%",
-    rating: 4.9,
-    image: "/destination/card/kerala-destination-card-img.png",
-    destinations: ["Tropical Islands", "Paradise Bay"],
-    highlights: [
-      "Beach Snorkeling",
-      "Volcano Hiking",
-      "Cultural Tours",
-      "Luxury Resorts",
-      "House Boats",
-    ],
-    categories: ["beach", "adventure", "luxury"],
-    featured: true,
-    country: "India",
-    packagesCount: 5,
-    traveller: 2000,
-  },
-  {
-    id: "mountain-explorer",
-    title: "Mountain Explorer Expedition",
-    description:
-      "Discover breathtaking mountain landscapes, ancient trails, and authentic local cultures in this thrilling adventure package.",
-    duration: "7 Days / 6 Nights",
-    durationDays: 7,
-    price: 2299,
-    originalPrice: 2899,
-    discount: "18%",
-    rating: 4.8,
-    image: "/hero.jpg",
-    destinations: ["Mountain Ranges", "Alpine Villages"],
-    highlights: [
-      "Summit Hiking",
-      "Cable Car Rides",
-      "Local Cuisine",
-      "Mountain Lodges",
-    ],
-    categories: ["mountain", "adventure"],
-  },
-  {
-    id: "cultural-heritage",
-    title: "Cultural Heritage Discovery",
-    description:
-      "Immerse yourself in ancient traditions, historic temples, and vibrant local markets in this enriching cultural journey.",
-    duration: "6 Days / 5 Nights",
-    durationDays: 6,
-    price: 1699,
-    originalPrice: 2199,
-    discount: "22%",
-    rating: 4.7,
-    image: "/hero.jpg",
-    destinations: ["Historic Cities", "Temple Complexes"],
-    highlights: [
-      "Ancient Temples",
-      "Craft Workshops",
-      "Traditional Shows",
-      "Heritage Hotels",
-    ],
-    categories: ["cultural", "budget"],
-  },
-  {
-    id: "beach-paradise",
-    title: "Ultimate Beach Paradise",
-    description:
-      "Relax and unwind in pristine beaches with crystal-clear waters, luxury resorts, and unforgettable water activities.",
-    duration: "4 Days / 3 Nights",
-    durationDays: 4,
-    price: 1399,
-    originalPrice: 1799,
-    discount: "22%",
-    rating: 4.6,
-    image: "/hero.jpg",
-    destinations: ["Private Islands", "Coral Reefs"],
-    highlights: [
-      "Snorkeling",
-      "Sunset Cruises",
-      "Spa Treatments",
-      "Beachfront Dining",
-    ],
-    categories: ["beach", "luxury"],
-  },
-  {
-    id: "adventure-seeker",
-    title: "Adventure Seeker Special",
-    description:
-      "For thrill-seekers who crave excitement, featuring extreme sports, challenging hikes, and adrenaline-pumping activities.",
-    duration: "8 Days / 7 Nights",
-    durationDays: 8,
-    price: 2899,
-    originalPrice: 3499,
-    discount: "17%",
-    rating: 4.9,
-    image: "/hero.jpg",
-    destinations: ["Adventure Parks", "National Reserves"],
-    highlights: [
-      "Rock Climbing",
-      "White Water Rafting",
-      "Jungle Trekking",
-      "Adventure Camps",
-    ],
-    categories: ["adventure", "mountain"],
-  },
-  {
-    id: "local-immersion",
-    title: "Local Culture Immersion",
-    description:
-      "Live like a local and experience authentic traditions, home-stays, and genuine cultural exchanges.",
-    duration: "9 Days / 8 Nights",
-    durationDays: 9,
-    price: 2199,
-    originalPrice: 2799,
-    discount: "21%",
-    rating: 4.8,
-    image: "/hero.jpg",
-    destinations: ["Rural Villages", "Traditional Towns"],
-    highlights: [
-      "Home Stays",
-      "Cooking Classes",
-      "Local Markets",
-      "Artisan Workshops",
-    ],
-    categories: ["cultural", "budget"],
-  },
-];
+import FeaturedDestinationCard from "@/components/organisms/destinations/FeaturedDestinationCard";
 
 export default async function DestinationPage() {
   const destData = await getAll();
@@ -154,8 +19,8 @@ export default async function DestinationPage() {
   }
   const data = destData?.data;
 
-  const featuredPackage = data.find((dest: Destination) => !!dest.featured);
-  const packages = enhancedPackages.filter((pkg) => !pkg.featured);
+  const featuredDestination = data.find((dest: Destination) => !!dest.featured);
+  const otherDestination = data.filter((dest: Destination) => !dest.featured);
 
   return (
     <>
@@ -164,131 +29,144 @@ export default async function DestinationPage() {
         title="Discover Amazing Destinations"
         description="Explore our carefully curated travel packages designed to create unforgettable memories and extraordinary experiences."
       />
+
       <div className="container mx-auto px-4 py-8">
-        {featuredPackage && (
-          <section className="mb-16">
-            <h2 className="text-4xl font-bold mb-8 text-foreground text-center">
-              Featured Destination
-            </h2>
-            <FeaturedPackageCard
-              featuredPackage={featuredPackage}
-              country="IN"
-              name="Name"
-            />
+        <section className="py-16 bg-gradient-to-r from-ocean/5 via-nature/5 to-adventure/5">
+          <div className="grid md:grid-cols-4 gap-8 text-center">
+            <div className="space-y-2">
+              <div className="text-4xl font-bold text-ocean">6</div>
+              <div className="text-muted-foreground">Amazing States</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-4xl font-bold text-adventure">1000+</div>
+              <div className="text-muted-foreground">Happy Travelers</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-4xl font-bold text-nature">4.9</div>
+              <div className="text-muted-foreground">Average Rating</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-4xl font-bold text-ocean">24/7</div>
+              <div className="text-muted-foreground">Support</div>
+            </div>
+          </div>
+        </section>
+        {featuredDestination && (
+          <section className="my-16 ">
+            <div className="text-center mb-8 space-y-1">
+              <h2 className="text-4xl font-bold text-foreground">
+                Featured Destination
+              </h2>
+              <h5 className="text-foreground">
+                Experience the beauty of God's Own Country - Kerala's backwaters
+                and hills
+              </h5>
+            </div>
+
+            <FeaturedDestinationCard featuredDest={featuredDestination} />
           </section>
         )}
-        {/* {featuredPackage && (
-          <section className="mb-16">
-            <h2 className="text-4xl font-bold mb-8 text-foreground text-center">
-              Featured Destination
-            </h2>
-            <Card className="overflow-hidden shadow-strong hover:shadow-xl transition-all duration-500 group py-0">
-              <div className="grid lg:grid-cols-2 gap-0">
-                <div className="relative overflow-hidden">
-                  <div>
-                    <img
-                      src={featuredPackage.image}
-                      alt={featuredPackage.title}
-                      className="w-full h-96 object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
 
-                  <div className="absolute top-6 left-6">
-                    <Badge className="bg-adventure text-white text-sm px-3 py-1">
-                      {featuredPackage.discount} OFF
-                    </Badge>
-                  </div>
-                </div>
-                <div className="p-8 py-6 flex flex-col justify-center">
-                  <h3 className="text-4xl font-bold text-foreground">
-                    {featuredPackage.name}
-                  </h3>
-                  <h6 className="italic text-lg font-light mb-2">
-                    {featuredPackage.title}
-                  </h6>
-
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
-                    {featuredPackage.description}
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="flex items-center gap-2">
-                      <Users2 className="w-5 h-5 text-ocean" />
-                      <span className="text-sm">
-                        {featuredPackage.traveller}+ Happy Travllers
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Star className="w-5 h-5 fill-adventure text-adventure" />
-                      <span className="text-sm">
-                        {featuredPackage.rating}/5 Rating
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-5 h-5 text-nature" />
-                      <span className="text-sm">
-                        {featuredPackage.name}, {featuredPackage.country}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Hash className="w-5 h-5 text-adventure" />
-                      <span className="text-sm">
-                        {featuredPackage.packagesCount}+ Packages
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {featuredPackage.highlights.map((highlight, index) => (
-                      <Badge
-                        key={index}
-                        variant="secondary"
-                        className="text-xs"
-                      >
-                        {highlight}
-                      </Badge>
-                    ))}
-                  </div>
-
-                  <div className="flex items-end justify-between">
-                    <div>
-                      <span className="text-sm text-muted-foreground">
-                        package starting from
-                      </span>
-                      <div className="flex items-center gap-3">
-                        <span className="text-3xl font-bold text-ocean">
-                          {toIndianCurrency(featuredPackage.price)}
-                        </span>
-                        <span className="text-lg text-muted-foreground line-through">
-                          {toIndianCurrency(featuredPackage.originalPrice)}
-                        </span>
-                      </div>
-                    </div>
-                    <Link href={`/packages/${featuredPackage.id}`}>
-                      <Button variant="pricing" size="lg" className="group">
-                        View Packages
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </section>
-        )} */}
         <section>
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-4xl font-bold text-foreground">
               All Destinations
             </h2>
-            <div className="text-sm text-muted-foreground">
-              {packages?.length} package
-              {packages?.length !== 1 ? "s" : ""} found
-            </div>
           </div>
 
           {/* Results Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {otherDestination.map((dest: Destination) => (
+              <Card
+                key={dest.did}
+                className="overflow-hidden shadow-soft hover:shadow-medium transition-all duration-300 group py-0"
+              >
+                <div className="relative overflow-hidden">
+                  {dest?.imageUrl && (
+                    <div className="w-full h-64 aspect-[16/9] object-cover group-hover:scale-110 transition-transform duration-500">
+                      <Image
+                        src={dest.imageUrl}
+                        alt={dest.name}
+                        fill={true}
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+
+                  <div className="absolute top-4 right-4">
+                    <Badge className="bg-adventure text-white">
+                      {getRandomInt(8, 15)}% OFF
+                    </Badge>
+                  </div>
+                  <div className="absolute top-4 left-4">
+                    <Badge className="bg-white/90 text-adventure font-semibold">
+                      ⭐ {dest.rating}/5
+                    </Badge>
+                  </div>
+                </div>
+                <CardContent className="p-6 py-0 pb-4">
+                  <h3 className="font-bold text-xl text-foreground">
+                    {dest.name}
+                  </h3>
+                  <p className="text-muted-foreground text-sm mb-2 leading-relaxed">
+                    {dest.text}
+                  </p>
+
+                  <div className="space-y-2 mb-3 flex justify-between gap-3">
+                    <div className="flex items-center gap-2">
+                      <Star className="w-4 h-4 fill-adventure text-adventure" />
+                      <span className="text-sm text-muted-foreground">
+                        {dest.rating}/5 • Excellent
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-sm text-muted-foreground">
+                        {dest.name}, {dest.country}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* <div className="flex flex-wrap gap-1 ">
+                    {dest.highlights &&
+                      dest.highlights
+                        .split(",")
+                        .slice(0, 4)
+                        .map((highlight, index) => (
+                          <Badge
+                            key={index}
+                            variant="secondary"
+                            className="text-xs"
+                          >
+                            {highlight}
+                          </Badge>
+                        ))}
+                  </div> */}
+                  <div className="flex items-center justify-between pt-4 border-t">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-2xl font-bold text-ocean">
+                          {toIndianCurrency(dest.basePrice)}
+                        </span>
+                        <span className="text-sm text-muted-foreground line-through">
+                          {toIndianCurrency(dest.originalPrice)}
+                        </span>
+                      </div>
+                      <span className="text-xs text-muted-foreground">
+                        per person
+                      </span>
+                    </div>
+                    <Link href={`/destinations/${dest.name.toLowerCase()}`}>
+                      <Button variant="ocean" size="sm" className="group">
+                        View Details
+                        <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+            {/* 
             {packages.map((pkg) => (
               <Card
                 key={pkg.id}
@@ -373,7 +251,82 @@ export default async function DestinationPage() {
                   </div>
                 </CardContent>
               </Card>
-            ))}
+            ))} */}
+          </div>
+        </section>
+        <section className="py-20 bg-gradient-to-br from-ocean/10 via-nature/5 to-adventure/10 rounded-3xl mt-20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-ocean/5 to-adventure/5" />
+          <div className="relative text-center">
+            <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-6 py-2 mb-6">
+              <span className="text-2xl">✈️</span>
+              <span className="font-semibold text-ocean">
+                Custom Travel Planning
+              </span>
+            </div>
+            <h2 className="text-5xl font-bold mb-6 text-foreground leading-tight">
+              Looking for a
+              <br />
+              <span className="text-transparent bg-gradient-to-r from-ocean to-adventure bg-clip-text">
+                Custom Indian Experience?
+              </span>
+            </h2>
+            <p className="text-xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
+              Let our local travel experts create a personalized itinerary just
+              for you. Whether it's a family trip, honeymoon, or group tour -
+              we'll craft the perfect Indian adventure tailored to your
+              preferences and budget.
+            </p>
+            <div className="flex flex-wrap justify-center gap-6">
+              <Button
+                variant="pricing"
+                size="lg"
+                className="group bg-gradient-to-r from-ocean to-ocean-dark hover:from-ocean-dark hover:to-ocean shadow-lg hover:shadow-xl transition-all duration-300 px-8 py-4"
+              >
+                <span className="text-lg">Plan Custom Trip</span>
+                <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-2 border-ocean text-ocean hover:bg-ocean hover:text-white font-semibold px-8 py-4 text-lg"
+              >
+                🎯 Contact Travel Expert
+              </Button>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8 mt-16 text-center">
+              <div className="space-y-2">
+                <div className="w-16 h-16 bg-ocean/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">🎨</span>
+                </div>
+                <h4 className="font-semibold text-foreground">
+                  Personalized Itineraries
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  Crafted by local experts who know India best
+                </p>
+              </div>
+              <div className="space-y-2">
+                <div className="w-16 h-16 bg-nature/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">💰</span>
+                </div>
+                <h4 className="font-semibold text-foreground">
+                  GST Inclusive Pricing
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  Transparent rates with no hidden costs
+                </p>
+              </div>
+              <div className="space-y-2">
+                <div className="w-16 h-16 bg-adventure/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">🕐</span>
+                </div>
+                <h4 className="font-semibold text-foreground">24/7 Support</h4>
+                <p className="text-sm text-muted-foreground">
+                  Local assistance throughout your journey
+                </p>
+              </div>
+            </div>
           </div>
         </section>
       </div>

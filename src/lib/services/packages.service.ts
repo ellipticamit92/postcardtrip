@@ -6,8 +6,8 @@ export async function getPopularPackages() {
 }
 
 // Fetch package details by name
-export async function getPackageDetails(name: string) {
-  return fetchFromCMS(`/packages/${encodeURIComponent(name)}`);
+export async function getPackageDetails(slug: string) {
+  return fetchFromCMS(`/packages/${slug}`);
 }
 
 export async function getAllPackages(page: number, limit: number) {

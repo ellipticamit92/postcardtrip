@@ -1,4 +1,5 @@
-export function toIndianCurrency(amount: number): string {
+export function toIndianCurrency(amount?: number | null): string {
+  if (!amount) return "";
   return amount?.toLocaleString("en-IN", {
     style: "currency",
     currency: "INR",
@@ -52,3 +53,14 @@ export function getInitials(name: string): string {
 export const getRandomInt = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+export function slugify(text: string) {
+  return text
+    .toString()
+    .normalize("NFD") // handle accents
+    .replace(/[\u0300-\u036f]/g, "") // remove diacritics
+    .replace(/['’]/g, "") // remove apostrophes
+    .replace(/[^a-zA-Z0-9]+/g, "-") // non-alphanumeric -> dash
+    .replace(/^-+|-+$/g, "") // trim dashes
+    .toLowerCase();
+}

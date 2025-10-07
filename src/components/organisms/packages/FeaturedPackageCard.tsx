@@ -18,7 +18,6 @@ const FeaturedPackageCard: FC<FeaturedPackageCardProps> = ({
   country,
   name,
 }) => {
-  console.log("DEBUG feaatured PACkage = ", featuredPackage);
   return (
     <Card className="overflow-hidden shadow-strong hover:shadow-xl transition-all duration-500 group py-0">
       <div className="grid lg:grid-cols-2 gap-0">
@@ -88,16 +87,14 @@ const FeaturedPackageCard: FC<FeaturedPackageCardProps> = ({
               </span>
               <div className="flex items-center gap-3">
                 <span className="text-3xl font-bold text-ocean">
-                  {toIndianCurrency(featuredPackage.basePrice)}
+                  {toIndianCurrency(featuredPackage.threePrice)}
                 </span>
                 <span className="text-lg text-muted-foreground line-through">
-                  {toIndianCurrency(featuredPackage.originalPrice)}
+                  {toIndianCurrency(featuredPackage.fourPrice)}
                 </span>
               </div>
             </div>
-            <Link
-              href={`/packages/${slugifyPackageName(featuredPackage.name)}`}
-            >
+            <Link href={`/packages/${featuredPackage.slug}`}>
               <Button variant="pricing" size="lg" className="group">
                 View Details
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />

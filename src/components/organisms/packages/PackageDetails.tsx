@@ -1,31 +1,38 @@
 "use client";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ArrowRight,
+  Calendar,
   Camera,
   Car,
   CheckCircle,
-  Clock,
   MapPin,
   Plane,
   Star,
   ThumbsUp,
   Utensils,
 } from "lucide-react";
-import { useState } from "react";
+import { FC, useState } from "react";
 import Image from "next/image";
 import { toIndianCurrency } from "@/lib/helper";
+import { InclusionExclusion } from "./InclusionExclusion";
+import { ItineraryType, TextProps } from "@/lib/types";
+import { Itineraries } from "./Itineraries";
 
-const PackageDetails = () => {
+interface PackageDetailsProps {
+  inclusions: TextProps[];
+  exclusions: TextProps[];
+  itineraries: ItineraryType[];
+}
+
+const PackageDetails: FC<PackageDetailsProps> = ({
+  inclusions,
+  exclusions,
+  itineraries,
+}) => {
   const [selectedHotelStar, setSelectedHotelStar] = useState(4);
 
   const hotelPricing = {
@@ -253,7 +260,7 @@ const PackageDetails = () => {
     },
   ];
 
-  const inclusions = [
+  const inclusions1 = [
     "5-star accommodation for 5 nights",
     "All meals (breakfast, lunch, dinner)",
     "Private airport transfers",
@@ -264,7 +271,7 @@ const PackageDetails = () => {
     "24/7 customer support",
   ];
 
-  const exclusions = [
+  const exclusions1 = [
     "International flights",
     "Personal expenses and shopping",
     "Alcoholic beverages",
@@ -365,180 +372,163 @@ const PackageDetails = () => {
       <div className="grid lg:grid-cols-4 gap-8">
         {/* Main Content */}
         <div className="lg:col-span-3 space-y-12">
-          {/* Daily Itinerary */}
+          {/* Overview Section */}
           <section>
             <h2 className="text-3xl font-bold mb-8 text-foreground">
-              5-Day Detailed Itinerary
+              Package Overview
             </h2>
-            <Accordion
-              type="multiple"
-              defaultValue={["day-1"]}
-              className="space-y-4"
-            >
-              {itinerary.map((day) => (
-                <AccordionItem
-                  key={day.day}
-                  value={`day-${day.day}`}
-                  className="border rounded-lg shadow-soft overflow-hidden"
-                >
-                  <AccordionTrigger className="bg-gradient-hero text-white px-6 py-4 hover:no-underline hover:bg-linear-to-r hover:from-ocean-dark hover:to-adventure-dark transition-all duration-300">
-                    <div className="flex items-center gap-4 text-left">
-                      <div className="bg-white/20 rounded-full w-12 h-12 flex items-center justify-center font-bold text-lg">
-                        {day.day}
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-semibold">
-                          Day {day.day}: {day.title}
-                        </h3>
-                        <p className="text-white/80 text-sm font-normal mt-1">
-                          {day.arrivalText}
-                        </p>
-                      </div>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-0 pb-0">
-                    <div className="p-6 space-y-6">
-                      {/* Hotel Section */}
-                      <div>
-                        <h4 className="text-lg font-semibold mb-4 text-foreground flex items-center gap-2">
-                          <div className="w-2 h-2 bg-ocean rounded-full"></div>
-                          Your Accommodation
-                        </h4>
-                        <div className="grid md:grid-cols-2 gap-6 p-4 rounded-lg bg-muted/30">
-                          <div className="relative rounded-lg overflow-hidden">
-                            <div className="w-full h-48 object-cover">
-                              <Image
-                                src={day.hotel.image}
-                                alt={day.hotel.name}
-                                fill={true}
-                              />
-                            </div>
-                          </div>
-                          <div>
-                            <h5 className="font-semibold text-lg mb-2">
-                              {day.hotel.name}
-                            </h5>
-                            <div className="flex items-center gap-2 mb-3">
-                              {Array.from({ length: day.hotel.rating }).map(
-                                (_, i) => (
-                                  <Star
-                                    key={i}
-                                    className="w-4 h-4 fill-adventure text-adventure"
-                                  />
-                                )
-                              )}
-                              <span className="text-sm text-muted-foreground">
-                                ({day.hotel.rating}.0)
-                              </span>
-                            </div>
-                            <div className="flex flex-wrap gap-2">
-                              {day.hotel.amenities.map((amenity, index) => (
-                                <Badge
-                                  key={index}
-                                  variant="secondary"
-                                  className="text-xs"
-                                >
-                                  {amenity}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
 
-                      {/* Activities Section */}
-                      <div>
-                        <h4 className="text-lg font-semibold mb-4 text-foreground flex items-center gap-2">
-                          <div className="w-2 h-2 bg-adventure rounded-full"></div>
-                          Today&pos;s Activities
-                        </h4>
-                        <div className="space-y-4">
-                          {day.activities.map((activity, index) => (
-                            <div
-                              key={index}
-                              className="grid md:grid-cols-4 gap-4 p-4 rounded-lg bg-muted/20 hover:bg-muted/40 transition-all duration-300"
-                            >
-                              <div className="relative rounded-lg overflow-hidden">
-                                <div className="w-full h-32 object-cover">
-                                  <Image
-                                    src={activity.image}
-                                    alt={activity.name}
-                                    fill={true}
-                                  />
-                                </div>
-                              </div>
-                              <div className="md:col-span-3 space-y-2">
-                                <div className="flex items-center justify-between">
-                                  <h6 className="font-medium text-foreground">
-                                    {activity.name}
-                                  </h6>
-                                  <div className="flex items-center gap-2">
-                                    <Badge
-                                      variant="outline"
-                                      className="text-xs flex items-center gap-1"
-                                    >
-                                      <Clock className="w-3 h-3" />
-                                      {activity.time}
-                                    </Badge>
-                                    <Badge className="bg-nature text-white text-xs">
-                                      {activity.duration}
-                                    </Badge>
-                                  </div>
-                                </div>
-                                <p className="text-sm text-muted-foreground leading-relaxed">
-                                  {activity.description}
-                                </p>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
+            {/* Key Highlights */}
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <Card className="border-l-4 border-l-ocean gap-1">
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-ocean/10">
+                      <Calendar className="w-6 h-6 text-ocean" />
                     </div>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+                    <CardTitle className="text-lg">Duration</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-2xl font-bold text-ocean">5 Days</p>
+                  <p className="text-sm text-muted-foreground">4 Nights Stay</p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-adventure gap-1">
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-adventure/10">
+                      <MapPin className="w-6 h-6 text-adventure" />
+                    </div>
+                    <CardTitle className="text-lg">Destinations</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-2xl font-bold text-adventure">
+                    3 Locations
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Beach • Mountain • Cultural Sites
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Experience Summary */}
+            {/* <div className="grid md:grid-cols-2 gap-8 mb-8">
+              <div>
+                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                  <ThumbsUp className="w-5 h-5 text-ocean" />
+                  What Makes This Special
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-nature mt-0.5 flex-shrink-0" />
+                    <p className="text-sm">
+                      Perfect blend of adventure and relaxation with snorkeling,
+                      volcano hiking, and spa treatments
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-nature mt-0.5 flex-shrink-0" />
+                    <p className="text-sm">
+                      Authentic cultural experiences including temple visits and
+                      traditional craft workshops
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-nature mt-0.5 flex-shrink-0" />
+                    <p className="text-sm">
+                      Premium accommodations from beachfront resorts to
+                      eco-lodges and heritage hotels
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-nature mt-0.5 flex-shrink-0" />
+                    <p className="text-sm">
+                      Expert guides and 24/7 support ensuring a seamless travel
+                      experience
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                  <Camera className="w-5 h-5 text-adventure" />
+                  Activity Highlights
+                </h3>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="p-3 rounded-lg bg-ocean/10 text-center">
+                    <div className="text-2xl mb-1">🏊‍♀️</div>
+                    <p className="text-xs font-medium">Beach Snorkeling</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-adventure/10 text-center">
+                    <div className="text-2xl mb-1">🌋</div>
+                    <p className="text-xs font-medium">Volcano Hiking</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-nature/10 text-center">
+                    <div className="text-2xl mb-1">🏛️</div>
+                    <p className="text-xs font-medium">Temple Tours</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-muted/50 text-center">
+                    <div className="text-2xl mb-1">🛶</div>
+                    <p className="text-xs font-medium">Water Sports</p>
+                  </div>
+                </div>
+              </div>
+            </div> */}
+
+            {/* Trip Overview Stats */}
+            {/* <Card className="bg-gradient-hero text-white">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-semibold mb-4">Trip Overview</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="text-center">
+                    <div className="flex items-center justify-center mb-2">
+                      <Plane className="w-6 h-6" />
+                    </div>
+                    <p className="text-2xl font-bold">3</p>
+                    <p className="text-sm text-white/80">Transfers</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="flex items-center justify-center mb-2">
+                      <Car className="w-6 h-6" />
+                    </div>
+                    <p className="text-2xl font-bold">15</p>
+                    <p className="text-sm text-white/80">Activities</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="flex items-center justify-center mb-2">
+                      <Utensils className="w-6 h-6" />
+                    </div>
+                    <p className="text-2xl font-bold">15</p>
+                    <p className="text-sm text-white/80">Meals</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="flex items-center justify-center mb-2">
+                      <Star className="w-6 h-6" />
+                    </div>
+                    <p className="text-2xl font-bold">4.9</p>
+                    <p className="text-sm text-white/80">Rating</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card> */}
           </section>
+          {/* Daily Itinerary */}
+          {/* <section>
+            <h2 className="text-3xl font-bold mb-8 text-foreground">
+              {itineraries?.day}-Day Detailed Itinerary
+            </h2>
+            <Itineraries data={itineraries} />
+          </section> */}
 
           {/* Inclusions & Exclusions */}
           <section className="grid md:grid-cols-2 gap-8">
-            <Card className="shadow-soft">
-              <CardHeader>
-                <CardTitle className="text-primary flex items-center gap-2">
-                  <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  What&pos;s Included
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  {inclusions.map((item, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0"></div>
-                      <span className="text-sm">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="shadow-soft">
-              <CardHeader>
-                <CardTitle className="text-destructive flex items-center gap-2">
-                  <div className="w-2 h-2 bg-destructive rounded-full"></div>
-                  Not Included
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  {exclusions.map((item, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 bg-destructive rounded-full mt-2 shrink-0"></div>
-                      <span className="text-sm">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+            <InclusionExclusion isInclusion={false} exclusions={exclusions} />
+            <InclusionExclusion isInclusion={true} inclusions={inclusions} />
           </section>
 
           {/* Customer Reviews */}

@@ -19,6 +19,10 @@ export type Highlights = {
   text: string;
 };
 
+export type TextProps = {
+  text: string;
+};
+
 export type Package = {
   pid: number;
   name: string;
@@ -34,11 +38,12 @@ export type Package = {
   heroTitle: string;
   country: string;
   featured: boolean;
+  slug: string;
   cities: City[];
   highlights: Highlights[];
   text: string;
   threePrice: number;
-  foutrPrice: number;
+  fourPrice: number;
   category: string;
   destination: {
     name: string;
@@ -65,13 +70,30 @@ export type ReviewType = {
 };
 
 export type Destination = {
+  did: number;
   name: string;
-  updatedAt: Date;
-  createdAt: Date;
-  imageUrl: string | null;
+  heading: string;
+  heroTitle?: string | null;
+  country?: string | null;
+  overview?: string | null;
+  text?: string | null;
+  imageUrl?: string | null;
+  thumbnailUrl?: string | null;
+  isRichText?: boolean | null;
+  trending: boolean;
   featured: boolean;
-  isRichText: boolean | null;
   status: boolean;
-  overview: string | null;
-  rating: number | null;
+  basePrice?: number | null;
+  originalPrice?: number | null;
+  rating?: number | null;
+  bestTimeToVisit?: string | null;
+  highlights?: string | null;
+  packages?: Package[]; // replace with Package type when available
+  reviews?: any[]; // replace with Reviews type when available
+};
+
+export type ItineraryType = {
+  day: number;
+  title: string;
+  details: string;
 };

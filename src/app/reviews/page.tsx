@@ -11,7 +11,6 @@ const Reviews = async () => {
   const { data } = reviews;
   const destinations = await getDestinationsOptions();
   const { data: destinationOptions } = destinations;
-  console.log("DEBUG: Recent Reviews:", data);
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (

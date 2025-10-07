@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { GTM_ID } from "@/lib/gtm";
 import Footer from "@/components/organisms/Footer";
@@ -41,6 +42,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <GoogleTagManager gtmId={GTM_ID} />
+        <Analytics />
       </body>
     </html>
   );

@@ -14,7 +14,6 @@ interface InquiryProps {
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as InquiryProps;
-    console.log("Received inquiry:", body);
     if (!body.name || !body.email || !body.mobile) {
       return NextResponse.json(
         {

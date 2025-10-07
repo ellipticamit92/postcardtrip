@@ -51,7 +51,6 @@ export function useContactForm() {
         },
         body: JSON.stringify(data),
       });
-      console.log("Response: JSON.stringify(data)", JSON.stringify(data));
 
       if (!response.ok) {
         const resText = await response.text();

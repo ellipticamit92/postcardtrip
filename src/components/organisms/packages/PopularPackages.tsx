@@ -1,7 +1,7 @@
 import { ArrowRight, Calendar, Heart, Star } from "lucide-react";
 import Link from "next/link";
 import { getPopularPackages } from "@/lib/services/packages.service";
-import { addRandomInRange, toIndianCurrency } from "@/lib/helper";
+import { addRandomInRange, slugify, toIndianCurrency } from "@/lib/helper";
 import Image from "next/image";
 import { Package } from "@/lib/types";
 import HomeSections from "../HomeSections";
@@ -34,9 +34,11 @@ const PopularPackages = async () => {
             className="overflow-hidden group hover:shadow-strong transition-all duration-500 py-0 pb-0"
           >
             <div className="relative overflow-hidden">
-              <div className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
-                <Image src={pkg.imageUrl} alt={pkg.name} fill={true} />
-              </div>
+              {pkg.imageUrl && (
+                <div className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                  <Image src={pkg.imageUrl} alt={pkg.name} fill={true} />
+                </div>
+              )}
 
               <div className="absolute top-4 right-4">
                 <Badge className="bg-adventure text-white">Popular</Badge>
@@ -77,9 +79,10 @@ const PopularPackages = async () => {
                     package starting price
                   </span>
                 </div>
+
                 <NavigationButton
-                  href={`/packages/${pkg.pid}`}
-                  variant="ocean"
+                  href={`/packages/${pkg.slug}`}
+                  variant="secondary"
                   size="sm"
                   classes="group"
                   eventName="package_click"
@@ -91,7 +94,7 @@ const PopularPackages = async () => {
                     destination_name: pkg?.destination?.name || "",
                   }}
                 >
-                  Book Now
+                  View Details
                   <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
                 </NavigationButton>
               </div>

@@ -14,7 +14,6 @@ import {
   Star,
 } from "lucide-react";
 import { FC, useState } from "react";
-
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
@@ -287,7 +286,9 @@ const AllPackages: FC<AllPackagesProps> = ({
                             </span>
                           </div>
 
-                          <Link href={`/packages/${pkg.pid}`}>
+                          <Link
+                            href={`/packages/${encodeURIComponent(pkg.name)}`}
+                          >
                             <Button
                               variant="outline"
                               size="lg"
