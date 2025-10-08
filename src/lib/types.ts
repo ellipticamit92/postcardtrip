@@ -89,7 +89,7 @@ export type Destination = {
   bestTimeToVisit?: string | null;
   highlights?: string | null;
   packages?: Package[]; // replace with Package type when available
-  reviews?: any[]; // replace with Reviews type when available
+  reviews?: ReviewType[]; // replace with Reviews type when available
 };
 
 export type ItineraryType = {

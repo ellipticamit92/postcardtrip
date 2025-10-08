@@ -58,8 +58,8 @@ export default async function DestinationPage() {
                 Featured Destination
               </h2>
               <h5 className="text-foreground">
-                Experience the beauty of God's Own Country - Kerala's backwaters
-                and hills
+                Experience the beauty of God&apos;s Own Country - Kerala&apos;s
+                backwaters and hills
               </h5>
             </div>
 
@@ -272,8 +272,8 @@ export default async function DestinationPage() {
             </h2>
             <p className="text-xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
               Let our local travel experts create a personalized itinerary just
-              for you. Whether it's a family trip, honeymoon, or group tour -
-              we'll craft the perfect Indian adventure tailored to your
+              for you. Whether it&apos;s a family trip, honeymoon, or group tour
+              - we&apos;ll craft the perfect Indian adventure tailored to your
               preferences and budget.
             </p>
             <div className="flex flex-wrap justify-center gap-6">

@@ -4,10 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Badge } from "@/components/ui/badge";
 import { ItineraryType } from "@/lib/types";
-import { Clock, Star } from "lucide-react";
-import Image from "next/image";
 import { FC } from "react";
 
 interface ItinerariesProps {
@@ -96,7 +93,7 @@ export const Itineraries: FC<ItinerariesProps> = ({ data }) => {
               <div>
                 <h4 className="text-lg font-semibold mb-4 text-foreground flex items-center gap-2">
                   <div className="w-2 h-2 bg-adventure rounded-full"></div>
-                  Today's Activities
+                  Today&apos;s Activities
                 </h4>
                 <div className="space-y-4">
                   {/* {day.activities.map((activity, index) => (

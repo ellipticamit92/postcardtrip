@@ -20,11 +20,6 @@ const PagesHero: FC<PagesHeroProps> = ({
   description,
   packageNum = 10,
 }) => {
-  const words = title.split(" ");
-  const mid = Math.ceil(words.length / 2);
-
-  const firstLine = words.slice(0, mid).join(" ");
-  const secondLine = words.slice(mid).join(" ");
   return (
     <>
       <div className="relative h-[70vh] overflow-hidden">
@@ -40,10 +35,11 @@ const PagesHero: FC<PagesHeroProps> = ({
               <Badge className="mb-4 bg-adventure text-white">
                 Featured {badgeText}
               </Badge>
-              <h1 className="text-4xl text-shadow-lg font-bold mb-6">
-                {firstLine} <br />
-                {secondLine}
-              </h1>
+              <div className="w-full flex flex-wrap">
+                <h1 className="text-5xl text-shadow-lg font-bold leading-14">
+                  {title}
+                </h1>
+              </div>
               <p className="text-xl mb-8 text-white/90">{description}</p>
               <div className="flex flex-wrap gap-6 text-sm mb-8">
                 <div className="flex items-center gap-2">
