@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Package } from "@/lib/types";
 import { getRandomInt, toIndianCurrency } from "@/lib/helper";
+import { NavigationButton } from "@/components/atoms/NavigationButton";
 
 interface AllPackagesProps {
   data: Package[];
@@ -285,17 +286,23 @@ const AllPackages: FC<AllPackagesProps> = ({
                               per person
                             </span>
                           </div>
-
-                          <Link href={`/packages/${pkg.slug}`}>
-                            <Button
-                              variant="outline"
-                              size="lg"
-                              className="group"
-                            >
-                              View Details
-                              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                            </Button>
-                          </Link>
+                          <NavigationButton
+                            href={`/packages/${pkg.slug}`}
+                            variant="outline"
+                            size="lg"
+                            classes="group"
+                            eventName="package_click"
+                            gtmValues={{
+                              package_id: pkg.pid,
+                              package_name: pkg.name,
+                              package_days: pkg.day,
+                              package_nights: pkg.night,
+                              destination_name: pkg?.destination?.name || "",
+                            }}
+                          >
+                            View Details
+                            <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
+                          </NavigationButton>
                         </div>
                       </CardContent>
                     </Card>

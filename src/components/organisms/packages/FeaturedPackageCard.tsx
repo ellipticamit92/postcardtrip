@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { NavigationButton } from "@/components/atoms/NavigationButton";
 
 interface FeaturedPackageCardProps {
   featuredPackage: Package;
@@ -94,12 +95,23 @@ const FeaturedPackageCard: FC<FeaturedPackageCardProps> = ({
                 </span>
               </div>
             </div>
-            <Link href={`/packages/${featuredPackage.slug}`}>
-              <Button variant="pricing" size="lg" className="group">
-                View Details
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
+            <NavigationButton
+              href={`/packages/${featuredPackage.slug}`}
+              variant="pricing"
+              size="lg"
+              classes="group"
+              eventName="package_click"
+              gtmValues={{
+                package_id: featuredPackage.pid,
+                package_name: featuredPackage.name,
+                package_days: featuredPackage.day,
+                package_nights: featuredPackage.night,
+                destination_name: featuredPackage?.destination?.name || "",
+              }}
+            >
+              View Details
+              <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
+            </NavigationButton>
           </div>
         </div>
       </div>

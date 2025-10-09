@@ -29,6 +29,7 @@ import {
 } from "@/lib/types";
 import { Itineraries } from "./Itineraries";
 import Link from "next/link";
+import { NavigationButton } from "@/components/atoms/NavigationButton";
 
 interface PackageDetailsProps {
   inclusions: TextProps[];
@@ -416,12 +417,23 @@ const PackageDetails: FC<PackageDetailsProps> = ({
                       <span className="text-xl font-bold text-ocean">
                         {toIndianCurrency(pkg.threePrice)}
                       </span>
-                      <Link href={`/packages/${pkg.slug}`}>
-                        <Button variant="ocean" size="sm" className="group">
-                          View Details
-                          <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
-                        </Button>
-                      </Link>
+                      <NavigationButton
+                        href={`/packages/${pkg.slug}`}
+                        variant="ocean"
+                        size="sm"
+                        classes="group"
+                        eventName="package_click"
+                        gtmValues={{
+                          package_id: pkg.pid,
+                          package_name: pkg.name,
+                          package_days: pkg.day,
+                          package_nights: pkg.night,
+                          destination_name: pkg?.destination?.name || "",
+                        }}
+                      >
+                        View Details
+                        <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
+                      </NavigationButton>
                     </div>
                   </CardContent>
                 </Card>

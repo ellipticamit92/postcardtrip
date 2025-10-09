@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import HomeSections from "../HomeSections";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { NavigationButton } from "@/components/atoms/NavigationButton";
 
 type Destination = {
   did: number;
@@ -70,12 +71,20 @@ const TrendingDestinations = async () => {
                   From {toIndianCurrency(dest.basePrice)}
                 </span>
               </div>
-              <Link href={`/destinations/${dest.name.toLowerCase()}`}>
-                <Button variant="outline" size="sm" className="w-full group">
-                  Explore Packages
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
+              <NavigationButton
+                href={`/destinations/${dest.name.toLowerCase()}`}
+                variant="outline"
+                size="sm"
+                classes="w-full group"
+                eventName="package_click"
+                gtmValues={{
+                  destination_id: dest.did,
+                  destination_name: dest.name,
+                }}
+              >
+                Explore Packages
+                <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
+              </NavigationButton>
             </CardContent>
           </Card>
         ))}

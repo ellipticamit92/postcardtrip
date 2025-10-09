@@ -7,6 +7,7 @@ import { slugifyPackageName, toIndianCurrency } from "@/lib/helper";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { NavigationButton } from "@/components/atoms/NavigationButton";
 
 interface PacakgeCardProps {
   packageData: Package;
@@ -79,12 +80,23 @@ const PackageCard: FC<PacakgeCardProps> = ({ packageData }) => {
               package starts from
             </span>
           </div>
-          <Link href={`/packages/${slugifyPackageName(packageData.name)}`}>
-            <Button variant="ocean" size="sm" className="group">
-              View Details
-              <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
+          <NavigationButton
+            href={`/packages/${packageData.slug}`}
+            variant="ocean"
+            size="sm"
+            classes="group"
+            eventName="package_click"
+            gtmValues={{
+              package_id: packageData.pid,
+              package_name: packageData.name,
+              package_days: packageData.day,
+              package_nights: packageData.night,
+              destination_name: packageData?.destination?.name || "",
+            }}
+          >
+            View Details
+            <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
+          </NavigationButton>
         </div>
       </CardContent>
     </Card>
