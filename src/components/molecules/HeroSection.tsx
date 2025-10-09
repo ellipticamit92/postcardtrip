@@ -19,7 +19,7 @@ const HeroSection = () => {
             <Badge className="mb-6 bg-adventure text-white text-sm px-4 py-2">
               Discover Amazing Destinations
             </Badge>
-            <h1 className="text-7xl font-bold mb-6 leading-tight">
+            <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
               Your Next Adventure
               <span className="block text-transparent bg-gradient-to-r from-ocean to-adventure bg-clip-text">
                 Starts Here
@@ -64,7 +64,7 @@ const HeroSection = () => {
                   variant="customize"
                   animation="primaryOutline"
                   size="lg"
-                  className="text-lg px-8 py-4"
+                  className="text-lg px-8 py-4 max-w-xs"
                 >
                   Plan Custom Trip
                 </Button>

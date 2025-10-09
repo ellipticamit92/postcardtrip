@@ -30,7 +30,7 @@ export const Itineraries: FC<ItinerariesProps> = ({ data }) => {
                   Day {day.day}: {day.title}
                 </h3>
                 <p className="text-white/80 text-sm font-normal mt-1">
-                  {/* {day.arrivalText} */}
+                  {day.subTitle}
                 </p>
               </div>
             </div>

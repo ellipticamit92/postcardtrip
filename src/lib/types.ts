@@ -23,6 +23,11 @@ export type TextProps = {
   text: string;
 };
 
+export type HighlightsProps = {
+  title: string;
+  category: string;
+};
+
 export type Package = {
   pid: number;
   name: string;
@@ -44,6 +49,7 @@ export type Package = {
   text: string;
   threePrice: number;
   fourPrice: number;
+  fivePrice: number;
   category: string;
   destination: {
     name: string;
@@ -94,6 +100,41 @@ export type Destination = {
 
 export type ItineraryType = {
   day: number;
-  title: string;
   details: string;
+  title: string;
+  subTitle: string;
+  highlights: string[];
+  cities: string[];
+};
+
+export type UserReview = {
+  username: string;
+  places: string;
+  rating: number;
+  year: string;
+  month: string;
+  review: string;
+  package: {
+    name: string;
+  };
+  destination: {
+    name: string;
+    country: string;
+  };
+};
+
+export type PackageSummary = {
+  pid: number;
+  name: string;
+  day: number;
+  night: number;
+  imageUrl: string;
+  threePrice: number;
+  rating: number;
+  slug: string;
+  destination: {
+    did: number;
+    name: string;
+    country: string;
+  };
 };

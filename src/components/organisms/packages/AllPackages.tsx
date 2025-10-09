@@ -286,9 +286,7 @@ const AllPackages: FC<AllPackagesProps> = ({
                             </span>
                           </div>
 
-                          <Link
-                            href={`/packages/${encodeURIComponent(pkg.name)}`}
-                          >
+                          <Link href={`/packages/${pkg.slug}`}>
                             <Button
                               variant="outline"
                               size="lg"

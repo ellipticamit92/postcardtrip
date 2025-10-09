@@ -1,6 +1,10 @@
 import PackagesHero from "@/components/molecules/PackagesHero";
 import PackageDetails from "@/components/organisms/packages/PackageDetails";
-import { getPackageDetails } from "@/lib/services/packages.service";
+import {
+  getPackageDetails,
+  getPackageReview,
+  getSimilarPackage,
+} from "@/lib/services/packages.service";
 
 interface PackageDetailsPageProps {
   params: Promise<{ id: string }>;
@@ -18,13 +22,24 @@ export default async function PackageDetailsPage({
   const { itineraries, inclusions, exclusions, highlights, ...packageDetails } =
     data;
 
+  const itinerariesArray = itineraries?.[0]?.day ?? [];
+
+  const { pid } = packageDetails;
+  const did = packageDetails?.destination?.did;
+  const pkgReviews = await getPackageReview(pid);
+  const similarPkgData = await getSimilarPackage(did, pid);
+
   return (
     <>
       <PackagesHero packageDetails={packageDetails} />
       <PackageDetails
         inclusions={inclusions}
         exclusions={exclusions}
-        itineraries={itineraries}
+        itineraries={itinerariesArray}
+        highlights={highlights}
+        packageDetails={packageDetails}
+        pkgReviews={pkgReviews.data ?? []}
+        similarPkgData={similarPkgData.data ?? []}
       />
     </>
   );

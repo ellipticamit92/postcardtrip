@@ -19,268 +19,47 @@ import { FC, useState } from "react";
 import Image from "next/image";
 import { toIndianCurrency } from "@/lib/helper";
 import { InclusionExclusion } from "./InclusionExclusion";
-import { ItineraryType, TextProps } from "@/lib/types";
+import {
+  HighlightsProps,
+  ItineraryType,
+  Package,
+  PackageSummary,
+  TextProps,
+  UserReview,
+} from "@/lib/types";
 import { Itineraries } from "./Itineraries";
+import Link from "next/link";
 
 interface PackageDetailsProps {
   inclusions: TextProps[];
   exclusions: TextProps[];
   itineraries: ItineraryType[];
+  highlights: HighlightsProps[];
+  packageDetails: Package;
+  pkgReviews: UserReview[];
+  similarPkgData: PackageSummary[];
 }
 
 const PackageDetails: FC<PackageDetailsProps> = ({
   inclusions,
   exclusions,
   itineraries,
+  highlights,
+  packageDetails,
+  pkgReviews,
+  similarPkgData,
 }) => {
   const [selectedHotelStar, setSelectedHotelStar] = useState(4);
+  const { day, night, threePrice, fourPrice, fivePrice } = packageDetails;
 
   const hotelPricing = {
-    3: { price: 1399, original: 1799, discount: "22%" },
-    4: { price: 1899, original: 2399, discount: "20%" },
-    5: { price: 2699, original: 3299, discount: "18%" },
+    3: { price: threePrice },
+    4: { price: fourPrice },
+    5: { price: fivePrice },
   };
 
   const currentPricing =
     hotelPricing[selectedHotelStar as keyof typeof hotelPricing];
-
-  const itinerary = [
-    {
-      day: 1,
-      title: "Arrival & Beach Relaxation",
-      arrivalText:
-        "Arrival at Paradise Island Airport, transfer to beachfront resort",
-      hotel: {
-        name: "Paradise Bay Resort",
-        image: "/hero.jpg",
-        rating: 5,
-        amenities: ["Ocean View", "Infinity Pool", "Spa", "Beach Access"],
-      },
-      activities: [
-        {
-          name: "Private Airport Transfer",
-          image: "/hero.jpg",
-          description:
-            "Comfortable private transfer from airport to resort with welcome refreshments",
-          time: "10:00 AM",
-          duration: "1 hour",
-        },
-        {
-          name: "Resort Check-in & Welcome Lunch",
-          image: "/hero.jpg",
-          description:
-            "Check into your ocean-view suite and enjoy a welcome lunch at the resort restaurant",
-          time: "12:00 PM",
-          duration: "2 hours",
-        },
-        {
-          name: "Beach Snorkeling Adventure",
-          image: "/hero.jpg",
-          description:
-            "Explore vibrant coral reefs and tropical fish in crystal clear waters",
-          time: "3:00 PM",
-          duration: "2 hours",
-        },
-        {
-          name: "Sunset Beach Walk",
-          image: "/hero.jpg",
-          description:
-            "Romantic sunset stroll along the pristine white sand beach",
-          time: "6:00 PM",
-          duration: "1 hour",
-        },
-      ],
-    },
-    {
-      day: 2,
-      title: "Mountain Adventure & Nature",
-      arrivalText:
-        "Early morning transfer to mountain eco-lodge for adventure activities",
-      hotel: {
-        name: "Eco-Lodge Retreat",
-        image: "/hero.jpg",
-        rating: 4,
-        amenities: [
-          "Rainforest View",
-          "Eco-Friendly",
-          "Adventure Center",
-          "Local Cuisine",
-        ],
-      },
-      activities: [
-        {
-          name: "Volcano Hiking Expedition",
-          image: "/hero.jpg",
-          description:
-            "Guided trek to volcanic crater with stunning panoramic views of the island",
-          time: "6:00 AM",
-          duration: "4 hours",
-        },
-        {
-          name: "Traditional Lunch at Lodge",
-          image: "/hero.jpg",
-          description:
-            "Authentic local cuisine prepared with organic ingredients from the lodge garden",
-          time: "12:00 PM",
-          duration: "1 hour",
-        },
-        {
-          name: "Rainforest Canopy Walk",
-          image: "/hero.jpg",
-          description:
-            "Experience the rainforest from above on suspended walkways",
-          time: "2:00 PM",
-          duration: "2 hours",
-        },
-        {
-          name: "Cultural Market Tour",
-          image: "/hero.jpg",
-          description:
-            "Explore local markets, meet artisans, and discover traditional crafts",
-          time: "4:00 PM",
-          duration: "2 hours",
-        },
-      ],
-    },
-    {
-      day: 3,
-      title: "Cultural Heritage & Ancient Sites",
-      arrivalText:
-        "Journey to historic district for cultural immersion and temple exploration",
-      hotel: {
-        name: "Heritage Boutique Hotel",
-        image: "/hero.jpg",
-        rating: 4,
-        amenities: [
-          "Historic Architecture",
-          "Cultural Center",
-          "Local Art",
-          "Traditional Dining",
-        ],
-      },
-      activities: [
-        {
-          name: "Ancient Temple Discovery",
-          image: "/hero.jpg",
-          description:
-            "Visit centuries-old temples and archaeological sites with expert historian guide",
-          time: "8:00 AM",
-          duration: "3 hours",
-        },
-        {
-          name: "Traditional Craft Workshop",
-          image: "/hero.jpg",
-          description:
-            "Learn traditional pottery and weaving techniques from local artisans",
-          time: "2:00 PM",
-          duration: "2 hours",
-        },
-        {
-          name: "Cultural Performance Evening",
-          image: "/hero.jpg",
-          description:
-            "Enjoy traditional music and dance performances with local dinner",
-          time: "7:00 PM",
-          duration: "2 hours",
-        },
-      ],
-    },
-    {
-      day: 4,
-      title: "Adventure Sports & Relaxation",
-      arrivalText: "Return to beach resort for water sports and spa relaxation",
-      hotel: {
-        name: "Paradise Bay Resort",
-        image: "/hero.jpg",
-        rating: 5,
-        amenities: ["Ocean View", "Infinity Pool", "Spa", "Beach Access"],
-      },
-      activities: [
-        {
-          name: "Water Sports Adventure",
-          image: "/hero.jpg",
-          description:
-            "Kayaking, paddle boarding, and jet skiing in turquoise waters",
-          time: "9:00 AM",
-          duration: "3 hours",
-        },
-        {
-          name: "Spa & Wellness Session",
-          image: "/hero.jpg",
-          description:
-            "Rejuvenating massage and wellness treatments at the resort spa",
-          time: "2:00 PM",
-          duration: "2 hours",
-        },
-        {
-          name: "Sunset Catamaran Cruise",
-          image: "/hero.jpg",
-          description:
-            "Romantic sunset cruise with dinner and live music on board",
-          time: "5:00 PM",
-          duration: "3 hours",
-        },
-      ],
-    },
-    {
-      day: 5,
-      title: "Farewell & Departure",
-      arrivalText: "Final morning at resort with leisure time before departure",
-      hotel: {
-        name: "Paradise Bay Resort",
-        image: "/hero.jpg",
-        rating: 5,
-        amenities: ["Ocean View", "Infinity Pool", "Spa", "Beach Access"],
-      },
-      activities: [
-        {
-          name: "Leisure Morning at Resort",
-          image: "/hero.jpg",
-          description:
-            "Free time to enjoy resort facilities, pool, or beach before checkout",
-          time: "9:00 AM",
-          duration: "3 hours",
-        },
-        {
-          name: "Farewell Lunch",
-          image: "/hero.jpg",
-          description:
-            "Final meal at beachfront restaurant with panoramic ocean views",
-          time: "12:00 PM",
-          duration: "1 hour",
-        },
-        {
-          name: "Airport Transfer & Departure",
-          image: "/hero.jpg",
-          description: "Private transfer to airport for your departure flight",
-          time: "2:00 PM",
-          duration: "1 hour",
-        },
-      ],
-    },
-  ];
-
-  const inclusions1 = [
-    "5-star accommodation for 5 nights",
-    "All meals (breakfast, lunch, dinner)",
-    "Private airport transfers",
-    "Professional tour guide",
-    "All entrance fees and permits",
-    "Adventure equipment and gear",
-    "Travel insurance coverage",
-    "24/7 customer support",
-  ];
-
-  const exclusions1 = [
-    "International flights",
-    "Personal expenses and shopping",
-    "Alcoholic beverages",
-    "Optional activities not mentioned",
-    "Tips and gratuities",
-    "Visa fees if applicable",
-    "Medical expenses",
-    "Single room supplement",
-  ];
 
   const samplePackages = [
     {
@@ -390,8 +169,10 @@ const PackageDetails: FC<PackageDetailsProps> = ({
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold text-ocean">5 Days</p>
-                  <p className="text-sm text-muted-foreground">4 Nights Stay</p>
+                  <p className="text-2xl font-bold text-ocean">{day} Days</p>
+                  <p className="text-sm text-muted-foreground">
+                    {night} Nights Stay
+                  </p>
                 </CardContent>
               </Card>
 
@@ -409,7 +190,7 @@ const PackageDetails: FC<PackageDetailsProps> = ({
                     3 Locations
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Beach • Mountain • Cultural Sites
+                    {/* Beach • Mountain • Cultural Sites */}
                   </p>
                 </CardContent>
               </Card>
@@ -454,76 +235,41 @@ const PackageDetails: FC<PackageDetailsProps> = ({
                 </div>
               </div>
 
-              <div>
-                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                  <Camera className="w-5 h-5 text-adventure" />
-                  Activity Highlights
-                </h3>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="p-3 rounded-lg bg-ocean/10 text-center">
-                    <div className="text-2xl mb-1">🏊‍♀️</div>
-                    <p className="text-xs font-medium">Beach Snorkeling</p>
-                  </div>
-                  <div className="p-3 rounded-lg bg-adventure/10 text-center">
-                    <div className="text-2xl mb-1">🌋</div>
-                    <p className="text-xs font-medium">Volcano Hiking</p>
-                  </div>
-                  <div className="p-3 rounded-lg bg-nature/10 text-center">
-                    <div className="text-2xl mb-1">🏛️</div>
-                    <p className="text-xs font-medium">Temple Tours</p>
-                  </div>
-                  <div className="p-3 rounded-lg bg-muted/50 text-center">
-                    <div className="text-2xl mb-1">🛶</div>
-                    <p className="text-xs font-medium">Water Sports</p>
+              {highlights && highlights.length > 0 && (
+                <div>
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <Camera className="w-5 h-5 text-adventure" />
+                    Activity Highlights
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="p-3 rounded-lg bg-ocean/10 text-center">
+                      <div className="text-2xl mb-1">🏊‍♀️</div>
+                      <p className="text-xs font-medium">Beach Snorkeling</p>
+                    </div>
+                    <div className="p-3 rounded-lg bg-adventure/10 text-center">
+                      <div className="text-2xl mb-1">🌋</div>
+                      <p className="text-xs font-medium">Volcano Hiking</p>
+                    </div>
+                    <div className="p-3 rounded-lg bg-nature/10 text-center">
+                      <div className="text-2xl mb-1">🏛️</div>
+                      <p className="text-xs font-medium">Temple Tours</p>
+                    </div>
+                    <div className="p-3 rounded-lg bg-muted/50 text-center">
+                      <div className="text-2xl mb-1">🛶</div>
+                      <p className="text-xs font-medium">Water Sports</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div> */}
-
-            {/* Trip Overview Stats */}
-            {/* <Card className="bg-gradient-hero text-white">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-4">Trip Overview</h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="text-center">
-                    <div className="flex items-center justify-center mb-2">
-                      <Plane className="w-6 h-6" />
-                    </div>
-                    <p className="text-2xl font-bold">3</p>
-                    <p className="text-sm text-white/80">Transfers</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="flex items-center justify-center mb-2">
-                      <Car className="w-6 h-6" />
-                    </div>
-                    <p className="text-2xl font-bold">15</p>
-                    <p className="text-sm text-white/80">Activities</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="flex items-center justify-center mb-2">
-                      <Utensils className="w-6 h-6" />
-                    </div>
-                    <p className="text-2xl font-bold">15</p>
-                    <p className="text-sm text-white/80">Meals</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="flex items-center justify-center mb-2">
-                      <Star className="w-6 h-6" />
-                    </div>
-                    <p className="text-2xl font-bold">4.9</p>
-                    <p className="text-sm text-white/80">Rating</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card> */}
           </section>
           {/* Daily Itinerary */}
-          {/* <section>
+          <section>
             <h2 className="text-3xl font-bold mb-8 text-foreground">
-              {itineraries?.day}-Day Detailed Itinerary
+              {itineraries?.length} - Day Detailed Itinerary
             </h2>
             <Itineraries data={itineraries} />
-          </section> */}
+          </section>
 
           {/* Inclusions & Exclusions */}
           <section className="grid md:grid-cols-2 gap-8">
@@ -556,16 +302,16 @@ const PackageDetails: FC<PackageDetailsProps> = ({
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
-              {customerReviews.map((review) => (
+              {pkgReviews.map((review) => (
                 <Card
-                  key={review.id}
-                  className="shadow-soft hover:shadow-medium transition-all duration-300"
+                  key={review.username}
+                  className="shadow-soft hover:shadow-medium transition-all duration-300 py-0"
                 >
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 bg-gradient-hero rounded-full flex items-center justify-center text-white font-semibold">
-                          {review.name
+                          {review.username
                             .split(" ")
                             .map((n) => n[0])
                             .join("")}
@@ -573,20 +319,20 @@ const PackageDetails: FC<PackageDetailsProps> = ({
                         <div>
                           <div className="flex items-center gap-2">
                             <h4 className="font-semibold text-foreground">
-                              {review.name}
+                              {review.username}
                             </h4>
-                            {review.verified && (
-                              <Badge
-                                variant="secondary"
-                                className="text-xs flex items-center gap-1"
-                              >
-                                <CheckCircle className="w-3 h-3" />
-                                Verified
-                              </Badge>
-                            )}
+
+                            <Badge
+                              variant="secondary"
+                              className="text-xs flex items-center gap-1"
+                            >
+                              <CheckCircle className="w-3 h-3" />
+                              Verified
+                            </Badge>
                           </div>
                           <p className="text-sm text-muted-foreground">
-                            {review.location}
+                            {review.destination.name},{" "}
+                            {review.destination.country}
                           </p>
                         </div>
                       </div>
@@ -604,58 +350,13 @@ const PackageDetails: FC<PackageDetailsProps> = ({
                           ))}
                         </div>
                         <span className="text-xs text-muted-foreground">
-                          {review.date}
+                          {review.month}, {review.year}
                         </span>
                       </div>
                     </div>
-
                     <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                       {review.review}
                     </p>
-
-                    {review.images && review.images.length > 0 && (
-                      <div className="flex gap-2 mb-4">
-                        {review.images.slice(0, 3).map((image, index) => (
-                          <div
-                            key={index}
-                            className="relative rounded-lg overflow-hidden flex-1"
-                          >
-                            <div className="w-full h-20 object-cover hover:scale-105 transition-transform duration-300">
-                              <Image
-                                src={image}
-                                alt={`Review photo ${index + 1}`}
-                                fill={true}
-                              />
-                            </div>
-                          </div>
-                        ))}
-                        {review.images.length > 3 && (
-                          <div className="relative rounded-lg overflow-hidden flex-1 bg-muted/50 flex items-center justify-center">
-                            <span className="text-sm text-muted-foreground font-medium">
-                              +{review.images.length - 3} more
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    <div className="flex items-center gap-4 pt-3 border-t">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-xs p-0 h-auto"
-                      >
-                        <ThumbsUp className="w-3 h-3 mr-1" />
-                        Helpful
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-xs p-0 h-auto"
-                      >
-                        Reply
-                      </Button>
-                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -679,24 +380,26 @@ const PackageDetails: FC<PackageDetailsProps> = ({
               Other Amazing Packages
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
-              {samplePackages.map((pkg, index) => (
+              {similarPkgData?.map((pkg: PackageSummary) => (
                 <Card
-                  key={index}
+                  key={pkg.pid}
                   className="overflow-hidden shadow-soft hover:shadow-medium transition-all duration-300 group py-0"
                 >
                   <div className="relative overflow-hidden">
-                    <div className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
-                      <Image src={pkg.image} alt={pkg.title} fill={true} />
-                    </div>
+                    {pkg.imageUrl && (
+                      <div className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
+                        <Image src={pkg.imageUrl} alt={pkg.name} fill={true} />
+                      </div>
+                    )}
 
-                    <div className="absolute top-4 right-4">
+                    <div className="absolute top-2 right-2">
                       <Badge className="bg-adventure text-white">
-                        {pkg.duration}
+                        {pkg.day}D / {pkg.night}N
                       </Badge>
                     </div>
                   </div>
                   <CardContent className="p-4">
-                    <h3 className="font-semibold mb-2">{pkg.title}</h3>
+                    <h3 className="font-semibold mb-2">{pkg.name}</h3>
                     <div className="flex items-center gap-2 mb-2">
                       <Star className="w-4 h-4 fill-adventure text-adventure" />
                       <span className="text-sm text-muted-foreground">
@@ -706,17 +409,19 @@ const PackageDetails: FC<PackageDetailsProps> = ({
                     <div className="flex items-center gap-2 mb-3">
                       <MapPin className="w-4 h-4 text-muted-foreground" />
                       <span className="text-sm text-muted-foreground">
-                        {pkg.destinations.join(" • ")}
+                        {pkg.destination.name}, {pkg.destination.country}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-xl font-bold text-ocean">
-                        {pkg.price}
+                        {toIndianCurrency(pkg.threePrice)}
                       </span>
-                      <Button variant="ocean" size="sm" className="group">
-                        View Details
-                        <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
-                      </Button>
+                      <Link href={`/packages/${pkg.slug}`}>
+                        <Button variant="ocean" size="sm" className="group">
+                          View Details
+                          <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
+                        </Button>
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>
@@ -766,7 +471,7 @@ const PackageDetails: FC<PackageDetailsProps> = ({
                 </div>
                 <p className="text-sm text-muted-foreground">per person</p>
                 <Badge className="bg-success text-white mx-auto">
-                  Early Bird {currentPricing.discount} Off
+                  Early Bird 15% Off
                 </Badge>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -774,7 +479,7 @@ const PackageDetails: FC<PackageDetailsProps> = ({
                   <div className="flex justify-between">
                     <span>Original Price:</span>
                     <span className="line-through text-muted-foreground">
-                      {toIndianCurrency(currentPricing.original)}$
+                      {toIndianCurrency(currentPricing.price)}$
                     </span>
                   </div>
                   <div className="flex justify-between font-semibold">
@@ -802,10 +507,6 @@ const PackageDetails: FC<PackageDetailsProps> = ({
                     <Camera className="w-4 h-4 mr-2" />
                     Get It Customized
                   </Button>
-                </div>
-
-                <div className="text-xs text-center text-muted-foreground pt-2">
-                  Free cancellation up to 48 hours before departure
                 </div>
 
                 <div className="space-y-2 pt-4 border-t">

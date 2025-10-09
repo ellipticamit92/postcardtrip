@@ -12,7 +12,7 @@ interface PackagesHeroProps {
 const PackagesHero: FC<PackagesHeroProps> = ({ packageDetails }) => {
   const imageSrc = packageDetails?.imageUrl ?? "/hero.jpeg";
   return (
-    <section className="relative h-[80vh] overflow-hidden">
+    <section className="relative h-[50vh] overflow-hidden">
       <div className="w-full h-full object-cover">
         <Image src={imageSrc} alt="Tropical Paradise Package" fill={true} />
       </div>
